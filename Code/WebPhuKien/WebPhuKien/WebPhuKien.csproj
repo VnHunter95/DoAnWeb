@@ -160,6 +160,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\NendoroidController.cs" />
     <Compile Include="Controllers\PhuKienController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -173,6 +174,7 @@
     <Content Include="Banner\Banner1.jpg" />
     <Content Include="Banner\Banner2.jpg" />
     <Content Include="Banner\Banner3.jpg" />
+    <Content Include="Banner\Banner4.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\shop-homepage.css" />
@@ -235,6 +237,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutPageUser.cshtml" />
     <Content Include="Views\PhuKien\Index.cshtml" />
+    <Content Include="Views\Nendoroid\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
