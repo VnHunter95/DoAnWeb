@@ -62,129 +62,46 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-               @Html.Action("LoaiSP", "PhuKien");
-                <p class="lead">Nhà sản xuất</p>
-               
+                @Html.Action("LoaiSP", "PhuKien")
+                @Html.Action("NhaSX", "PhuKien")
             </div>
-            <div class="col-md-9">
-                <div class="row carousel-holder">
-                    <div class="col-md-12">
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="3"></li>
-                            </ol>
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <img class="slide-image" src="~/banner/banner1.jpg" alt="">
+                <div class="col-md-9">
+                    <div class="row carousel-holder">
+                        <div class="col-md-12">
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                                </ol>
+                                <div class="carousel-inner">
+                                    <div class="item active">
+                                        <img class="slide-image" src="~/banner/banner1.jpg" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="~/banner/banner2.jpg" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="~/banner/banner3.jpg" alt="">
+                                    </div>
+                                    <div class="item">
+                                        <img class="slide-image" src="~/banner/banner4.jpg" alt="">
+                                    </div>
                                 </div>
-                                <div class="item">
-                                    <img class="slide-image" src="~/banner/banner2.jpg" alt="">
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="~/banner/banner3.jpg" alt="">
-                                </div>
-                                <div class="item">
-                                    <img class="slide-image" src="~/banner/banner4.jpg" alt="">
-                                </div>
-                            </div>
-                            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                                <span class="glyphicon glyphicon-chevron-left"></span>
-                            </a>
-                            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                                <span class="glyphicon glyphicon-chevron-right"></span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div><h3 style="text-align:center; color:red;">Sản phẩm mới</h3></div>
-                <div> @RenderBody() </div>
-                <div class="row">
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="~/images/fig1.jpg" width="100">
-                            <div class="caption">
-                                <p>
-                                    <h4><a href="#">Nendoroid Shiro</a></h4>
-                                    <h5><b>1,500,000 vnđ</b></h5>
-                                </p>
-                                <p>
-                                    Nendoroid Shiro trong TV ANime series No Game No Life
-                                    <h4 class="pull-right"><a href="Nendoroid">Xem</a></h4>
-                                </p>                                                    
-                              </div>
-                            <div class="ratings">
-                                <p class="pull-right">696 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                </p>
-                                <div class="uname">
-                                    <p style="text-align:right; padding-right:10px;"><a href="#">Chi tiết</a> | <a href="#">Thêm giỏ hàng</a></p>
-                                </div> 
+                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="~/images/fig2.jpg" width="100">
-                            <div class="caption">                                
-                                    <p>
-                                        <h4><a href="#">Nendoroid Echizen Ryouma</a></h4>
-                                        <h5><b>1,200,000 vnđ</b></h5>   
-                                    </p>
-                                <p>Nhân vật chính trong series Teninis no Ouji-sama</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">69 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                            <div class="uname">
-                                <p style="text-align:right; padding-right:10px;"><a href="#">Chi tiết</a> | <a href="#">Thêm giỏ hàng</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 col-lg-4 col-md-4">
-                        <div class="thumbnail">
-                            <img src="~/images/fig3.jpg" width="100">
-                            <div class="caption">
-                                <p>
-                                    <h4><a href="#">Nendoroid Liu Li</a></h4>
-                                    <h5><b>900,000 vnđ</b></h5>
-                                </p>
-                                
-                                <p>Nữ chính trong Series Webcomics tại TQ School Shock</p>
-                            </div>
-                            <div class="ratings">
-                                <p class="pull-right">1 reviews</p>
-                                <p>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                    <span class="glyphicon glyphicon-star-empty"></span>
-                                </p>
-                            </div>
-                            <div class="uname">
-                                <p style="text-align:right; padding-right:10px;"><a href="#">Chi tiết</a> | <a href="#">Thêm giỏ hàng</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    
+                    <div><h3 style="text-align:center; color:red;">Sản phẩm mới</h3></div>
+                    <div> @RenderBody() </div>
                 </div>
             </div>
-        </div>
     </div>
     <!-- /.container -->
     <div class="container">

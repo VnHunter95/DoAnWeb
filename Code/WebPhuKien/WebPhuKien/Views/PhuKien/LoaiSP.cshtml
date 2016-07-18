@@ -1,10 +1,12 @@
 ﻿@model IEnumerable<WebPhuKien.Models.LOAISANPHAM>
 
-<h4>Danh mục Sản Phẩm</h4>
 <p class="lead">Danh mục sản phẩm</p>
 <div class="list-group">
-    @foreach(var item in Model)
-    { 
+    @foreach (var item in Model)
+    {
         <a href="@Url.Action("SPTheoLoai", "PhuKien", new { id = item.Idloai})" class="list-group-item">@item.Tenloai</a>
     }
 </div>
+
+
+

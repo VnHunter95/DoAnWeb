@@ -249,6 +249,7 @@
     <Content Include="Views\Shared\_LayoutPageUser.cshtml" />
     <Content Include="Views\PhuKien\Index.cshtml" />
     <Content Include="Views\Nendoroid\Index.cshtml" />
+    <Content Include="Views\PhuKien\NhaSX.cshtml" />
     <Content Include="Views\PhuKien\LoaiSP.cshtml" />
   </ItemGroup>
   <ItemGroup>

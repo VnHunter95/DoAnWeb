@@ -12,9 +12,16 @@ namespace WebPhuKien.Controllers
         //
         // GET: /PhuKien/
         DataClasses1DataContext data = new DataClasses1DataContext();
+
+        private List<SANPHAM> Laysanpham(int count)
+        {
+            return data.SANPHAMs.OrderByDescending(a => a.Ngaycapnhat).Take(count).ToList();
+        }
+
         public ActionResult Index()
         {
-            return View();
+            var spmoi = Laysanpham(3);
+            return View(spmoi);
         }
         public ActionResult LoaiSP()
         {

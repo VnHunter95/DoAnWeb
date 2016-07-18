@@ -25,6 +25,7 @@ Create table [SANPHAM]
 	[Dongia] Decimal(18,0) NULL,
 	[Hinhanh] Varchar(50) NOT NULL,
 	[Idnsx] Char(5) NOT NULL,
+	[Ngaycapnhat] DATETIME NULL
 Primary Key ([Idsp],[Idnsx])
 ) 
 go
