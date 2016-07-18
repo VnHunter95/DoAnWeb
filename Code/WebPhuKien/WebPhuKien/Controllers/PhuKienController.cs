@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebPhuKien.Models;
 
 namespace WebPhuKien.Controllers
 {
@@ -10,9 +11,15 @@ namespace WebPhuKien.Controllers
     {
         //
         // GET: /PhuKien/
+        dbQLPhukienDataContext data = new dbQLPhukienDataContext();
+        private List<SANPHAM> Laysanpham(int count)
+        {
+            return data.SANPHAMs.OrderByDescending(a => a.Ngaycapnhat).Take(count).ToList();
+        }
         public ActionResult Index()
         {
-            return View();
+            var spmoi = Laysanpham(3);
+            return View(spmoi);
         }
 	}
 }
