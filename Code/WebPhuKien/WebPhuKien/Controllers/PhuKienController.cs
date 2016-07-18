@@ -25,12 +25,13 @@ namespace WebPhuKien.Controllers
         }
         public ActionResult LoaiSP()
         {
-            return View(data.LOAISANPHAMs.Select(a => a));
+
+            return PartialView(data.LOAISANPHAMs.Select(a => a));
         }
 
         public ActionResult NhaSX()
         {
-            return View(data.NHASANXUATs.Select(a => a));
+            return PartialView(data.NHASANXUATs.Select(a => a));
         }
 
 
