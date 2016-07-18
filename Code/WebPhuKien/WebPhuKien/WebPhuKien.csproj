@@ -167,10 +167,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\dbQLPhukien.designer.cs">
+    <Compile Include="Models\DataClasses1.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>dbQLPhukien.dbml</DependentUpon>
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -203,9 +203,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="images\Thumbs.db" />
     <Content Include="Banner\Thumbs.db" />
-    <Content Include="Models\dbQLPhukien.dbml">
+    <Content Include="Models\DataClasses1.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>dbQLPhukien.designer.cs</LastGenOutput>
+      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -249,6 +249,8 @@
     <Content Include="Views\Shared\_LayoutPageUser.cshtml" />
     <Content Include="Views\PhuKien\Index.cshtml" />
     <Content Include="Views\Nendoroid\Index.cshtml" />
+    <Content Include="Views\PhuKien\NhaSX.cshtml" />
+    <Content Include="Views\PhuKien\LoaiSP.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -264,8 +266,8 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Models\dbQLPhukien.dbml.layout">
-      <DependentUpon>dbQLPhukien.dbml</DependentUpon>
+    <None Include="Models\DataClasses1.dbml.layout">
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
     </None>
   </ItemGroup>
   <PropertyGroup>
