@@ -1,6 +1,6 @@
 /*
 Created		7/14/2016
-Modified		7/18/2016
+Modified		7/19/2016
 Project		
 Model			
 Company		
@@ -8,25 +8,22 @@ Author
 Version		
 Database		MS SQL 2005 
 */
-use master
-drop database PHUKIENANIME
-go
 create database PHUKIENANIME
 go
 use PHUKIENANIME
 go
 Create table [SANPHAM]
 (
-	[Idsp] Char(5) NOT NULL,
-	[Idloai] Char(5) NOT NULL,
+	[Idsp] Varchar(5) NOT NULL,
+	[Idnsx] Varchar(5) NOT NULL,
+	[Idloai] Varchar(5) NOT NULL,
 	[Tensanpham] Nvarchar(50) NOT NULL,
 	[Thongtin] Nvarchar(150) NULL,
 	[Soluongcon] Bigint Default 0 NOT NULL,
 	[Dongia] Decimal(18,0) NULL,
 	[Hinhanh] Varchar(50) NOT NULL,
-	[Idnsx] Char(5) NOT NULL,
-	[Ngaycapnhat] DATETIME NULL
-Primary Key ([Idsp],[Idnsx])
+	[Ngaycapnhat] Datetime NULL,
+Primary Key ([Idsp])
 ) 
 go
 
@@ -44,7 +41,7 @@ go
 
 Create table [LOAISANPHAM]
 (
-	[Idloai] Char(5) NOT NULL,
+	[Idloai] Varchar(5) NOT NULL,
 	[Tenloai] Nvarchar(15) NOT NULL,
 Primary Key ([Idloai])
 ) 
@@ -71,13 +68,12 @@ go
 
 Create table [CT_DDH]
 (
-	[Idsp] Char(5) NOT NULL,
+	[Idsp] Varchar(5) NOT NULL,
 	[SoHD] Bigint NOT NULL,
 	[Soluong] Integer NOT NULL,
 	[Size] Char(5) NULL,
 	[Giaban] Numeric(18,0) NOT NULL,
-	[Idnsx] Char(5) NOT NULL,
-Primary Key ([Idsp],[SoHD],[Idnsx])
+Primary Key ([Idsp],[SoHD])
 ) 
 go
 
@@ -92,12 +88,11 @@ go
 
 Create table [CT_PN]
 (
-	[Idsp] Char(5) NOT NULL,
+	[Idsp] Varchar(5) NOT NULL,
 	[SoPN] Bigint NOT NULL,
 	[Soluong] Bigint NOT NULL,
 	[Giatien] Decimal(18,0) NOT NULL,
-	[Idnsx] Char(5) NOT NULL,
-Primary Key ([Idsp],[SoPN],[Idnsx])
+Primary Key ([Idsp],[SoPN])
 ) 
 go
 
@@ -123,19 +118,18 @@ go
 
 Create table [CT_GIOHANG]
 (
-	[Idsp] Char(5) NOT NULL,
+	[Idsp] Varchar(5) NOT NULL,
 	[Sogh] Bigint NOT NULL,
 	[Username] Char(16) NOT NULL,
 	[Soluong] Bigint NULL,
 	[Thanhtien] Numeric(18,0) NULL,
-	[Idnsx] Char(5) NOT NULL,
-Primary Key ([Idsp],[Sogh],[Username],[Idnsx])
+Primary Key ([Idsp],[Sogh],[Username])
 ) 
 go
 
 Create table [NHASANXUAT]
 (
-	[Idnsx] Char(5) NOT NULL,
+	[Idnsx] Varchar(5) NOT NULL,
 	[Tennsx] Nvarchar(25) NOT NULL,
 	[Diachi] Nvarchar(150) NULL,
 	[Sdt] Char(11) NULL,
@@ -143,12 +137,19 @@ Primary Key ([Idnsx])
 ) 
 go
 
+Create table [Banner]
+(
+	[Banner] Varchar(20) NOT NULL,
+Primary Key ([Banner])
+) 
+go
 
-Alter table [CT_DDH] add  foreign key([Idsp],[Idnsx]) references [SANPHAM] ([Idsp],[Idnsx])  on update no action on delete no action 
+
+Alter table [CT_DDH] add  foreign key([Idsp]) references [SANPHAM] ([Idsp])  on update no action on delete no action 
 go
-Alter table [CT_PN] add  foreign key([Idsp],[Idnsx]) references [SANPHAM] ([Idsp],[Idnsx])  on update no action on delete no action 
+Alter table [CT_PN] add  foreign key([Idsp]) references [SANPHAM] ([Idsp])  on update no action on delete no action 
 go
-Alter table [CT_GIOHANG] add  foreign key([Idsp],[Idnsx]) references [SANPHAM] ([Idsp],[Idnsx])  on update no action on delete no action 
+Alter table [CT_GIOHANG] add  foreign key([Idsp]) references [SANPHAM] ([Idsp])  on update no action on delete no action 
 go
 Alter table [DONDATHANG] add  foreign key([Username]) references [KHACHHANG] ([Username])  on update no action on delete no action 
 go

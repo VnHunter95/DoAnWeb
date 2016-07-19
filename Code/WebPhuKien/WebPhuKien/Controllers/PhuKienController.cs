@@ -33,7 +33,22 @@ namespace WebPhuKien.Controllers
         {
             return PartialView(data.NHASANXUATs.Select(a => a));
         }
-
+        public ActionResult ChiTiet(string id)
+        {
+           
+            var sp = data.SANPHAMs.Where(a => a.Idsp == id);
+            return View(sp.Single());
+        }
+        public ActionResult SPTheoLoai(string id)
+        {
+            var sach = data.SANPHAMs.Where(a => a.Idloai == id);
+            return View(sach);
+        }
+        public ActionResult SPTheoNSX(string id)
+        {
+            var sach = data.SANPHAMs.Where(a => a.Idnsx == id);
+            return View(sach);
+        }
 
 
 	}
