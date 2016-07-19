@@ -10,12 +10,12 @@
     
      <div class="col-sm-4 col-lg-4 col-md-4">
                         <div class="thumbnail">
-                            <a href="@Url.Action("Details", "PhuKien", new {id = SANPHAM.Idsp})">
+                            <a href="@Url.Action("ChiTiet", "PhuKien", new {id = SANPHAM.Idsp})">
                                 <img alt="@SANPHAM.Tensanpham" src="~/images/@SANPHAM.Hinhanh" width="200" />
                             </a>
                                 <div class="caption">
                                     <p>
-                                        <h4><a href="@Url.Action("Details", "PhuKien", new {id = SANPHAM.Idsp})">@SANPHAM.Tensanpham</a></h4>
+                                        <h4><a href="@Url.Action("ChiTiet", "PhuKien", new { id = SANPHAM.Idsp })">@SANPHAM.Tensanpham</a></h4>
                                         <h5><b>@SANPHAM.Dongia vnđ</b></h5>
                                     </p>
                                     <p>

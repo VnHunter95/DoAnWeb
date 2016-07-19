@@ -30,6 +30,9 @@ namespace WebPhuKien.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InsertBanner(Banner instance);
+    partial void UpdateBanner(Banner instance);
+    partial void DeleteBanner(Banner instance);
     partial void InsertCT_DDH(CT_DDH instance);
     partial void UpdateCT_DDH(CT_DDH instance);
     partial void DeleteCT_DDH(CT_DDH instance);
@@ -95,11 +98,11 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		public System.Data.Linq.Table<CT_DDH> CT_DDHs
+		public System.Data.Linq.Table<Banner> Banners
 		{
 			get
 			{
-				return this.GetTable<CT_DDH>();
+				return this.GetTable<Banner>();
 			}
 		}
 		
@@ -108,6 +111,14 @@ namespace WebPhuKien.Models
 			get
 			{
 				return this.GetTable<THONGTIN>();
+			}
+		}
+		
+		public System.Data.Linq.Table<CT_DDH> CT_DDHs
+		{
+			get
+			{
+				return this.GetTable<CT_DDH>();
 			}
 		}
 		
@@ -192,251 +203,43 @@ namespace WebPhuKien.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CT_DDH")]
-	public partial class CT_DDH : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Banner")]
+	public partial class Banner : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _Idsp;
-		
-		private long _SoHD;
-		
-		private int _Soluong;
-		
-		private string _Size;
-		
-		private decimal _Giaban;
-		
-		private string _Idnsx;
-		
-		private EntityRef<DONDATHANG> _DONDATHANG;
-		
-		private EntityRef<SANPHAM> _SANPHAM;
+		private string _Banner1;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdspChanging(string value);
-    partial void OnIdspChanged();
-    partial void OnSoHDChanging(long value);
-    partial void OnSoHDChanged();
-    partial void OnSoluongChanging(int value);
-    partial void OnSoluongChanged();
-    partial void OnSizeChanging(string value);
-    partial void OnSizeChanged();
-    partial void OnGiabanChanging(decimal value);
-    partial void OnGiabanChanged();
-    partial void OnIdnsxChanging(string value);
-    partial void OnIdnsxChanged();
+    partial void OnBanner1Changing(string value);
+    partial void OnBanner1Changed();
     #endregion
 		
-		public CT_DDH()
+		public Banner()
 		{
-			this._DONDATHANG = default(EntityRef<DONDATHANG>);
-			this._SANPHAM = default(EntityRef<SANPHAM>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idsp", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Idsp
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Banner", Storage="_Banner1", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Banner1
 		{
 			get
 			{
-				return this._Idsp;
+				return this._Banner1;
 			}
 			set
 			{
-				if ((this._Idsp != value))
+				if ((this._Banner1 != value))
 				{
-					if (this._SANPHAM.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdspChanging(value);
+					this.OnBanner1Changing(value);
 					this.SendPropertyChanging();
-					this._Idsp = value;
-					this.SendPropertyChanged("Idsp");
-					this.OnIdspChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoHD", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
-		public long SoHD
-		{
-			get
-			{
-				return this._SoHD;
-			}
-			set
-			{
-				if ((this._SoHD != value))
-				{
-					if (this._DONDATHANG.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnSoHDChanging(value);
-					this.SendPropertyChanging();
-					this._SoHD = value;
-					this.SendPropertyChanged("SoHD");
-					this.OnSoHDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Soluong", DbType="Int NOT NULL")]
-		public int Soluong
-		{
-			get
-			{
-				return this._Soluong;
-			}
-			set
-			{
-				if ((this._Soluong != value))
-				{
-					this.OnSoluongChanging(value);
-					this.SendPropertyChanging();
-					this._Soluong = value;
-					this.SendPropertyChanged("Soluong");
-					this.OnSoluongChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Size", DbType="Char(5)")]
-		public string Size
-		{
-			get
-			{
-				return this._Size;
-			}
-			set
-			{
-				if ((this._Size != value))
-				{
-					this.OnSizeChanging(value);
-					this.SendPropertyChanging();
-					this._Size = value;
-					this.SendPropertyChanged("Size");
-					this.OnSizeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Giaban", DbType="Decimal(18,0) NOT NULL")]
-		public decimal Giaban
-		{
-			get
-			{
-				return this._Giaban;
-			}
-			set
-			{
-				if ((this._Giaban != value))
-				{
-					this.OnGiabanChanging(value);
-					this.SendPropertyChanging();
-					this._Giaban = value;
-					this.SendPropertyChanged("Giaban");
-					this.OnGiabanChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idnsx", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Idnsx
-		{
-			get
-			{
-				return this._Idnsx;
-			}
-			set
-			{
-				if ((this._Idnsx != value))
-				{
-					if (this._SANPHAM.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdnsxChanging(value);
-					this.SendPropertyChanging();
-					this._Idnsx = value;
-					this.SendPropertyChanged("Idnsx");
-					this.OnIdnsxChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DONDATHANG_CT_DDH", Storage="_DONDATHANG", ThisKey="SoHD", OtherKey="SoHD", IsForeignKey=true)]
-		public DONDATHANG DONDATHANG
-		{
-			get
-			{
-				return this._DONDATHANG.Entity;
-			}
-			set
-			{
-				DONDATHANG previousValue = this._DONDATHANG.Entity;
-				if (((previousValue != value) 
-							|| (this._DONDATHANG.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._DONDATHANG.Entity = null;
-						previousValue.CT_DDHs.Remove(this);
-					}
-					this._DONDATHANG.Entity = value;
-					if ((value != null))
-					{
-						value.CT_DDHs.Add(this);
-						this._SoHD = value.SoHD;
-					}
-					else
-					{
-						this._SoHD = default(long);
-					}
-					this.SendPropertyChanged("DONDATHANG");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_DDH", Storage="_SANPHAM", ThisKey="Idsp,Idnsx", OtherKey="Idsp,Idnsx", IsForeignKey=true)]
-		public SANPHAM SANPHAM
-		{
-			get
-			{
-				return this._SANPHAM.Entity;
-			}
-			set
-			{
-				SANPHAM previousValue = this._SANPHAM.Entity;
-				if (((previousValue != value) 
-							|| (this._SANPHAM.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._SANPHAM.Entity = null;
-						previousValue.CT_DDHs.Remove(this);
-					}
-					this._SANPHAM.Entity = value;
-					if ((value != null))
-					{
-						value.CT_DDHs.Add(this);
-						this._Idsp = value.Idsp;
-						this._Idnsx = value.Idnsx;
-					}
-					else
-					{
-						this._Idsp = default(string);
-						this._Idnsx = default(string);
-					}
-					this.SendPropertyChanged("SANPHAM");
+					this._Banner1 = value;
+					this.SendPropertyChanged("Banner1");
+					this.OnBanner1Changed();
 				}
 			}
 		}
@@ -597,6 +400,246 @@ namespace WebPhuKien.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CT_DDH")]
+	public partial class CT_DDH : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Idsp;
+		
+		private long _SoHD;
+		
+		private int _Soluong;
+		
+		private string _Size;
+		
+		private decimal _Giaban;
+		
+		private EntityRef<DONDATHANG> _DONDATHANG;
+		
+		private EntityRef<SANPHAM> _SANPHAM;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdspChanging(string value);
+    partial void OnIdspChanged();
+    partial void OnSoHDChanging(long value);
+    partial void OnSoHDChanged();
+    partial void OnSoluongChanging(int value);
+    partial void OnSoluongChanged();
+    partial void OnSizeChanging(string value);
+    partial void OnSizeChanged();
+    partial void OnGiabanChanging(decimal value);
+    partial void OnGiabanChanged();
+    #endregion
+		
+		public CT_DDH()
+		{
+			this._DONDATHANG = default(EntityRef<DONDATHANG>);
+			this._SANPHAM = default(EntityRef<SANPHAM>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idsp", DbType="VarChar(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Idsp
+		{
+			get
+			{
+				return this._Idsp;
+			}
+			set
+			{
+				if ((this._Idsp != value))
+				{
+					if (this._SANPHAM.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdspChanging(value);
+					this.SendPropertyChanging();
+					this._Idsp = value;
+					this.SendPropertyChanged("Idsp");
+					this.OnIdspChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoHD", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		public long SoHD
+		{
+			get
+			{
+				return this._SoHD;
+			}
+			set
+			{
+				if ((this._SoHD != value))
+				{
+					if (this._DONDATHANG.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnSoHDChanging(value);
+					this.SendPropertyChanging();
+					this._SoHD = value;
+					this.SendPropertyChanged("SoHD");
+					this.OnSoHDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Soluong", DbType="Int NOT NULL")]
+		public int Soluong
+		{
+			get
+			{
+				return this._Soluong;
+			}
+			set
+			{
+				if ((this._Soluong != value))
+				{
+					this.OnSoluongChanging(value);
+					this.SendPropertyChanging();
+					this._Soluong = value;
+					this.SendPropertyChanged("Soluong");
+					this.OnSoluongChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Size", DbType="Char(5)")]
+		public string Size
+		{
+			get
+			{
+				return this._Size;
+			}
+			set
+			{
+				if ((this._Size != value))
+				{
+					this.OnSizeChanging(value);
+					this.SendPropertyChanging();
+					this._Size = value;
+					this.SendPropertyChanged("Size");
+					this.OnSizeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Giaban", DbType="Decimal(18,0) NOT NULL")]
+		public decimal Giaban
+		{
+			get
+			{
+				return this._Giaban;
+			}
+			set
+			{
+				if ((this._Giaban != value))
+				{
+					this.OnGiabanChanging(value);
+					this.SendPropertyChanging();
+					this._Giaban = value;
+					this.SendPropertyChanged("Giaban");
+					this.OnGiabanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="DONDATHANG_CT_DDH", Storage="_DONDATHANG", ThisKey="SoHD", OtherKey="SoHD", IsForeignKey=true)]
+		public DONDATHANG DONDATHANG
+		{
+			get
+			{
+				return this._DONDATHANG.Entity;
+			}
+			set
+			{
+				DONDATHANG previousValue = this._DONDATHANG.Entity;
+				if (((previousValue != value) 
+							|| (this._DONDATHANG.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._DONDATHANG.Entity = null;
+						previousValue.CT_DDHs.Remove(this);
+					}
+					this._DONDATHANG.Entity = value;
+					if ((value != null))
+					{
+						value.CT_DDHs.Add(this);
+						this._SoHD = value.SoHD;
+					}
+					else
+					{
+						this._SoHD = default(long);
+					}
+					this.SendPropertyChanged("DONDATHANG");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_DDH", Storage="_SANPHAM", ThisKey="Idsp", OtherKey="Idsp", IsForeignKey=true)]
+		public SANPHAM SANPHAM
+		{
+			get
+			{
+				return this._SANPHAM.Entity;
+			}
+			set
+			{
+				SANPHAM previousValue = this._SANPHAM.Entity;
+				if (((previousValue != value) 
+							|| (this._SANPHAM.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SANPHAM.Entity = null;
+						previousValue.CT_DDHs.Remove(this);
+					}
+					this._SANPHAM.Entity = value;
+					if ((value != null))
+					{
+						value.CT_DDHs.Add(this);
+						this._Idsp = value.Idsp;
+					}
+					else
+					{
+						this._Idsp = default(string);
+					}
+					this.SendPropertyChanged("SANPHAM");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.CT_GIOHANG")]
 	public partial class CT_GIOHANG : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -612,8 +655,6 @@ namespace WebPhuKien.Models
 		private System.Nullable<long> _Soluong;
 		
 		private System.Nullable<decimal> _Thanhtien;
-		
-		private string _Idnsx;
 		
 		private EntityRef<GIOHANG> _GIOHANG;
 		
@@ -633,8 +674,6 @@ namespace WebPhuKien.Models
     partial void OnSoluongChanged();
     partial void OnThanhtienChanging(System.Nullable<decimal> value);
     partial void OnThanhtienChanged();
-    partial void OnIdnsxChanging(string value);
-    partial void OnIdnsxChanged();
     #endregion
 		
 		public CT_GIOHANG()
@@ -644,7 +683,7 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idsp", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idsp", DbType="VarChar(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Idsp
 		{
 			get
@@ -756,30 +795,6 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idnsx", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Idnsx
-		{
-			get
-			{
-				return this._Idnsx;
-			}
-			set
-			{
-				if ((this._Idnsx != value))
-				{
-					if (this._SANPHAM.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdnsxChanging(value);
-					this.SendPropertyChanging();
-					this._Idnsx = value;
-					this.SendPropertyChanged("Idnsx");
-					this.OnIdnsxChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="GIOHANG_CT_GIOHANG", Storage="_GIOHANG", ThisKey="Sogh,Username", OtherKey="Sogh,Username", IsForeignKey=true)]
 		public GIOHANG GIOHANG
 		{
@@ -816,7 +831,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_GIOHANG", Storage="_SANPHAM", ThisKey="Idsp,Idnsx", OtherKey="Idsp,Idnsx", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_GIOHANG", Storage="_SANPHAM", ThisKey="Idsp", OtherKey="Idsp", IsForeignKey=true)]
 		public SANPHAM SANPHAM
 		{
 			get
@@ -840,12 +855,10 @@ namespace WebPhuKien.Models
 					{
 						value.CT_GIOHANGs.Add(this);
 						this._Idsp = value.Idsp;
-						this._Idnsx = value.Idnsx;
 					}
 					else
 					{
 						this._Idsp = default(string);
-						this._Idnsx = default(string);
 					}
 					this.SendPropertyChanged("SANPHAM");
 				}
@@ -887,8 +900,6 @@ namespace WebPhuKien.Models
 		
 		private decimal _Giatien;
 		
-		private string _Idnsx;
-		
 		private EntityRef<PHIEUNHAP> _PHIEUNHAP;
 		
 		private EntityRef<SANPHAM> _SANPHAM;
@@ -905,8 +916,6 @@ namespace WebPhuKien.Models
     partial void OnSoluongChanged();
     partial void OnGiatienChanging(decimal value);
     partial void OnGiatienChanged();
-    partial void OnIdnsxChanging(string value);
-    partial void OnIdnsxChanged();
     #endregion
 		
 		public CT_PN()
@@ -916,7 +925,7 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idsp", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idsp", DbType="VarChar(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Idsp
 		{
 			get
@@ -1004,30 +1013,6 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idnsx", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Idnsx
-		{
-			get
-			{
-				return this._Idnsx;
-			}
-			set
-			{
-				if ((this._Idnsx != value))
-				{
-					if (this._SANPHAM.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdnsxChanging(value);
-					this.SendPropertyChanging();
-					this._Idnsx = value;
-					this.SendPropertyChanged("Idnsx");
-					this.OnIdnsxChanged();
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="PHIEUNHAP_CT_PN", Storage="_PHIEUNHAP", ThisKey="SoPN", OtherKey="SoPN", IsForeignKey=true)]
 		public PHIEUNHAP PHIEUNHAP
 		{
@@ -1062,7 +1047,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_PN", Storage="_SANPHAM", ThisKey="Idsp,Idnsx", OtherKey="Idsp,Idnsx", IsForeignKey=true)]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_PN", Storage="_SANPHAM", ThisKey="Idsp", OtherKey="Idsp", IsForeignKey=true)]
 		public SANPHAM SANPHAM
 		{
 			get
@@ -1086,12 +1071,10 @@ namespace WebPhuKien.Models
 					{
 						value.CT_PNs.Add(this);
 						this._Idsp = value.Idsp;
-						this._Idnsx = value.Idnsx;
 					}
 					else
 					{
 						this._Idsp = default(string);
-						this._Idnsx = default(string);
 					}
 					this.SendPropertyChanged("SANPHAM");
 				}
@@ -1767,7 +1750,7 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idloai", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idloai", DbType="VarChar(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Idloai
 		{
 			get
@@ -1889,7 +1872,7 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idnsx", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idnsx", DbType="VarChar(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Idnsx
 		{
 			get
@@ -2247,9 +2230,9 @@ namespace WebPhuKien.Models
 		
 		private string _Idsp;
 		
-		private string _Idloai;
-		
 		private string _Idnsx;
+		
+		private string _Idloai;
 		
 		private string _Tensanpham;
 		
@@ -2279,10 +2262,10 @@ namespace WebPhuKien.Models
     partial void OnCreated();
     partial void OnIdspChanging(string value);
     partial void OnIdspChanged();
-    partial void OnIdloaiChanging(string value);
-    partial void OnIdloaiChanged();
     partial void OnIdnsxChanging(string value);
     partial void OnIdnsxChanged();
+    partial void OnIdloaiChanging(string value);
+    partial void OnIdloaiChanged();
     partial void OnTensanphamChanging(string value);
     partial void OnTensanphamChanged();
     partial void OnThongtinChanging(string value);
@@ -2307,7 +2290,7 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idsp", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idsp", DbType="VarChar(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Idsp
 		{
 			get
@@ -2327,31 +2310,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idloai", DbType="Char(5) NOT NULL", CanBeNull=false)]
-		public string Idloai
-		{
-			get
-			{
-				return this._Idloai;
-			}
-			set
-			{
-				if ((this._Idloai != value))
-				{
-					if (this._LOAISANPHAM.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdloaiChanging(value);
-					this.SendPropertyChanging();
-					this._Idloai = value;
-					this.SendPropertyChanged("Idloai");
-					this.OnIdloaiChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idnsx", DbType="Char(5) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idnsx", DbType="VarChar(5) NOT NULL", CanBeNull=false)]
 		public string Idnsx
 		{
 			get
@@ -2371,6 +2330,30 @@ namespace WebPhuKien.Models
 					this._Idnsx = value;
 					this.SendPropertyChanged("Idnsx");
 					this.OnIdnsxChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idloai", DbType="VarChar(5) NOT NULL", CanBeNull=false)]
+		public string Idloai
+		{
+			get
+			{
+				return this._Idloai;
+			}
+			set
+			{
+				if ((this._Idloai != value))
+				{
+					if (this._LOAISANPHAM.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdloaiChanging(value);
+					this.SendPropertyChanging();
+					this._Idloai = value;
+					this.SendPropertyChanged("Idloai");
+					this.OnIdloaiChanged();
 				}
 			}
 		}
@@ -2495,7 +2478,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_DDH", Storage="_CT_DDHs", ThisKey="Idsp,Idnsx", OtherKey="Idsp,Idnsx")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_DDH", Storage="_CT_DDHs", ThisKey="Idsp", OtherKey="Idsp")]
 		public EntitySet<CT_DDH> CT_DDHs
 		{
 			get
@@ -2508,7 +2491,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_GIOHANG", Storage="_CT_GIOHANGs", ThisKey="Idsp,Idnsx", OtherKey="Idsp,Idnsx")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_GIOHANG", Storage="_CT_GIOHANGs", ThisKey="Idsp", OtherKey="Idsp")]
 		public EntitySet<CT_GIOHANG> CT_GIOHANGs
 		{
 			get
@@ -2521,7 +2504,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_PN", Storage="_CT_PNs", ThisKey="Idsp,Idnsx", OtherKey="Idsp,Idnsx")]
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="SANPHAM_CT_PN", Storage="_CT_PNs", ThisKey="Idsp", OtherKey="Idsp")]
 		public EntitySet<CT_PN> CT_PNs
 		{
 			get
