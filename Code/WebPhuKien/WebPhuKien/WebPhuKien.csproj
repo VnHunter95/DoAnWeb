@@ -161,7 +161,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\NendoroidController.cs" />
+    <Compile Include="Controllers\NguoidungController.cs" />
     <Compile Include="Controllers\PhuKienController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -251,6 +251,8 @@
     <Content Include="Views\Nendoroid\Index.cshtml" />
     <Content Include="Views\PhuKien\NhaSX.cshtml" />
     <Content Include="Views\PhuKien\LoaiSP.cshtml" />
+    <Content Include="Views\Nguoidung\Dangnhap.cshtml" />
+    <Content Include="Views\Nguoidung\Dangky.cshtml" />
     <Content Include="Views\PhuKien\ChiTiet.cshtml" />
     <Content Include="Views\PhuKien\SPTheoLoai.cshtml" />
     <Content Include="Views\PhuKien\SPTheoNsx.cshtml" />

@@ -33,7 +33,8 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="@Url.Action("Index","PhuKien")">Trang chủ</a>
+                <a class="navbar-brand" href="@Url.Action("Index","Phukien")">Trang chủ</a>
+
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -50,7 +51,10 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="#">Đăng nhập</a>
+                        <a href="@Url.Action("Dangky","Nguoidung")">Đăng ký</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Dangnhap","Nguoidung")">Đăng nhập</a>
                     </li>
                 </ul>
             </div>
@@ -99,7 +103,7 @@
                             </div>
                         </div>
                     </div>
-                    <div><h3 style="text-align:center; color:red;">Sản phẩm mới</h3></div>
+                   
                     <div> @RenderBody() </div>
                 </div>
             </div>
