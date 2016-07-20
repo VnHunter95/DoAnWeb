@@ -1,0 +1,46 @@
+﻿
+<style type="text/css">
+    #Datmua a {
+        clear: both;
+        background-color: red;
+        color: white;
+        width: 120px;
+        height: 35px;
+        display: block;
+        float: right;
+        text-align: center;
+        padding-top: 10px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        #Datmua a:hover {
+            background-color: gray;
+            color: red;
+        }
+</style>
+@{
+    ViewBag.Title = "ChiTiet";
+    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+}
+
+<h3>Chi tiết sản phẩm</h3>
+<div>
+    <div style="width:40%; float:left; border-left: dotted 1px; border-color:azure">
+        <img src="~/images/@Model.Hinhanh" width="100%" />
+    </div>
+    <div style="width:60%; float:left; padding:10px">
+        <h4 style="font-weight:bold; color:Red;">@Model.Tensanpham</h4>
+        <p style="text-align:justify"><span style="font-weight:bold">Mô tả:</span>@Model.Thongtin</p>
+        <p style="font-weight:bold">Giá bán: <span style="color:black; font-size:16pt">@Model.Dongia</span></p>
+    </div>
+    <div>
+        <div id="Datmua">
+            <a href="@Url.Action("AddToCart", "ShoppingCart", new { id = @Model.Idsp })" class="list-group-item">Đặt Mua</a>
+        </div>
+    </div>
+
+</div>
+
+
+
