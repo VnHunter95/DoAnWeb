@@ -30,14 +30,13 @@
         <img src="~/images/@Model.Hinhanh" width="100%" />
     </div>
     <div style="width:60%; float:left; padding:10px">
-        <h4 style="font-weight:bold; color:Red;">Tên sản phẩm: @Model.Tensanpham</h4>
+        <h4 style="font-weight:bold; color:Red;">@Model.Tensanpham</h4>
         <p style="text-align:justify"><span style="font-weight:bold">Mô tả:</span>@Model.Thongtin</p>
-        <p style="font-weight:bold">Giá bán: <span style="color:red; font-size:16pt">@Model.Dongia</span></p>
+        <p style="font-weight:bold">Giá bán: <span style="color:black; font-size:16pt">@Model.Dongia</span></p>
     </div>
     <div>
         <div id="Datmua">
-            <a href="@Url.Action("AddToCard", "ShoppingCard", new { id = @Model.Idsp })" class="list-group-item"></a>
-            Đặt Mua
+            <a href="@Url.Action("AddToCart", "ShoppingCart", new { id = @Model.Idsp })" class="list-group-item">Đặt Mua</a>
         </div>
     </div>
 
