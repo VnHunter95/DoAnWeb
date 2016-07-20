@@ -11,14 +11,14 @@
     {
         @Html.ValidationSummary(true);
         <tr style="height:40px">
-            <td>Tên đăng nhập:</td>
+            <td align="right">Tên đăng nhập:</td>
             <td>
                 @Html.TextBox("TenDN")
             @ViewData["Loi1"]
         </td>
     </tr>
         <tr style="height:40px">
-            <td>Mật Khẩu:</td>
+            <td align="right">Mật Khẩu:</td>
             <td>
                 @Html.Password("Matkhau")
             @ViewData["Loi2"]
