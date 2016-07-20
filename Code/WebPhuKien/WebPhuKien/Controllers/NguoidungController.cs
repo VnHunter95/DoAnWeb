@@ -41,6 +41,7 @@ namespace WebPhuKien.Controllers
                 {
                     ViewBag.Thongbao = "Đăng nhập thành công";
                     Session["Taikhoan"] = kh;
+                    return RedirectToAction("Index","Phukien");
                 }
                 else
                 {
@@ -89,7 +90,11 @@ namespace WebPhuKien.Controllers
             else
             {
                 kh.Username = user;
-
+                kh.Password = pass;
+                kh.Hoten = ten;
+                kh.Diachi = diachi;
+                kh.Sdt = sdt;
+                kh.Email = email;
                 data.KHACHHANGs.InsertOnSubmit(kh);
                 data.SubmitChanges();
                 return RedirectToAction("Dangnhap");
