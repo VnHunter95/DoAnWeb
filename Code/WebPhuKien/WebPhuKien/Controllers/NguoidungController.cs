@@ -63,7 +63,7 @@ namespace WebPhuKien.Controllers
             var pass = collection["Password"];
             var pass2 = collection["Password2nd"];
             var ten = collection["Name"];
-            var sdt = collection["Dienthoai"];
+            var sdt = collection["Sdt"];
             var diachi = collection["Diachi"];
             var email = collection["Email"];
             

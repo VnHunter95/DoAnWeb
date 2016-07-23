@@ -256,6 +256,7 @@
     <Content Include="Views\PhuKien\ChiTiet.cshtml" />
     <Content Include="Views\PhuKien\SPTheoLoai.cshtml" />
     <Content Include="Views\PhuKien\SPTheoNsx.cshtml" />
+    <Content Include="Views\PhuKien\Banner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
