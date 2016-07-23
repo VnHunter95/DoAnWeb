@@ -160,6 +160,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\NguoidungController.cs" />
     <Compile Include="Controllers\PhuKienController.cs" />
@@ -257,6 +258,8 @@
     <Content Include="Views\PhuKien\SPTheoLoai.cshtml" />
     <Content Include="Views\PhuKien\SPTheoNsx.cshtml" />
     <Content Include="Views\PhuKien\Banner.cshtml" />
+    <Content Include="Views\Banner\Banner.cshtml" />
+    <Content Include="Views\Banner\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
