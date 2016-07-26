@@ -21,6 +21,11 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+
+        public ActionResult Hientenuser()
+        {
+            return PartialView();
+        }
         [HttpPost]
         public ActionResult Dangnhap(FormCollection collection)
         {
@@ -40,7 +45,7 @@ namespace WebPhuKien.Controllers
                 if (kh != null)
                 {
                     ViewBag.Thongbao = "Đăng nhập thành công";
-                    Session["Taikhoan"] = kh;
+                    Session["Taikhoan"] = kh.Hoten;
                     return RedirectToAction("Index","Phukien");
                 }
                 else
