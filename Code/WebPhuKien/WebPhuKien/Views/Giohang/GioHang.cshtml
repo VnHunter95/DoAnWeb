@@ -23,16 +23,16 @@
         <tr style="text-align:center; font-weight:bold">
             <td> @item.sMaSP </td>
             <td> @item.sTenSP </td>
-            <td> <img src="~/Hinhsanpham/@item.sHinhanh"> </td>
-            @using (Html.BeginForm("CapnhatGiohang", "Giohang", new { @iMasp = item.sMaSP }))
+            <td> <img src="~/Hinhsanpham/@item.sHinhanh" height="100px" width="100px"> </td>
+            @using (Html.BeginForm("CapnhatGiohang", "Giohang", new { @MaSP = item.sMaSP }))
             {
                 <td>
                     <input type="number" min="1" name="txtSoluong" value="@item.iSoluong" style="background-color:lightyellow" />
                 </td>
                 <td> @String.Format("{0:0,0}", item.dDongia) </td>
                 <td> @String.Format("{0:0,0}", item.dThanhtien) </td>
-                <td><a href="@Url.Action("Details", "BookStore", new{ id = item.sMaSP})"> Chi tiết </a></td>
-                <td> @Html.ActionLink("Xóa", "XoaGiohang", new { @iMaSp = item.sMaSP }) </td>
+                <td><a href="@Url.Action("Chitiet", "PhuKien", new{ id = item.sMaSP})"> Chi tiết </a></td>
+                <td> @Html.ActionLink("Xóa", "XoaGiohang", new { @Masp = item.sMaSP }) </td>
                 <td><input type="submit" value="Cập Nhật" /></td>
             }
         </tr>

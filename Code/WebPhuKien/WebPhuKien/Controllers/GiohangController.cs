@@ -52,7 +52,7 @@ namespace WebPhuKien.Controllers
             }
             if (lstGiohang.Count == 0)
             {
-                return RedirectToAction("Index", "BookStore");
+                return RedirectToAction("Index", "PhuKien");
             }
             return RedirectToAction("GioHang");
 
@@ -61,12 +61,12 @@ namespace WebPhuKien.Controllers
         {
             List<Giohang> listGiohang = Laygiohang();
             listGiohang.Clear();
-            return RedirectToAction("Index", "BookStore");
+            return RedirectToAction("Index", "PhuKien");
         }
-        public ActionResult CapnhatGiohang(string sMaSP, FormCollection f)
+        public ActionResult CapnhatGiohang(string MaSP, FormCollection f)
         {
             List<Giohang> lstGiohang = Laygiohang();
-            Giohang sanpham = lstGiohang.SingleOrDefault(n => n.sMaSP == sMaSP);
+            Giohang sanpham = lstGiohang.SingleOrDefault(n => n.sMaSP == MaSP);
             if (sanpham != null)
             {
                 sanpham.iSoluong = int.Parse(f["txtSoluong"].ToString());
@@ -108,7 +108,7 @@ namespace WebPhuKien.Controllers
             List<Giohang> lstGiohang = Laygiohang();
             if (lstGiohang.Count == 0)
             {
-                return RedirectToAction("Index", "BookStore");
+                return RedirectToAction("Index", "PhuKien");
             }
             ViewBag.Tongsoluong = TongSoLuong();
             ViewBag.Tongtien = TongTien();

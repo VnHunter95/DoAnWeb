@@ -27,16 +27,16 @@
 <h3>Chi tiết sản phẩm</h3>
 <div>
     <div style="width:40%; float:left; border-left: dotted 1px; border-color:azure">
-        <img src="~/images/@Model.Hinhanh" width="100%" />
+        <img src="~/Hinhsanpham/@Model.Hinhanh" width="100%" />
     </div>
     <div style="width:60%; float:left; padding:10px">
         <h4 style="font-weight:bold; color:Red;">@Model.Tensanpham</h4>
         <p style="text-align:justify"><span style="font-weight:bold">Mô tả:</span>@Model.Thongtin</p>
-        <p style="font-weight:bold">Giá bán: <span style="color:black; font-size:16pt">@Model.Dongia</span></p>
+        <p style="font-weight:bold">Giá bán: <span style="color:black; font-size:16pt"> @String.Format("{0:0,0}", Model.Dongia) vnđ</span></p>
     </div>
     <div>
         <div id="Datmua">
-            <a href="@Url.Action("AddToCart", "ShoppingCart", new { id = @Model.Idsp })" class="list-group-item">Đặt Mua</a>
+            <a href="@Url.Action("ThemGiohang", "Giohang", new { Masp = @Model.Idsp })" class="list-group-item">Đặt Mua</a>
         </div>
     </div>
 

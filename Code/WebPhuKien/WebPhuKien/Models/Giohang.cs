@@ -21,7 +21,7 @@ namespace WebPhuKien.Models
         public Giohang(string Masp)
         {
             sMaSP = Masp;
-            SANPHAM SP = data.SANPHAMs.Single(n => n.Idsp == sMaSP);
+            SANPHAM SP = data.SANPHAMs.Single(n => n.Idsp == Masp);
             sTenSP = SP.Tensanpham;
             sHinhanh = SP.Hinhanh;
             dDongia = double.Parse(SP.Dongia.ToString());
