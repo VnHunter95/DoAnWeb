@@ -211,6 +211,7 @@
       <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Properties\PublishProfiles\Hunter95.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -251,7 +252,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_LayoutPageUser.cshtml" />
     <Content Include="Views\PhuKien\Index.cshtml" />
-    <Content Include="Views\Nendoroid\Index.cshtml" />
     <Content Include="Views\PhuKien\NhaSX.cshtml" />
     <Content Include="Views\PhuKien\LoaiSP.cshtml" />
     <Content Include="Views\Nguoidung\Dangnhap.cshtml" />
