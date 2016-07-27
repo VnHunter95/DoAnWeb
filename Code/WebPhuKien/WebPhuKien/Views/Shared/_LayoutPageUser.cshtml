@@ -2,12 +2,15 @@
 
 <html xmlns:fb ='http://www.facebook.com/2008/fbml'>
     <head>
-        
+
+        <meta property="fb:app_id" content="1230330800319049" />
+        <meta property="fb:admins" content="100000686899395" />
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
+    
         <title>Trang bán hàng phụ kiện Anime/Manga ~ Du hành vào thế giới 2D</title>
         <!-- Bootstrap Core CSS -->
         <link href="~/content/bootstrap.min.css" rel="stylesheet">
@@ -19,19 +22,26 @@
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
-        <meta property="fb:app_id" content="1230330800319049" />
-        <meta property="fb:admins" content="10203746077771516" />
     </head>
     <body>
+
         <div id="fb-root"></div>
         <script>
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) return;
-            js = d.createElement(s); js.id = id;
-            js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=1230330800319049";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '1230330800319049',
+                    xfbml: true,
+                    version: 'v2.7'
+                });
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
         </script>
 
 
