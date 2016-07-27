@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHUKIENANIME" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=HUNTER95LAPTOP;Initial Catalog=PHUKIENANIME;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHUKIENANIMEConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(local);Initial Catalog=PHUKIENANIME;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHUKIENANIMEConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Banner" Member="Banners">
     <Type Name="Banner">
       <Column Name="Banner" Member="Banner1" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -8,21 +8,20 @@
   <Table Name="dbo.THONGTIN" Member="THONGTINs">
     <Type Name="THONGTIN">
       <Column Name="Tencuahang" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Diachi" Type="System.String" DbType="NVarChar(1)" CanBeNull="true" />
-      <Column Name="Sdt1" Type="System.String" DbType="Char(11)" CanBeNull="true" />
-      <Column Name="sdt2" Type="System.String" DbType="Char(11)" CanBeNull="true" />
-      <Column Name="Email1" Type="System.String" DbType="Char(50)" CanBeNull="true" />
-      <Column Name="Email2" Type="System.String" DbType="Char(50)" CanBeNull="true" />
-      <Column Name="Facebook" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="Diachi" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Sdt1" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="sdt2" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="Email1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Email2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Facebook" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.CT_DDH" Member="CT_DDHs">
     <Type Name="CT_DDH">
       <Column Name="Idsp" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SoHD" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Soluong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Size" Type="System.String" DbType="Char(5)" CanBeNull="true" />
-      <Column Name="Giaban" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Soluong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dongia" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Association Name="DONDATHANG_CT_DDH" Member="DONDATHANG" ThisKey="SoHD" OtherKey="SoHD" Type="DONDATHANG" IsForeignKey="true" />
       <Association Name="SANPHAM_CT_DDH" Member="SANPHAM" ThisKey="Idsp" OtherKey="Idsp" Type="SANPHAM" IsForeignKey="true" />
     </Type>
@@ -31,7 +30,7 @@
     <Type Name="CT_GIOHANG">
       <Column Name="Idsp" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Sogh" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Username" Type="System.String" DbType="Char(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Soluong" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="Thanhtien" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Association Name="GIOHANG_CT_GIOHANG" Member="GIOHANG" ThisKey="Sogh,Username" OtherKey="Sogh,Username" Type="GIOHANG" IsForeignKey="true" />
@@ -51,10 +50,15 @@
   <Table Name="dbo.DONDATHANG" Member="DONDATHANGs">
     <Type Name="DONDATHANG">
       <Column Name="SoHD" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Username" Type="System.String" DbType="Char(16) NOT NULL" CanBeNull="false" />
-      <Column Name="Ngaylap" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Tongtien" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Column Name="Ngaythanhtoan" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(16) NOT NULL" CanBeNull="false" />
+      <Column Name="Ngaydat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ngaygiao" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Dathanhtoan" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Tinhtranggiaohang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="TenNguoiNhan" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Sdtnguoinhan" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="Diachinguoinhan" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Emailnguoinhan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="DONDATHANG_CT_DDH" Member="CT_DDHs" ThisKey="SoHD" OtherKey="SoHD" Type="CT_DDH" />
       <Association Name="KHACHHANG_DONDATHANG" Member="KHACHHANG" ThisKey="Username" OtherKey="Username" Type="KHACHHANG" IsForeignKey="true" />
     </Type>
@@ -62,19 +66,19 @@
   <Table Name="dbo.GIOHANG" Member="GIOHANGs">
     <Type Name="GIOHANG">
       <Column Name="Sogh" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Username" Type="System.String" DbType="Char(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="GIOHANG_CT_GIOHANG" Member="CT_GIOHANGs" ThisKey="Sogh,Username" OtherKey="Sogh,Username" Type="CT_GIOHANG" />
       <Association Name="KHACHHANG_GIOHANG" Member="KHACHHANG" ThisKey="Username" OtherKey="Username" Type="KHACHHANG" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.KHACHHANG" Member="KHACHHANGs">
     <Type Name="KHACHHANG">
-      <Column Name="Username" Type="System.String" DbType="Char(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Password" Type="System.String" DbType="Char(16) NOT NULL" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(16) NOT NULL" CanBeNull="false" />
       <Column Name="Hoten" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
-      <Column Name="Sdt" Type="System.String" DbType="Char(11)" CanBeNull="true" />
+      <Column Name="Sdt" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
       <Column Name="Diachi" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="Char(50)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="KHACHHANG_DONDATHANG" Member="DONDATHANGs" ThisKey="Username" OtherKey="Username" Type="DONDATHANG" />
       <Association Name="KHACHHANG_GIOHANG" Member="GIOHANGs" ThisKey="Username" OtherKey="Username" Type="GIOHANG" />
     </Type>
@@ -91,7 +95,7 @@
       <Column Name="Idnsx" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Tennsx" Type="System.String" DbType="NVarChar(25) NOT NULL" CanBeNull="false" />
       <Column Name="Diachi" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
-      <Column Name="Sdt" Type="System.String" DbType="Char(11)" CanBeNull="true" />
+      <Column Name="Sdtnsx" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
       <Association Name="NHASANXUAT_SANPHAM" Member="SANPHAMs" ThisKey="Idnsx" OtherKey="Idnsx" Type="SANPHAM" />
     </Type>
   </Table>
@@ -105,8 +109,8 @@
   </Table>
   <Table Name="dbo.QUANTRI" Member="QUANTRIs">
     <Type Name="QUANTRI">
-      <Column Name="[User]" Member="User" Type="System.String" DbType="Char(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Password" Type="System.String" DbType="Char(16) NOT NULL" CanBeNull="false" />
+      <Column Name="[User]" Member="User" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="VarChar(16) NOT NULL" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.SANPHAM" Member="SANPHAMs">

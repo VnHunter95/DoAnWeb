@@ -303,7 +303,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Diachi", DbType="NVarChar(1)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Diachi", DbType="NVarChar(150)")]
 		public string Diachi
 		{
 			get
@@ -319,7 +319,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sdt1", DbType="Char(11)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sdt1", DbType="VarChar(11)")]
 		public string Sdt1
 		{
 			get
@@ -335,7 +335,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sdt2", DbType="Char(11)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sdt2", DbType="VarChar(11)")]
 		public string sdt2
 		{
 			get
@@ -351,7 +351,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email1", DbType="Char(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email1", DbType="VarChar(50)")]
 		public string Email1
 		{
 			get
@@ -367,7 +367,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email2", DbType="Char(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email2", DbType="VarChar(50)")]
 		public string Email2
 		{
 			get
@@ -383,7 +383,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Facebook", DbType="Char(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Facebook", DbType="VarChar(50)")]
 		public string Facebook
 		{
 			get
@@ -410,11 +410,9 @@ namespace WebPhuKien.Models
 		
 		private long _SoHD;
 		
-		private int _Soluong;
+		private System.Nullable<int> _Soluong;
 		
-		private string _Size;
-		
-		private decimal _Giaban;
+		private System.Nullable<decimal> _Dongia;
 		
 		private EntityRef<DONDATHANG> _DONDATHANG;
 		
@@ -428,12 +426,10 @@ namespace WebPhuKien.Models
     partial void OnIdspChanged();
     partial void OnSoHDChanging(long value);
     partial void OnSoHDChanged();
-    partial void OnSoluongChanging(int value);
+    partial void OnSoluongChanging(System.Nullable<int> value);
     partial void OnSoluongChanged();
-    partial void OnSizeChanging(string value);
-    partial void OnSizeChanged();
-    partial void OnGiabanChanging(decimal value);
-    partial void OnGiabanChanged();
+    partial void OnDongiaChanging(System.Nullable<decimal> value);
+    partial void OnDongiaChanged();
     #endregion
 		
 		public CT_DDH()
@@ -491,8 +487,8 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Soluong", DbType="Int NOT NULL")]
-		public int Soluong
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Soluong", DbType="Int")]
+		public System.Nullable<int> Soluong
 		{
 			get
 			{
@@ -511,42 +507,22 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Size", DbType="Char(5)")]
-		public string Size
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dongia", DbType="Decimal(18,0)")]
+		public System.Nullable<decimal> Dongia
 		{
 			get
 			{
-				return this._Size;
+				return this._Dongia;
 			}
 			set
 			{
-				if ((this._Size != value))
+				if ((this._Dongia != value))
 				{
-					this.OnSizeChanging(value);
+					this.OnDongiaChanging(value);
 					this.SendPropertyChanging();
-					this._Size = value;
-					this.SendPropertyChanged("Size");
-					this.OnSizeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Giaban", DbType="Decimal(18,0) NOT NULL")]
-		public decimal Giaban
-		{
-			get
-			{
-				return this._Giaban;
-			}
-			set
-			{
-				if ((this._Giaban != value))
-				{
-					this.OnGiabanChanging(value);
-					this.SendPropertyChanging();
-					this._Giaban = value;
-					this.SendPropertyChanged("Giaban");
-					this.OnGiabanChanged();
+					this._Dongia = value;
+					this.SendPropertyChanged("Dongia");
+					this.OnDongiaChanged();
 				}
 			}
 		}
@@ -731,7 +707,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="Char(16) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="VarChar(16) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Username
 		{
 			get
@@ -1112,11 +1088,21 @@ namespace WebPhuKien.Models
 		
 		private string _Username;
 		
-		private System.DateTime _Ngaylap;
+		private System.Nullable<System.DateTime> _Ngaydat;
 		
-		private System.Nullable<decimal> _Tongtien;
+		private System.Nullable<System.DateTime> _Ngaygiao;
 		
-		private System.Nullable<System.DateTime> _Ngaythanhtoan;
+		private System.Nullable<bool> _Dathanhtoan;
+		
+		private System.Nullable<bool> _Tinhtranggiaohang;
+		
+		private string _TenNguoiNhan;
+		
+		private string _Sdtnguoinhan;
+		
+		private string _Diachinguoinhan;
+		
+		private string _Emailnguoinhan;
 		
 		private EntitySet<CT_DDH> _CT_DDHs;
 		
@@ -1130,12 +1116,22 @@ namespace WebPhuKien.Models
     partial void OnSoHDChanged();
     partial void OnUsernameChanging(string value);
     partial void OnUsernameChanged();
-    partial void OnNgaylapChanging(System.DateTime value);
-    partial void OnNgaylapChanged();
-    partial void OnTongtienChanging(System.Nullable<decimal> value);
-    partial void OnTongtienChanged();
-    partial void OnNgaythanhtoanChanging(System.Nullable<System.DateTime> value);
-    partial void OnNgaythanhtoanChanged();
+    partial void OnNgaydatChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgaydatChanged();
+    partial void OnNgaygiaoChanging(System.Nullable<System.DateTime> value);
+    partial void OnNgaygiaoChanged();
+    partial void OnDathanhtoanChanging(System.Nullable<bool> value);
+    partial void OnDathanhtoanChanged();
+    partial void OnTinhtranggiaohangChanging(System.Nullable<bool> value);
+    partial void OnTinhtranggiaohangChanged();
+    partial void OnTenNguoiNhanChanging(string value);
+    partial void OnTenNguoiNhanChanged();
+    partial void OnSdtnguoinhanChanging(string value);
+    partial void OnSdtnguoinhanChanged();
+    partial void OnDiachinguoinhanChanging(string value);
+    partial void OnDiachinguoinhanChanged();
+    partial void OnEmailnguoinhanChanging(string value);
+    partial void OnEmailnguoinhanChanged();
     #endregion
 		
 		public DONDATHANG()
@@ -1165,7 +1161,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="Char(16) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="VarChar(16) NOT NULL", CanBeNull=false)]
 		public string Username
 		{
 			get
@@ -1189,62 +1185,162 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ngaylap", DbType="DateTime NOT NULL")]
-		public System.DateTime Ngaylap
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ngaydat", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Ngaydat
 		{
 			get
 			{
-				return this._Ngaylap;
+				return this._Ngaydat;
 			}
 			set
 			{
-				if ((this._Ngaylap != value))
+				if ((this._Ngaydat != value))
 				{
-					this.OnNgaylapChanging(value);
+					this.OnNgaydatChanging(value);
 					this.SendPropertyChanging();
-					this._Ngaylap = value;
-					this.SendPropertyChanged("Ngaylap");
-					this.OnNgaylapChanged();
+					this._Ngaydat = value;
+					this.SendPropertyChanged("Ngaydat");
+					this.OnNgaydatChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tongtien", DbType="Decimal(18,0)")]
-		public System.Nullable<decimal> Tongtien
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ngaygiao", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Ngaygiao
 		{
 			get
 			{
-				return this._Tongtien;
+				return this._Ngaygiao;
 			}
 			set
 			{
-				if ((this._Tongtien != value))
+				if ((this._Ngaygiao != value))
 				{
-					this.OnTongtienChanging(value);
+					this.OnNgaygiaoChanging(value);
 					this.SendPropertyChanging();
-					this._Tongtien = value;
-					this.SendPropertyChanged("Tongtien");
-					this.OnTongtienChanged();
+					this._Ngaygiao = value;
+					this.SendPropertyChanged("Ngaygiao");
+					this.OnNgaygiaoChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ngaythanhtoan", DbType="DateTime")]
-		public System.Nullable<System.DateTime> Ngaythanhtoan
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dathanhtoan", DbType="Bit")]
+		public System.Nullable<bool> Dathanhtoan
 		{
 			get
 			{
-				return this._Ngaythanhtoan;
+				return this._Dathanhtoan;
 			}
 			set
 			{
-				if ((this._Ngaythanhtoan != value))
+				if ((this._Dathanhtoan != value))
 				{
-					this.OnNgaythanhtoanChanging(value);
+					this.OnDathanhtoanChanging(value);
 					this.SendPropertyChanging();
-					this._Ngaythanhtoan = value;
-					this.SendPropertyChanged("Ngaythanhtoan");
-					this.OnNgaythanhtoanChanged();
+					this._Dathanhtoan = value;
+					this.SendPropertyChanged("Dathanhtoan");
+					this.OnDathanhtoanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tinhtranggiaohang", DbType="Bit")]
+		public System.Nullable<bool> Tinhtranggiaohang
+		{
+			get
+			{
+				return this._Tinhtranggiaohang;
+			}
+			set
+			{
+				if ((this._Tinhtranggiaohang != value))
+				{
+					this.OnTinhtranggiaohangChanging(value);
+					this.SendPropertyChanging();
+					this._Tinhtranggiaohang = value;
+					this.SendPropertyChanged("Tinhtranggiaohang");
+					this.OnTinhtranggiaohangChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TenNguoiNhan", DbType="NVarChar(25)")]
+		public string TenNguoiNhan
+		{
+			get
+			{
+				return this._TenNguoiNhan;
+			}
+			set
+			{
+				if ((this._TenNguoiNhan != value))
+				{
+					this.OnTenNguoiNhanChanging(value);
+					this.SendPropertyChanging();
+					this._TenNguoiNhan = value;
+					this.SendPropertyChanged("TenNguoiNhan");
+					this.OnTenNguoiNhanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sdtnguoinhan", DbType="VarChar(11)")]
+		public string Sdtnguoinhan
+		{
+			get
+			{
+				return this._Sdtnguoinhan;
+			}
+			set
+			{
+				if ((this._Sdtnguoinhan != value))
+				{
+					this.OnSdtnguoinhanChanging(value);
+					this.SendPropertyChanging();
+					this._Sdtnguoinhan = value;
+					this.SendPropertyChanged("Sdtnguoinhan");
+					this.OnSdtnguoinhanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Diachinguoinhan", DbType="NVarChar(150)")]
+		public string Diachinguoinhan
+		{
+			get
+			{
+				return this._Diachinguoinhan;
+			}
+			set
+			{
+				if ((this._Diachinguoinhan != value))
+				{
+					this.OnDiachinguoinhanChanging(value);
+					this.SendPropertyChanging();
+					this._Diachinguoinhan = value;
+					this.SendPropertyChanged("Diachinguoinhan");
+					this.OnDiachinguoinhanChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Emailnguoinhan", DbType="VarChar(50)")]
+		public string Emailnguoinhan
+		{
+			get
+			{
+				return this._Emailnguoinhan;
+			}
+			set
+			{
+				if ((this._Emailnguoinhan != value))
+				{
+					this.OnEmailnguoinhanChanging(value);
+					this.SendPropertyChanging();
+					this._Emailnguoinhan = value;
+					this.SendPropertyChanged("Emailnguoinhan");
+					this.OnEmailnguoinhanChanged();
 				}
 			}
 		}
@@ -1380,7 +1476,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="Char(16) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="VarChar(16) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Username
 		{
 			get
@@ -1531,7 +1627,7 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="Char(16) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Username", DbType="VarChar(16) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string Username
 		{
 			get
@@ -1551,7 +1647,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="Char(16) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="VarChar(16) NOT NULL", CanBeNull=false)]
 		public string Password
 		{
 			get
@@ -1591,7 +1687,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sdt", DbType="Char(11)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sdt", DbType="VarChar(11)")]
 		public string Sdt
 		{
 			get
@@ -1631,7 +1727,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="Char(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(50)")]
 		public string Email
 		{
 			get
@@ -1848,7 +1944,7 @@ namespace WebPhuKien.Models
 		
 		private string _Diachi;
 		
-		private string _Sdt;
+		private string _Sdtnsx;
 		
 		private EntitySet<SANPHAM> _SANPHAMs;
 		
@@ -1862,8 +1958,8 @@ namespace WebPhuKien.Models
     partial void OnTennsxChanged();
     partial void OnDiachiChanging(string value);
     partial void OnDiachiChanged();
-    partial void OnSdtChanging(string value);
-    partial void OnSdtChanged();
+    partial void OnSdtnsxChanging(string value);
+    partial void OnSdtnsxChanged();
     #endregion
 		
 		public NHASANXUAT()
@@ -1932,22 +2028,22 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sdt", DbType="Char(11)")]
-		public string Sdt
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sdtnsx", DbType="VarChar(11)")]
+		public string Sdtnsx
 		{
 			get
 			{
-				return this._Sdt;
+				return this._Sdtnsx;
 			}
 			set
 			{
-				if ((this._Sdt != value))
+				if ((this._Sdtnsx != value))
 				{
-					this.OnSdtChanging(value);
+					this.OnSdtnsxChanging(value);
 					this.SendPropertyChanging();
-					this._Sdt = value;
-					this.SendPropertyChanged("Sdt");
-					this.OnSdtChanged();
+					this._Sdtnsx = value;
+					this.SendPropertyChanged("Sdtnsx");
+					this.OnSdtnsxChanged();
 				}
 			}
 		}
@@ -2161,7 +2257,7 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[User]", Storage="_User", DbType="Char(16) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="[User]", Storage="_User", DbType="VarChar(16) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
 		public string User
 		{
 			get
@@ -2181,7 +2277,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="Char(16) NOT NULL", CanBeNull=false)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Password", DbType="VarChar(16) NOT NULL", CanBeNull=false)]
 		public string Password
 		{
 			get
