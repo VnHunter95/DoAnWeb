@@ -35,9 +35,32 @@ namespace WebPhuKien.Controllers
         [HttpPost]
         public ActionResult DatHang(FormCollection collection)
         {
+            string tennguoinhan = collection["Tennguoinhan"];
+            string diachinhan = collection["Diachinhan"];
+            string sdtnhan = collection["Sdtnguoinhan"];
+            if (String.IsNullOrEmpty(tennguoinhan))
+            {
+                ViewData["LoiTen"] = "Hãy nhập tên người nhận !";
+                return View();
+            }
+            if (String.IsNullOrEmpty(diachinhan))
+            {
+                ViewData["LoiDiachi"] = "Hãy nhập địa chỉ người nhận !";
+                return View();
+            }
+            if (String.IsNullOrEmpty(sdtnhan))
+            {
+                ViewData["LoiSdt"] = "Hãy nhập số điện thoại người nhận !";
+                return View();
+            }
+
             DONDATHANG ddh = new DONDATHANG();
             KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
             List<Giohang> gh = Laygiohang();
+            ddh.Emailnguoinhan = collection["Emailnhan"];
+            ddh.TenNguoiNhan = tennguoinhan;
+            ddh.Diachinguoinhan = diachinhan;
+            ddh.Sdtnguoinhan = sdtnhan;
             ddh.Username = kh.Username;
             ddh.Ngaydat = DateTime.Now;
             if (collection["Ngaygiao"] != null)

@@ -49,7 +49,9 @@
 <table align="center">
     @using (Html.BeginForm())
     {
-        <tr style="text-align:center"> Thông Tin Người Đặt </tr>
+        <tr style="text-align:center"> 
+            <td>Thông Tin Người Đặt</td>
+        </tr>
         <tr style="height:40px">
             <td> Họ Tên Khách Hàng: </td>
             <td style="font-weight: bold"> @kh.Hoten </td>
@@ -69,6 +71,36 @@
         <tr style="height:40px">
             <td> Ngày giao hàng: </td>
             <td> <input type="date" name="Ngaygiao" /> </td>
+        </tr>
+        <tr style="text-align:center"> 
+            <td>Thông  Tin Người Đặt</td> 
+        </tr>
+        <tr style="height:40px">
+            <td> 
+                Họ Tên Người nhận: 
+                <p style="color:red;"><i>@ViewData["LoiTen"]</i></p>
+            </td>
+            <td style="font-weight: bold"> <input type="text" value="@kh.Hoten" name="Tennguoinhan"/> </td>
+        </tr>
+        <tr style="height:40px">
+            <td> 
+                Địa Chỉ Người nhận: 
+                @ViewData["LoiDiachi"]
+            </td>
+            <td style="font-weight: bold"> <input type="text" value="@kh.Diachi" name="Diachinhan" />  </td>
+        </tr>
+        <tr style="height:40px">
+            <td> 
+                Số Điện thoại: 
+                @ViewData["LoiSdt"]
+            </td>
+            <td style="font-weight: bold"> <input type="text" value="@kh.Sdt" name="Sdtnguoinhan" />  </td>
+        </tr>
+        <tr style="height:40px">
+            <td> 
+                Email: 
+            </td>
+            <td style="font-weight: bold"> <input type="text" value="@kh.Email" name="Emailnhan" />  </td>
         </tr>
         <tr style="height:40px">
             <td></td>
