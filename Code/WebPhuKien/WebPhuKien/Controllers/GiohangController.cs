@@ -12,7 +12,61 @@ namespace WebPhuKien.Controllers
         //
         // GET: /Giohang/
         DataClasses1DataContext data = new DataClasses1DataContext();
+        [HttpGet]
+        public ActionResult DatHang()
+        {
+            if (Session["Taikhoan"] == null || Session["Taikhoan"].ToString() == "")
+            {
+                return RedirectToAction("Dangnhap", "Nguoidung");
+            }
+            if (Session["Giohang"] == null)
+            {
+                return RedirectToAction("Index", "BookStore");
+            }
 
+            List<Giohang> lstGiohang = Laygiohang();
+            ViewBag.Tongsoluong = TongSoLuong();
+            ViewBag.Tongtien = TongTien();
+
+            return View(lstGiohang);
+
+
+        }
+        [HttpPost]
+        public ActionResult DatHang(FormCollection collection)
+        {
+            DONDATHANG ddh = new DONDATHANG();
+            KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
+            List<Giohang> gh = Laygiohang();
+            ddh.Username = kh.Username;
+            ddh.Ngaydat = DateTime.Now;
+            if (collection["Ngaygiao"] != null)
+            {
+                var ngaygiao = String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]);
+                ddh.Ngaygiao = DateTime.Parse(ngaygiao);
+            }
+            ddh.Tinhtranggiaohang = false;
+            ddh.Dathanhtoan = false;
+            data.DONDATHANGs.InsertOnSubmit(ddh);
+            data.SubmitChanges();
+            foreach (var item in gh)
+            {
+                CT_DDH cthd = new CT_DDH();
+                cthd.SoHD = ddh.SoHD;
+                cthd.Idsp = item.sMaSP;
+                cthd.Soluong = item.iSoluong;
+                cthd.Dongia = (decimal)item.dDongia;
+                data.CT_DDHs.InsertOnSubmit(cthd);
+            }
+            data.SubmitChanges();
+            Session["Giohang"] = null;
+            return RedirectToAction("Xacnhandonhang", "Giohang");
+        }
+
+        public ActionResult Xacnhandonhang()
+        {
+            return View();
+        }
         public List<Giohang> Laygiohang()
         {
             List<Giohang> lstGiohang = Session["Giohang"] as List<Giohang>;

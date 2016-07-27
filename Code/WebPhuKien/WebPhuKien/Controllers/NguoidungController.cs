@@ -12,6 +12,7 @@ namespace WebPhuKien.Controllers
         //
         // GET: /Nguoidung/
         DataClasses1DataContext data = new DataClasses1DataContext();
+       
         public ActionResult Index()
         {
             return View();
@@ -45,7 +46,7 @@ namespace WebPhuKien.Controllers
                 if (kh != null)
                 {
                     ViewBag.Thongbao = "Đăng nhập thành công";
-                    Session["Taikhoan"] = kh.Hoten;
+                    Session["Taikhoan"] = kh;
                     return RedirectToAction("Index","Phukien");
                 }
                 else

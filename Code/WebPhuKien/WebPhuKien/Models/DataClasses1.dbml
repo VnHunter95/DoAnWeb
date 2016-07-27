@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHUKIENANIME" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=HUNTER95LAPTOP;Initial Catalog=PHUKIENANIME;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHUKIENANIMEConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(local);Initial Catalog=PHUKIENANIME;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHUKIENANIMEConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Banner" Member="Banners">
     <Type Name="Banner">
       <Column Name="Banner" Member="Banner1" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -20,9 +20,8 @@
     <Type Name="CT_DDH">
       <Column Name="Idsp" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="SoHD" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Soluong" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Size" Type="System.String" DbType="Char(5)" CanBeNull="true" />
-      <Column Name="Giaban" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Soluong" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dongia" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Association Name="DONDATHANG_CT_DDH" Member="DONDATHANG" ThisKey="SoHD" OtherKey="SoHD" Type="DONDATHANG" IsForeignKey="true" />
       <Association Name="SANPHAM_CT_DDH" Member="SANPHAM" ThisKey="Idsp" OtherKey="Idsp" Type="SANPHAM" IsForeignKey="true" />
     </Type>
@@ -52,9 +51,10 @@
     <Type Name="DONDATHANG">
       <Column Name="SoHD" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Username" Type="System.String" DbType="Char(16) NOT NULL" CanBeNull="false" />
-      <Column Name="Ngaylap" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Tongtien" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Column Name="Ngaythanhtoan" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ngaydat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Ngaygiao" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Dathanhtoan" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Tinhtranggiaohang" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Association Name="DONDATHANG_CT_DDH" Member="CT_DDHs" ThisKey="SoHD" OtherKey="SoHD" Type="CT_DDH" />
       <Association Name="KHACHHANG_DONDATHANG" Member="KHACHHANG" ThisKey="Username" OtherKey="Username" Type="KHACHHANG" IsForeignKey="true" />
     </Type>
