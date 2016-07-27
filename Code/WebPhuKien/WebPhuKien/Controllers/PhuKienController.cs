@@ -49,7 +49,10 @@ namespace WebPhuKien.Controllers
             var sach = data.SANPHAMs.Where(a => a.Idnsx == id);
             return View(sach);
         }
-
+        public ActionResult ThongTinShop()
+        {
+            return View();
+        }
 
 	}
 }
