@@ -1,4 +1,8 @@
-﻿@model IEnumerable<WebPhuKien.Models.SANPHAM>
+﻿@using WebPhuKien.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<SANPHAM>
+
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
@@ -37,4 +41,17 @@
                     </div>
    </div>
 
+    
 }
+@* Tạo liên kết các trang *@
+Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)/@Model.PageCount;
+<div class="MenuTrang">
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+
