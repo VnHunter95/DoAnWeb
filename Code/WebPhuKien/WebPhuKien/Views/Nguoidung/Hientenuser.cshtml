@@ -1,0 +1,22 @@
+﻿@using WebPhuKien.Models
+@if (Session["Taikhoan"] == null)
+{
+    <li>
+        <a href="@Url.Action("Dangky","Nguoidung")">Đăng ký</a>
+    </li>
+    <li>
+        <a href="@Url.Action("Dangnhap","Nguoidung")">Đăng nhập</a>
+    </li>
+}
+else
+{
+    
+    KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
+    <li>
+        <a href="#">Xin chào, @kh.Hoten</a>
+    </li>
+    <li>
+        <a href="@Url.Action("Dangxuat","Nguoidung")">Đăng Xuất</a>
+    </li>
+}
+

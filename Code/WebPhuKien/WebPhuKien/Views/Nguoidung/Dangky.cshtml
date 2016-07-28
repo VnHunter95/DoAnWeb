@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewBag.Title = "Dangky";
+    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+}
+
+<h2 style="text-align:center">ĐĂNG KÝ THÀNH VIÊN</h2>
+<table align="center">
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <tr style="height:40px">
+            <td align="right">Tên đăng nhập: </td>
+            <td>
+                @Html.TextBox("Username")
+                @ViewData["Loi1"]
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td align="right">Mật khẩu: </td>
+            <td>
+                @Html.Password("Password")
+                @ViewData["Loi2"]
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td align="right">Nhập lại mật khẩu: </td>
+            <td>
+                @Html.Password("Password2nd")
+                @ViewData["Loi3"]
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td></td>
+            <td><b>Thông tin cá nhân</b></td>
+        </tr>
+        <tr style="height:40px">
+            <td align="right">Họ Tên:</td>
+            <td>
+                @Html.TextBox("Name")
+                @ViewData["Loi4"]
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td align="right">Số điện thoại:</td>
+            <td>
+                @Html.TextBox("Sdt")
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td align="right">Địa Chỉ:</td>
+            <td>
+                @Html.TextBox("Diachi")
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td align="right">Email:</td>
+            <td>
+               @Html.TextBox("Email")
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="submit" value="Đăng Ký" />
+            </td>
+        </tr>
+
+
+    }
+</table>
+

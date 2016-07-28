@@ -1,0 +1,41 @@
+﻿@model IEnumerable<WebPhuKien.Models.SANPHAM>
+@{
+    ViewBag.Title = "SPTheoLoai";
+    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+}
+
+<h3 style="text-align:center; color:red;">SẢN PHẨM THEO LOẠI</h3>
+@foreach (var SANPHAM in Model)
+{
+
+    <div class="col-sm-4 col-lg-4 col-md-4">
+        <div class="thumbnail">
+            <a href="@Url.Action("ChiTiet", "PhuKien", new {id = SANPHAM.Idsp})">
+                <img alt="@SANPHAM.Tensanpham" src="~/Hinhsanpham/@SANPHAM.Hinhanh" width="200" />
+            </a>
+            <div class="caption">
+                <p>
+                    <h4><a href="@Url.Action("ChiTiet", "PhuKien", new { id = SANPHAM.Idsp })">@SANPHAM.Tensanpham</a></h4>
+                    <h5><b>@String.Format("{0:0,0}", SANPHAM.Dongia) vnđ</b></h5>
+                </p>
+                <p>
+                    @SANPHAM.Thongtin
+                </p>
+            </div>
+            <div class="ratings">
+                <p class="pull-right">696 reviews</p>
+                <p>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                    <span class="glyphicon glyphicon-star"></span>
+                </p>
+                <div class="uname">
+                    <p style="text-align:right; padding-right:10px;"><a href="@Url.Action("Chitiet", "PhuKien" , new { id=SANPHAM.Idsp })">Chi tiết</a> | <a href="@Url.Action("ThemGiohang", "Giohang", new { @Masp = SANPHAM.Idsp })">Thêm giỏ hàng</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
