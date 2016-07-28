@@ -40,6 +40,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PagedList">
+      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
@@ -190,6 +196,7 @@
     <Content Include="Banner\Banner8.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\PagedList.css" />
     <Content Include="Content\shop-homepage.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -197,10 +204,16 @@
     <Content Include="Content\Site.css" />
     <Content Include="Hinhsanpham\F001.jpg" />
     <Content Include="Hinhsanpham\F002.jpg" />
-    <Content Include="Hinhsanpham\fig1.jpg" />
-    <Content Include="Hinhsanpham\fig2.jpg" />
-    <Content Include="Hinhsanpham\fig3.jpg" />
-    <Content Include="Hinhsanpham\fig4.jpg" />
+    <Content Include="Hinhsanpham\F003.jpg" />
+    <Content Include="Hinhsanpham\F004.jpg" />
+    <Content Include="Hinhsanpham\F005.jpg" />
+    <Content Include="Hinhsanpham\F006.jpg" />
+    <Content Include="Hinhsanpham\F007.jpg" />
+    <Content Include="Hinhsanpham\F008.jpg" />
+    <Content Include="Hinhsanpham\F009.jpg" />
+    <Content Include="Hinhsanpham\F010.jpg" />
+    <Content Include="Hinhsanpham\F011.jpg" />
+    <Content Include="Hinhsanpham\F012.jpg" />
     <Content Include="Hinhsanpham\J001.jpg" />
     <Content Include="Hinhsanpham\N001.jpg" />
     <Content Include="Hinhsanpham\N002.jpg" />
@@ -224,7 +237,6 @@
       <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
-    <None Include="Properties\PublishProfiles\Test.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -284,6 +296,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

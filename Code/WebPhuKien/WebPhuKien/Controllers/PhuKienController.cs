@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebPhuKien.Models;
+using PagedList;
+using PagedList.Mvc;
+
 
 namespace WebPhuKien.Controllers
 {
@@ -18,10 +21,16 @@ namespace WebPhuKien.Controllers
             return data.SANPHAMs.OrderByDescending(a => a.Ngaycapnhat).Take(count).ToList();
         }
 
-        public ActionResult Index()
+        public ActionResult Index(int ? page)
         {
-            var spmoi = Laysanpham(3);
-            return View(spmoi);
+          //  var spmoi = Laysanpham(3);
+          //  return View(spmoi);
+            int pageSize = 5;
+            int pageNum = (page ?? 1);
+
+            var spmoi = Laysanpham(15);
+            return View(spmoi.ToPagedList(pageNum, pageSize));
+
         }
         public ActionResult LoaiSP()
         {
