@@ -60,7 +60,8 @@ namespace WebPhuKien.Controllers
         }
         public ActionResult ThongTinShop()
         {
-            return View();
+            var thongtin = data.THONGTINs.Select(n=>n).First();
+            return View(thongtin);
         }
         public ActionResult LienHe()
         {
