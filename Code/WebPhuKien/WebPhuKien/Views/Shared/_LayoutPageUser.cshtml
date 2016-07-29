@@ -2,7 +2,6 @@
 
 <html xmlns:fb ='http://www.facebook.com/2008/fbml'>
     <head>
-
         <meta property="fb:app_id" content="1230330800319049" />
         <meta property="fb:admins" content="100000686899395" />
         <meta charset="utf-8">
@@ -10,7 +9,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-    
         <title>Trang bán hàng phụ kiện Anime/Manga ~ Du hành vào thế giới 2D</title>
         <!-- Bootstrap Core CSS -->
         <link href="~/content/bootstrap.min.css" rel="stylesheet">
@@ -24,27 +22,16 @@
         <![endif]-->
     </head>
     <body>
-
         <div id="fb-root"></div>
         <script>
-            window.fbAsyncInit = function () {
-                FB.init({
-                    appId: '1230330800319049',
-                    xfbml: true,
-                    version: 'v2.7'
-                });
-            };
-
             (function (d, s, id) {
                 var js, fjs = d.getElementsByTagName(s)[0];
-                if (d.getElementById(id)) { return; }
+                if (d.getElementById(id)) return;
                 js = d.createElement(s); js.id = id;
-                js.src = "//connect.facebook.net/en_US/sdk.js";
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7&appId=1230330800319049";
                 fjs.parentNode.insertBefore(js, fjs);
             }(document, 'script', 'facebook-jssdk'));
         </script>
-
-
               <!-- Navigation -->
                 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                     <div class="container">
