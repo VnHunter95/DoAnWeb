@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHUKIENANIME" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=NGAN09052014-PC\QUOCKHAI;Initial Catalog=PHUKIENANIME;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHUKIENANIMEConnectionString1" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(local);Initial Catalog=PHUKIENANIME;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHUKIENANIMEConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.THONGTIN" Member="THONGTINs">
     <Type Name="THONGTIN">
       <Column Name="Tencuahang" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />

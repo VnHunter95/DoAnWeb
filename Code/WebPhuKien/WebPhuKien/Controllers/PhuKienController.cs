@@ -63,6 +63,7 @@ namespace WebPhuKien.Controllers
             var thongtin = data.THONGTINs.Select(n=>n).First();
             return View(thongtin);
         }
+        [HttpGet]
         public ActionResult LienHe()
         {
             return View();
@@ -75,7 +76,6 @@ namespace WebPhuKien.Controllers
             string SDT = collection["SDT"];
             string Tittle = collection["Tit"];
             string Content = collection["content"];
-            
 
             if (String.IsNullOrEmpty(user))
             {
