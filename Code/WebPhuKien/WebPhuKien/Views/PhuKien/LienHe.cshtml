@@ -1,11 +1,10 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "LienHe";
     Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
 }
 
 <h2 style="text-align:center">Trang liên hệ</h2>
-<table align="center">
+<table align="left">
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
@@ -19,22 +18,21 @@
         <tr style="height:40px">
             <td align="right">Email: </td>
             <td>
-                @Html.Password("Email")
+                @Html.TextBox("Email")
                 @ViewData["Loi2"]
             </td>
         </tr>
         <tr style="height:40px">
-            <td align="right">Gửi đến: </td>
+            <td align="right">Số điện thoại: </td>
             <td>
-                @Html.TextBox("To")
+                @Html.TextBox("SDT")
                 @ViewData["Loi3"]
             </td>
         </tr>
-        
         <tr style="height:40px">
             <td align="right"><b>Tiêu đề bài gửi: </b></td>
             <td>
-                @Html.TextBox("Title")
+                @Html.TextBox("Tit")
                 @ViewData["Loi4"]
             </td>
         </tr>
@@ -45,7 +43,7 @@
                 @ViewData["Loi5"]
             </td>
         </tr>
-        
+
         <tr style="height:40px">
             <td></td>
             <td>
