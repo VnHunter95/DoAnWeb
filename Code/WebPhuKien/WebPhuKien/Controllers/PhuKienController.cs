@@ -62,6 +62,9 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
-
+        public ActionResult LienHe()
+        {
+            return View();
+        }
 	}
 }

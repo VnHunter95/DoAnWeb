@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "LienHe";
+    Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
+}
+
+<h2 style="text-align:center">Trang liên hệ</h2>
+<table align="center">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+        <tr style="height:40px">
+            <td align="right">Người gửi: </td>
+            <td>
+                @Html.TextBox("From")
+                @ViewData["Loi1"]
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td align="right">Email: </td>
+            <td>
+                @Html.Password("Email")
+                @ViewData["Loi2"]
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td align="right">Gửi đến: </td>
+            <td>
+                @Html.TextBox("To")
+                @ViewData["Loi3"]
+            </td>
+        </tr>
+        
+        <tr style="height:40px">
+            <td align="right"><b>Tiêu đề bài gửi: </b></td>
+            <td>
+                @Html.TextBox("Title")
+                @ViewData["Loi4"]
+            </td>
+        </tr>
+        <tr style="height:40px">
+            <td align="right">Nội dung: </td>
+            <td>
+                @Html.TextArea("content")
+                @ViewData["Loi5"]
+            </td>
+        </tr>
+        
+        <tr style="height:40px">
+            <td></td>
+            <td>
+                <input type="submit" value="Gửi" />
+            </td>
+        </tr>
+
+
+    }
+</table>
