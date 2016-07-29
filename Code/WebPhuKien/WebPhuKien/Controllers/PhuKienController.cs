@@ -66,5 +66,56 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+        [HttpPost]
+        public ActionResult LienHe(FormCollection collection,LIENHE LH)
+        {
+            string user = collection["From"];            
+            string Email = collection["Email"];
+            string SDT = collection["SDT"];
+            string Tittle = collection["Tit"];
+            string Content = collection["content"];
+            
+
+            if (String.IsNullOrEmpty(user))
+            {
+                ViewData["Loi1"] = "Chưa nhập tên";
+            }
+            if (String.IsNullOrEmpty(Email))
+            {
+                ViewData["Loi2"] = "Chưa nhập email";
+            }
+            
+            if (String.IsNullOrEmpty(SDT))
+            {
+                ViewData["Loi3"] = "Nhập số điện thoại";
+            }
+            if (String.IsNullOrEmpty(Tittle))
+            {
+                ViewData["Loi4"] = "Vui lòng nhập tiêu đề";
+            }
+            if (String.IsNullOrEmpty(Content))
+            {
+                ViewData["Loi5"] = "Nhập nội dung cần gửi";
+            }
+            else
+            {
+                LH.HOTEN = user;
+                LH.EMAIL = Email;
+                LH.TIEUDE = Tittle;
+                LH.NOIDUNG = Content;
+                LH.SDT = SDT;
+                data.LIENHEs.InsertOnSubmit(LH);
+                data.SubmitChanges();
+                return RedirectToAction("Sent");
+
+
+            }
+
+            return this.LienHe();
+        }
+        public ActionResult Sent()
+        {
+            return View();
+        }
 	}
 }
