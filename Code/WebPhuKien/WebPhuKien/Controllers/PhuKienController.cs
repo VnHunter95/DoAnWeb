@@ -25,7 +25,7 @@ namespace WebPhuKien.Controllers
         {
           //  var spmoi = Laysanpham(3);
           //  return View(spmoi);
-            int pageSize = 3;
+            int pageSize = 5;
             int pageNum = (page ?? 1);
 
             var spmoi = Laysanpham(15);
