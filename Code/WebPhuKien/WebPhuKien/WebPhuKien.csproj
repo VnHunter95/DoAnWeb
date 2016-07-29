@@ -295,6 +295,7 @@
     <Content Include="Views\PhuKien\ThongTinShop.cshtml" />
     <Content Include="Views\PhuKien\LienHe.cshtml" />
     <Content Include="Views\PhuKien\Sent.cshtml" />
+    <Content Include="Views\Shared\_LayoutUserPageNoBanner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
