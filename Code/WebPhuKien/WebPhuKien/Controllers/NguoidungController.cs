@@ -110,11 +110,5 @@ namespace WebPhuKien.Controllers
             return this.Dangky();
         }
 
-        public ActionResult DangXuat()
-        {
-            Session["TaiKhoan"] = null;
-            return RedirectToAction("Index", "PhuKien");
-        }
-
 	}
 }
