@@ -105,11 +105,11 @@ namespace WebPhuKien.Controllers
             }
             else
             {
-                LH.HOTEN = user;
-                LH.EMAIL = Email;
-                LH.TIEUDE = Tittle;
-                LH.NOIDUNG = Content;
-                LH.SDT = SDT;
+                LH.Hoten = user;
+                LH.Email = Email;
+                LH.Tieude = Tittle;
+                LH.Noidung = Content;
+                LH.Sdt = SDT;
                 data.LIENHEs.InsertOnSubmit(LH);
                 data.SubmitChanges();
                 return RedirectToAction("Sent");

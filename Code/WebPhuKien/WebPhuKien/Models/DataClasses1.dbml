@@ -1,5 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHUKIENANIME" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=(local);Initial Catalog=PHUKIENANIME;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHUKIENANIMEConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.BANNER" Member="BANNERs">
+    <Type Name="BANNER">
+      <Column Name="Banner" Member="Banner1" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.THONGTIN" Member="THONGTINs">
     <Type Name="THONGTIN">
       <Column Name="Tencuahang" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -9,11 +14,6 @@
       <Column Name="Email1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Email2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Facebook" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.Banner" Member="Banners">
-    <Type Name="Banner">
-      <Column Name="Banner" Member="Banner1" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.CT_DDH" Member="CT_DDHs">
@@ -49,7 +49,7 @@
   </Table>
   <Table Name="dbo.DONDATHANG" Member="DONDATHANGs">
     <Type Name="DONDATHANG">
-      <Column Name="SoHD" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SoHD" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Username" Type="System.String" DbType="VarChar(16) NOT NULL" CanBeNull="false" />
       <Column Name="Ngaydat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Ngaygiao" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
@@ -65,7 +65,7 @@
   </Table>
   <Table Name="dbo.GIOHANG" Member="GIOHANGs">
     <Type Name="GIOHANG">
-      <Column Name="Sogh" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Sogh" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Username" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Association Name="GIOHANG_CT_GIOHANG" Member="CT_GIOHANGs" ThisKey="Sogh,Username" OtherKey="Sogh,Username" Type="CT_GIOHANG" />
       <Association Name="KHACHHANG_GIOHANG" Member="KHACHHANG" ThisKey="Username" OtherKey="Username" Type="KHACHHANG" IsForeignKey="true" />
@@ -85,12 +85,12 @@
   </Table>
   <Table Name="dbo.LIENHE" Member="LIENHEs">
     <Type Name="LIENHE">
-      <Column Name="IDLIENHE" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="HOTEN" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
-      <Column Name="TIEUDE" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
-      <Column Name="NOIDUNG" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="EMAIL" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
-      <Column Name="SDT" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="Idlienhe" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Hoten" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Tieude" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Noidung" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="Sdt" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.LOAISANPHAM" Member="LOAISANPHAMs">
@@ -111,7 +111,7 @@
   </Table>
   <Table Name="dbo.PHIEUNHAP" Member="PHIEUNHAPs">
     <Type Name="PHIEUNHAP">
-      <Column Name="SoPN" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="SoPN" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Ngaylap" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="Tongchi" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Association Name="PHIEUNHAP_CT_PN" Member="CT_PNs" ThisKey="SoPN" OtherKey="SoPN" Type="CT_PN" />

@@ -14,7 +14,7 @@ namespace WebPhuKien.Controllers
         DataClasses1DataContext data = new DataClasses1DataContext();
         public ActionResult Index()
         {
-            var kq = from q in data.Banners
+            var kq = from q in data.BANNERs
                      select q; 
             return PartialView(kq);
         }

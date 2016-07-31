@@ -30,9 +30,9 @@ namespace WebPhuKien.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertBanner(Banner instance);
-    partial void UpdateBanner(Banner instance);
-    partial void DeleteBanner(Banner instance);
+    partial void InsertBANNER(BANNER instance);
+    partial void UpdateBANNER(BANNER instance);
+    partial void DeleteBANNER(BANNER instance);
     partial void InsertCT_DDH(CT_DDH instance);
     partial void UpdateCT_DDH(CT_DDH instance);
     partial void DeleteCT_DDH(CT_DDH instance);
@@ -101,19 +101,19 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<BANNER> BANNERs
+		{
+			get
+			{
+				return this.GetTable<BANNER>();
+			}
+		}
+		
 		public System.Data.Linq.Table<THONGTIN> THONGTINs
 		{
 			get
 			{
 				return this.GetTable<THONGTIN>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Banner> Banners
-		{
-			get
-			{
-				return this.GetTable<Banner>();
 			}
 		}
 		
@@ -210,6 +210,68 @@ namespace WebPhuKien.Models
 			get
 			{
 				return this.GetTable<SANPHAM>();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.BANNER")]
+	public partial class BANNER : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private string _Banner1;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnBanner1Changing(string value);
+    partial void OnBanner1Changed();
+    #endregion
+		
+		public BANNER()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Banner", Storage="_Banner1", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
+		public string Banner1
+		{
+			get
+			{
+				return this._Banner1;
+			}
+			set
+			{
+				if ((this._Banner1 != value))
+				{
+					this.OnBanner1Changing(value);
+					this.SendPropertyChanging();
+					this._Banner1 = value;
+					this.SendPropertyChanged("Banner1");
+					this.OnBanner1Changed();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -345,68 +407,6 @@ namespace WebPhuKien.Models
 				{
 					this._Facebook = value;
 				}
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Banner")]
-	public partial class Banner : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _Banner1;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnBanner1Changing(string value);
-    partial void OnBanner1Changed();
-    #endregion
-		
-		public Banner()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="Banner", Storage="_Banner1", DbType="VarChar(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string Banner1
-		{
-			get
-			{
-				return this._Banner1;
-			}
-			set
-			{
-				if ((this._Banner1 != value))
-				{
-					this.OnBanner1Changing(value);
-					this.SendPropertyChanging();
-					this._Banner1 = value;
-					this.SendPropertyChanged("Banner1");
-					this.OnBanner1Changed();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -1152,7 +1152,7 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoHD", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoHD", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public long SoHD
 		{
 			get
@@ -1467,7 +1467,7 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sogh", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sogh", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public long Sogh
 		{
 			get
@@ -1835,34 +1835,34 @@ namespace WebPhuKien.Models
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private long _IDLIENHE;
+		private long _Idlienhe;
 		
-		private string _HOTEN;
+		private string _Hoten;
 		
-		private string _TIEUDE;
+		private string _Tieude;
 		
-		private string _NOIDUNG;
+		private string _Noidung;
 		
-		private string _EMAIL;
+		private string _Email;
 		
-		private string _SDT;
+		private string _Sdt;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIDLIENHEChanging(long value);
-    partial void OnIDLIENHEChanged();
-    partial void OnHOTENChanging(string value);
-    partial void OnHOTENChanged();
-    partial void OnTIEUDEChanging(string value);
-    partial void OnTIEUDEChanged();
-    partial void OnNOIDUNGChanging(string value);
-    partial void OnNOIDUNGChanged();
-    partial void OnEMAILChanging(string value);
-    partial void OnEMAILChanged();
-    partial void OnSDTChanging(string value);
-    partial void OnSDTChanged();
+    partial void OnIdlienheChanging(long value);
+    partial void OnIdlienheChanged();
+    partial void OnHotenChanging(string value);
+    partial void OnHotenChanged();
+    partial void OnTieudeChanging(string value);
+    partial void OnTieudeChanged();
+    partial void OnNoidungChanging(string value);
+    partial void OnNoidungChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnSdtChanging(string value);
+    partial void OnSdtChanged();
     #endregion
 		
 		public LIENHE()
@@ -1870,122 +1870,122 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IDLIENHE", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public long IDLIENHE
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Idlienhe", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long Idlienhe
 		{
 			get
 			{
-				return this._IDLIENHE;
+				return this._Idlienhe;
 			}
 			set
 			{
-				if ((this._IDLIENHE != value))
+				if ((this._Idlienhe != value))
 				{
-					this.OnIDLIENHEChanging(value);
+					this.OnIdlienheChanging(value);
 					this.SendPropertyChanging();
-					this._IDLIENHE = value;
-					this.SendPropertyChanged("IDLIENHE");
-					this.OnIDLIENHEChanged();
+					this._Idlienhe = value;
+					this.SendPropertyChanged("Idlienhe");
+					this.OnIdlienheChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HOTEN", DbType="NVarChar(25)")]
-		public string HOTEN
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Hoten", DbType="NVarChar(25)")]
+		public string Hoten
 		{
 			get
 			{
-				return this._HOTEN;
+				return this._Hoten;
 			}
 			set
 			{
-				if ((this._HOTEN != value))
+				if ((this._Hoten != value))
 				{
-					this.OnHOTENChanging(value);
+					this.OnHotenChanging(value);
 					this.SendPropertyChanging();
-					this._HOTEN = value;
-					this.SendPropertyChanged("HOTEN");
-					this.OnHOTENChanged();
+					this._Hoten = value;
+					this.SendPropertyChanged("Hoten");
+					this.OnHotenChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TIEUDE", DbType="NVarChar(150)")]
-		public string TIEUDE
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tieude", DbType="NVarChar(150)")]
+		public string Tieude
 		{
 			get
 			{
-				return this._TIEUDE;
+				return this._Tieude;
 			}
 			set
 			{
-				if ((this._TIEUDE != value))
+				if ((this._Tieude != value))
 				{
-					this.OnTIEUDEChanging(value);
+					this.OnTieudeChanging(value);
 					this.SendPropertyChanging();
-					this._TIEUDE = value;
-					this.SendPropertyChanged("TIEUDE");
-					this.OnTIEUDEChanged();
+					this._Tieude = value;
+					this.SendPropertyChanged("Tieude");
+					this.OnTieudeChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NOIDUNG", DbType="NVarChar(500)")]
-		public string NOIDUNG
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Noidung", DbType="NVarChar(500)")]
+		public string Noidung
 		{
 			get
 			{
-				return this._NOIDUNG;
+				return this._Noidung;
 			}
 			set
 			{
-				if ((this._NOIDUNG != value))
+				if ((this._Noidung != value))
 				{
-					this.OnNOIDUNGChanging(value);
+					this.OnNoidungChanging(value);
 					this.SendPropertyChanging();
-					this._NOIDUNG = value;
-					this.SendPropertyChanged("NOIDUNG");
-					this.OnNOIDUNGChanged();
+					this._Noidung = value;
+					this.SendPropertyChanged("Noidung");
+					this.OnNoidungChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EMAIL", DbType="VarChar(1)")]
-		public string EMAIL
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(1)")]
+		public string Email
 		{
 			get
 			{
-				return this._EMAIL;
+				return this._Email;
 			}
 			set
 			{
-				if ((this._EMAIL != value))
+				if ((this._Email != value))
 				{
-					this.OnEMAILChanging(value);
+					this.OnEmailChanging(value);
 					this.SendPropertyChanging();
-					this._EMAIL = value;
-					this.SendPropertyChanged("EMAIL");
-					this.OnEMAILChanged();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SDT", DbType="VarChar(11)")]
-		public string SDT
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sdt", DbType="VarChar(11)")]
+		public string Sdt
 		{
 			get
 			{
-				return this._SDT;
+				return this._Sdt;
 			}
 			set
 			{
-				if ((this._SDT != value))
+				if ((this._Sdt != value))
 				{
-					this.OnSDTChanging(value);
+					this.OnSdtChanging(value);
 					this.SendPropertyChanging();
-					this._SDT = value;
-					this.SendPropertyChanged("SDT");
-					this.OnSDTChanged();
+					this._Sdt = value;
+					this.SendPropertyChanged("Sdt");
+					this.OnSdtChanged();
 				}
 			}
 		}
@@ -2319,7 +2319,7 @@ namespace WebPhuKien.Models
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoPN", DbType="BigInt NOT NULL", IsPrimaryKey=true)]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoPN", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 		public long SoPN
 		{
 			get
