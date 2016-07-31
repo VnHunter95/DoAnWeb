@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WebPhuKien.Models.SANPHAM>
+﻿@using WebPhuKien.Models
+@using PagedList.Mvc;
+@model PagedList.PagedList<SANPHAM>
 @{
     ViewBag.Title = "SPTheoNsx";
     Layout = "~/Views/Shared/_LayoutPageUser.cshtml";
@@ -39,3 +41,11 @@
     </div>
 
 }
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("SPTheoLoai", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

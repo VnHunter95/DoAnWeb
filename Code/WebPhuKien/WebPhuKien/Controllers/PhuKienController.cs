@@ -48,15 +48,20 @@ namespace WebPhuKien.Controllers
             var sp = data.SANPHAMs.Where(a => a.Idsp == id);
             return View(sp.Single());
         }
-        public ActionResult SPTheoLoai(string id)
+        public ActionResult SPTheoLoai(string id, int? page)
         {
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
             var sach = data.SANPHAMs.Where(a => a.Idloai == id);
-            return View(sach);
+            return View(sach.ToPagedList(pageNum,pageSize));
         }
-        public ActionResult SPTheoNSX(string id)
+        public ActionResult SPTheoNSX(string id, int? page)
         {
+
+            int pageSize = 9;
+            int pageNum = (page ?? 1);
             var sach = data.SANPHAMs.Where(a => a.Idnsx == id);
-            return View(sach);
+            return View(sach.ToPagedList(pageNum,pageSize));
         }
         public ActionResult ThongTinShop()
         {
