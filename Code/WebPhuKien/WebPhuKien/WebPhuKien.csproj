@@ -166,6 +166,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\BannerController.cs" />
     <Compile Include="Controllers\GiohangController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -196,9 +197,14 @@
     <Content Include="Banner\Banner8.jpg" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\form-elements.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\shop-homepage.css" />
+    <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -217,10 +223,17 @@
     <Content Include="Hinhsanpham\J001.jpg" />
     <Content Include="Hinhsanpham\N001.jpg" />
     <Content Include="Hinhsanpham\N002.jpg" />
+    <Content Include="images\1%402x.jpg" />
+    <Content Include="images\1.jpg" />
     <Content Include="images\ancient-place.jpg" />
     <Content Include="images\ancient-place2.jpg" />
+    <Content Include="images\apple-touch-icon-114-precomposed.png" />
+    <Content Include="images\apple-touch-icon-144-precomposed.png" />
+    <Content Include="images\apple-touch-icon-57-precomposed.png" />
+    <Content Include="images\apple-touch-icon-72-precomposed.png" />
     <Content Include="images\dolphins.jpg" />
     <Content Include="images\dolphins2.jpg" />
+    <Content Include="images\favicon.png" />
     <Content Include="images\kayaks.jpg" />
     <Content Include="images\kayaks2.jpg" />
     <Content Include="images\mountain-view.jpg" />
@@ -237,18 +250,42 @@
       <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="less\animated.less" />
+    <Content Include="less\bordered-pulled.less" />
+    <Content Include="less\core.less" />
+    <Content Include="less\fixed-width.less" />
+    <Content Include="less\font-awesome.less" />
+    <Content Include="less\icons.less" />
+    <Content Include="less\larger.less" />
+    <Content Include="less\list.less" />
+    <Content Include="less\mixins.less" />
+    <Content Include="less\path.less" />
+    <Content Include="less\rotated-flipped.less" />
+    <Content Include="less\stacked.less" />
+    <Content Include="less\variables.less" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.11.1.js" />
+    <Content Include="Scripts\jquery-1.11.1.min.js" />
+    <Content Include="Scripts\jquery.backstretch.js" />
+    <Content Include="Scripts\jquery.backstretch.min.js" />
     <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\placeholder.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\scripts.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -296,6 +333,22 @@
     <Content Include="Views\PhuKien\LienHe.cshtml" />
     <Content Include="Views\PhuKien\Sent.cshtml" />
     <Content Include="Views\Shared\_LayoutUserPageNoBanner.cshtml" />
+    <Content Include="scss\font-awesome.scss" />
+    <Content Include="scss\_animated.scss" />
+    <Content Include="scss\_bordered-pulled.scss" />
+    <Content Include="scss\_core.scss" />
+    <Content Include="scss\_fixed-width.scss" />
+    <Content Include="scss\_icons.scss" />
+    <Content Include="scss\_larger.scss" />
+    <Content Include="scss\_list.scss" />
+    <Content Include="scss\_mixins.scss" />
+    <Content Include="scss\_path.scss" />
+    <Content Include="scss\_rotated-flipped.scss" />
+    <Content Include="scss\_stacked.scss" />
+    <Content Include="scss\_variables.scss" />
+    <Content Include="Views\Admin\Login.cshtml" />
+    <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
