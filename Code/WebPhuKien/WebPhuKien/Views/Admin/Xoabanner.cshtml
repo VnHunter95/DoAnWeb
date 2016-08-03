@@ -1,0 +1,27 @@
+﻿@model WebPhuKien.Models.BANNER
+
+@{
+    ViewBag.Title = "Xoabanner";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Xóa Banner</h2>
+
+<h3 style="color:red;">Bạn có muốn xóa Banner này không ?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dd>
+            <img src="@Url.Content("~/Banner/"+@Model.Banner1)" height="250px" width="400px" />
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Trở Về", "Banner")
+        </div>
+    }
+</div>

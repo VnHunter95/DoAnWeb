@@ -496,6 +496,8 @@
     <Content Include="Views\Admin\Chitietsp.cshtml" />
     <Content Include="Views\Admin\Xoasp.cshtml" />
     <Content Include="Views\Admin\Suasp.cshtml" />
+    <Content Include="Views\Admin\Banner.cshtml" />
+    <Content Include="Views\Admin\Xoabanner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

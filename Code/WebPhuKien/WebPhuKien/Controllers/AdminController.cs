@@ -20,6 +20,72 @@ namespace WebPhuKien.Controllers
             return View();
         }
         [HttpGet]
+        public ActionResult Xoabanner(string banner)
+        {
+            var b = data.BANNERs.FirstOrDefault(n => n.Banner1 == banner);
+            if (b == null)
+            {
+                Response.StatusCode = 404;
+                return null; 
+            }
+            return View(b);
+        }
+        [HttpPost]
+        public ActionResult Xoabanner(string banner,FormCollection c)
+        {
+            var b = data.BANNERs.FirstOrDefault(n => n.Banner1 == banner);
+            if (b == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            string fullPath = Request.MapPath("~/Banner/" + banner);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+            data.BANNERs.DeleteOnSubmit(b);
+            data.SubmitChanges();
+            return RedirectToAction("Banner");
+        }
+        public ActionResult Banner(int? page)
+        {
+            int pageNumber = (page ?? 1);
+            int pageSize = 3;
+            return View(data.BANNERs.ToList().ToPagedList(pageNumber,pageSize));
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Banner(BANNER b, HttpPostedFileBase fileupload)
+        {
+            if (fileupload == null)
+            {
+
+                ViewBag.Thongbao = "Hảy Chọn File Hình !";
+                return View();
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var fileName = Path.GetFileName(fileupload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Banner"), fileName);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.Thongbao = "File đã tồn tại";
+                    }
+                    else
+                    {
+                        fileupload.SaveAs(path);
+                    }
+                    b.Banner1 = fileName;
+                    data.BANNERs.InsertOnSubmit(b);
+                    data.SubmitChanges();
+                }
+            }
+            return RedirectToAction("Banner");
+        }
+        [HttpGet]
         public ActionResult Xoasp(string id)
         { 
             SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
