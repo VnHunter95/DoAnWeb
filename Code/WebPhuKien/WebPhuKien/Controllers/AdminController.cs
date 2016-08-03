@@ -19,7 +19,95 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult Xoasp(string id)
+        { 
+            SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
+                
+                if (sp == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                ViewBag.Masach = sp.Idsp;
+                return View(sp);
+        }
+        [HttpPost,ActionName("Xoasp")]
+        public ActionResult Xacnhanxoa(string id)
+        {
+             SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
+                if (sp == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                ViewBag.Masach = sp.Idsp;
+                data.SANPHAMs.DeleteOnSubmit(sp);
+                data.SubmitChanges();
+                return RedirectToAction("Sanpham");
+        }
+        [HttpGet]
+        public ActionResult Suasp(string id)
+        {
+            SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
+            ViewBag.Masach = sp.Idsp;
+            if (sp == null)
+            {
+                Response.StatusCode = 404;
+                return null;
 
+            }
+            ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
+            ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
+          
+            return View(sp);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Suasp(SANPHAM sp, HttpPostedFileBase fileupload, FormCollection c)
+        {
+            var tensp = c["Tensanpham"];
+            ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
+            ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
+            if (fileupload == null)
+            {
+                sp.Tensanpham = c["Tensanpham"];
+                UpdateModel(sp);
+                data.SubmitChanges();
+                return RedirectToAction("Sanpham");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var fileName = Path.GetFileName(fileupload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Hinhsanpham"), fileName);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                    }
+                    else
+                    {
+                        fileupload.SaveAs(path);
+                    }
+                    sp.Hinhanh = fileName;
+                    UpdateModel(sp);
+                    data.SubmitChanges();
+                }
+            }
+            return RedirectToAction("Sanpham");
+        }
+        public ActionResult Chitietsp(string id)
+        {
+            SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
+            ViewBag.Masach = sp.Idsp;
+            if (sp == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(sp);
+        }
         public ActionResult Sanpham(int ?page)
         {
             int pageNum = (page ?? 1);
