@@ -1,0 +1,96 @@
+﻿@model WebPhuKien.Models.SANPHAM
+
+@{
+    ViewBag.Title = "Xoasp";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Xác Nhận Thông Tin Sản Phẩm Cần Xóa</h2>
+
+<h3>Bạn có muốn xóa sản phẩm này ?</h3>
+<div>
+    <hr />
+
+    <dl class="dl-horizontal">
+        <dt>
+            ID Sản Phẩm:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Idsp)
+        </dd>
+
+        <dt>
+            Nhà Sản Xuất:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NHASANXUAT.Tennsx)
+        </dd>
+
+        <dt>
+            Loai:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LOAISANPHAM.Tenloai)
+        </dd>
+
+        <dt>
+            Tên Sản Phẩm:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tensanpham)
+        </dd>
+
+        <dt>
+            Thông Tin:
+        </dt>
+
+        <dd>
+            @Html.Raw(@Model.Thongtin)
+        </dd>
+
+        <dt>
+            Số Lượng Tồn:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Soluongcon)
+        </dd>
+
+        <dt>
+            Đơn Giá:
+        </dt>
+
+        <dd>
+            @String.Format("{0:0,0}", Model.Dongia) Vnđ
+        </dd>
+
+        <dt>
+            Hình:
+        </dt>
+
+        <dd>
+            <img src="@Url.Content("~/Hinhsanpham/"+Model.Hinhanh)" height="200px" width="200px" />
+        </dd>
+
+        <dt>
+            Ngày cập nhật:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Ngaycapnhat)
+        </dd>
+
+    </dl>
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Trở Về", "Sanpham")
+        </div>
+    }
+</div>

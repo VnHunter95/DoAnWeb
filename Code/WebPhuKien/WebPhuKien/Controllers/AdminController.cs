@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebPhuKien.Models;
+using PagedList;
+using PagedList.Mvc;
+using System.IO;
 namespace WebPhuKien.Controllers
 {
     public class AdminController : Controller
@@ -16,8 +19,207 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+        [HttpGet]
+        public ActionResult Xoabanner(string banner)
+        {
+            var b = data.BANNERs.FirstOrDefault(n => n.Banner1 == banner);
+            if (b == null)
+            {
+                Response.StatusCode = 404;
+                return null; 
+            }
+            return View(b);
+        }
+        [HttpPost]
+        public ActionResult Xoabanner(string banner,FormCollection c)
+        {
+            var b = data.BANNERs.FirstOrDefault(n => n.Banner1 == banner);
+            if (b == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            string fullPath = Request.MapPath("~/Banner/" + banner);
+            if (System.IO.File.Exists(fullPath))
+            {
+                System.IO.File.Delete(fullPath);
+            }
+            data.BANNERs.DeleteOnSubmit(b);
+            data.SubmitChanges();
+            return RedirectToAction("Banner");
+        }
+        public ActionResult Banner(int? page)
+        {
+            int pageNumber = (page ?? 1);
+            int pageSize = 3;
+            return View(data.BANNERs.ToList().ToPagedList(pageNumber,pageSize));
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Banner(BANNER b, HttpPostedFileBase fileupload)
+        {
+            if (fileupload == null)
+            {
 
+                ViewBag.Thongbao = "Hảy Chọn File Hình !";
+                return View();
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var fileName = Path.GetFileName(fileupload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Banner"), fileName);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.Thongbao = "File đã tồn tại";
+                    }
+                    else
+                    {
+                        fileupload.SaveAs(path);
+                    }
+                    b.Banner1 = fileName;
+                    data.BANNERs.InsertOnSubmit(b);
+                    data.SubmitChanges();
+                }
+            }
+            return RedirectToAction("Banner");
+        }
+        [HttpGet]
+        public ActionResult Xoasp(string id)
+        { 
+            SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
+                
+                if (sp == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                ViewBag.Masach = sp.Idsp;
+                return View(sp);
+        }
+        [HttpPost,ActionName("Xoasp")]
+        public ActionResult Xacnhanxoa(string id)
+        {
+             SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
+                if (sp == null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+                ViewBag.Masach = sp.Idsp;
+                data.SANPHAMs.DeleteOnSubmit(sp);
+                data.SubmitChanges();
+                return RedirectToAction("Sanpham");
+        }
+        [HttpGet]
+        public ActionResult Suasp(string id)
+        {
+            SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
+            ViewBag.Masach = sp.Idsp;
+            if (sp == null)
+            {
+                Response.StatusCode = 404;
+                return null;
 
+            }
+            ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
+            ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
+          
+            return View(sp);
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Suasp(SANPHAM sp, HttpPostedFileBase fileupload, FormCollection c)
+        {
+            var tensp = c["Tensanpham"];
+            ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
+            ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
+            if (fileupload == null)
+            {
+                sp.Tensanpham = c["Tensanpham"];
+                UpdateModel(sp);
+                data.SubmitChanges();
+                return RedirectToAction("Sanpham");
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var fileName = Path.GetFileName(fileupload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Hinhsanpham"), fileName);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                    }
+                    else
+                    {
+                        fileupload.SaveAs(path);
+                    }
+                    sp.Hinhanh = fileName;
+                    UpdateModel(sp);
+                    data.SubmitChanges();
+                }
+            }
+            return RedirectToAction("Sanpham");
+        }
+        public ActionResult Chitietsp(string id)
+        {
+            SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
+            ViewBag.Masach = sp.Idsp;
+            if (sp == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(sp);
+        }
+        public ActionResult Sanpham(int ?page)
+        {
+            int pageNum = (page ?? 1);
+            int pageSize = 7;
+            return View(data.SANPHAMs.ToList().OrderBy(n=>n.Idsp).ToPagedList(pageNum,pageSize));
+        }
+        [HttpGet]
+        public ActionResult Themsanpham()
+        {
+            ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
+            ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
+            return View();
+        }
+        [HttpPost]
+        [ValidateInput(false)]
+        public ActionResult Themsanpham(SANPHAM sp, HttpPostedFileBase fileupload)
+        {
+            ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
+            ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
+            if (fileupload == null)
+            {
+                
+                ViewBag.Thongbao = "Hảy Chọn Ảnh Sản Phẩm";
+                return View();
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var fileName = Path.GetFileName(fileupload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Hinhsanpham"), fileName);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                    }
+                    else
+                    {
+                        fileupload.SaveAs(path);
+                    }
+                    sp.Hinhanh = fileName;
+                    data.SANPHAMs.InsertOnSubmit(sp);
+                    data.SubmitChanges();
+                }
+            }
+            return RedirectToAction("Sanpham");
+        }
         [HttpGet]
         public ActionResult Login()
         {
