@@ -5,17 +5,23 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Themsanpham</h2>
+<h2>Thêm sản phẩm mới</h2>
 
-@using (Html.BeginForm("Themsanpham", "Admin", FormMethod.Post, new {@enctype="mutipart/form-data" }))
+@using (Html.BeginForm("Themsanpham", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>SANPHAM</h4>
         <hr />
         @Html.ValidationSummary(true)
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.Idsp, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Idsp)
+    @Html.ValidationMessageFor(model => model.Idsp)
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Idnsx, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -41,8 +47,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Thongtin, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Thongtin)
-                @Html.ValidationMessageFor(model => model.Thongtin)
+                <textarea name="Thongtin">Mô Tả Thông Tin Sản Phẩm</textarea>
             </div>
         </div>
 
@@ -80,12 +85,12 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Thêm Mới" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Trở Về", "Sanpham")
 </div>

@@ -34,21 +34,37 @@ namespace WebPhuKien.Controllers
             return View();
         }
         [HttpPost]
+        [ValidateInput(false)]
         public ActionResult Themsanpham(SANPHAM sp, HttpPostedFileBase fileupload)
         {
-            var fileName = Path.GetFileName(fileupload.FileName);
-            var path = Path.Combine(Server.MapPath("~/Hinhsanpham"), fileName);
-            if (System.IO.File.Exists(path))
-            {
-                ViewBag.Thongbao = "Hình ảnh đã tồn tại";
-            }
-            else 
-            {
-                fileupload.SaveAs(path);
-            }
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
-            return View();
+            if (fileupload == null)
+            {
+                
+                ViewBag.Thongbao = "Hảy Chọn Ảnh Sản Phẩm";
+                return View();
+            }
+            else
+            {
+                if (ModelState.IsValid)
+                {
+                    var fileName = Path.GetFileName(fileupload.FileName);
+                    var path = Path.Combine(Server.MapPath("~/Hinhsanpham"), fileName);
+                    if (System.IO.File.Exists(path))
+                    {
+                        ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                    }
+                    else
+                    {
+                        fileupload.SaveAs(path);
+                    }
+                    sp.Hinhanh = fileName;
+                    data.SANPHAMs.InsertOnSubmit(sp);
+                    data.SubmitChanges();
+                }
+            }
+            return RedirectToAction("Sanpham");
         }
         [HttpGet]
         public ActionResult Login()
