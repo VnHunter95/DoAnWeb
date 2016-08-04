@@ -1,0 +1,83 @@
+﻿@model IEnumerable<WebPhuKien.Models.DONDATHANG>
+
+@{
+    ViewBag.Title = "Dondathang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Đơn Hàng Chưa Hoàn Thành</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Username
+        </th>
+        <th>
+            Ngày Đặt
+        </th>
+        <th>
+            Ngày Giao
+        </th>
+        <th>
+            Đã Thanh Toán
+        </th>
+        <th>
+            Đã Giao Hàng
+        </th>
+        <th width="100px">
+            Tên Người Nhận
+        </th>
+        <th width="100px">
+            SĐT Liên Lạc
+        </th>
+        <th>
+            Địa Chỉ Giao
+        </th>
+        <th>
+            Email Liên Lạc
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    using (Html.BeginForm("Capnhatdonhang", "Admin", new { SoHD = item.SoHD }))
+    {
+        Html.ValidationSummary(true);
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @item.Ngaydat.Value.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @item.Ngaygiao.Value.ToString("dd/MM/yyyy")
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => item.Dathanhtoan.Value, new {@name = "thanhtoan" })
+        </td>
+        <td>
+            @Html.CheckBoxFor(modelItem => item.Tinhtranggiaohang.Value, new { @name = "giaohang" })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenNguoiNhan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sdtnguoinhan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diachinguoinhan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Emailnguoinhan)
+        </td>
+        <td>
+            <input type="submit" value="Cập Nhật" />
+            @Html.ActionLink("Chi Tiết", "Chitiethd", new { SoHD = item.SoHD }) |
+            @Html.ActionLink("Delete", "Xóahd", new { SoHD = item.SoHD })
+        </td>
+    </tr>
+    }
+}
+
+</table>

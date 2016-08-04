@@ -19,6 +19,77 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+        //HoaDon
+        [HttpPost]
+        public ActionResult Capnhatdonhang(int SoHD,FormCollection c)
+        {
+            DONDATHANG hd = data.DONDATHANGs.FirstOrDefault(n => n.SoHD == SoHD);
+            hd.Tinhtranggiaohang=Boolean.Parse(c["giaohang"]);
+            hd.Dathanhtoan = Boolean.Parse(c["thanhtoan"]);
+            return RedirectToAction("Dondathang");
+        }
+        public ActionResult Dondathang()
+        {
+            return View(data.DONDATHANGs.ToList());
+        }
+        [HttpPost]
+        public ActionResult Suattkhcthd(int SoHD, FormCollection collection)
+        {
+            DONDATHANG hd = data.DONDATHANGs.FirstOrDefault(n=>n.SoHD==SoHD);
+            string tennguoinhan = collection["Tennguoinhan"];
+            string diachinhan = collection["Diachinhan"];
+            string sdtnhan = collection["Sdtnguoinhan"];
+            if (String.IsNullOrEmpty(tennguoinhan))
+            {
+                ViewData["LoiTen"] = "Hãy nhập tên người nhận !";
+                return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+            }
+            if (String.IsNullOrEmpty(diachinhan))
+            {
+                ViewData["LoiDiachi"] = "Hãy nhập địa chỉ người nhận !";
+                return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+            }
+            if (String.IsNullOrEmpty(sdtnhan))
+            {
+                ViewData["LoiSdt"] = "Hãy nhập số điện thoại người nhận !";
+                return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+            }
+            if (collection["Ngaygiao"] != null)
+            {
+                var ngaygiao = String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]);
+                hd.Ngaygiao = DateTime.Parse(ngaygiao);
+            }
+            hd.Emailnguoinhan = collection["Emailnhan"];
+            hd.TenNguoiNhan = tennguoinhan;
+            hd.Diachinguoinhan = diachinhan;
+            hd.Sdtnguoinhan = sdtnhan;
+            UpdateModel(hd);
+            data.SubmitChanges();
+            return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+        }
+        public ActionResult Capnhatdonhang(DONDATHANG hd)
+        { 
+          UpdateModel(hd);
+          data.SubmitChanges();
+          return RedirectToAction("Dondathang");  
+        }
+        [HttpPost]
+        public ActionResult Capnhat1sptrongcthd(int SoHD, string IdSP,FormCollection c)
+        {
+            int soluong = int.Parse(c["soluong"]);
+            CT_DDH ct = data.CT_DDHs.SingleOrDefault(n => n.SoHD == SoHD && n.Idsp == IdSP);
+            ct.Soluong = soluong;
+            UpdateModel(ct);
+            data.SubmitChanges();
+            return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+        }
+        [HttpGet]
+        public ActionResult Chitiethd(int SoHD)
+        {
+            return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD));
+        }
+        //End HoaDon
+        //banner
         [HttpGet]
         public ActionResult Xoabanner(string banner)
         {
@@ -85,6 +156,9 @@ namespace WebPhuKien.Controllers
             }
             return RedirectToAction("Banner");
         }
+        //End Banner
+
+        //SanPham
         [HttpGet]
         public ActionResult Xoasp(string id)
         { 
@@ -220,6 +294,7 @@ namespace WebPhuKien.Controllers
             }
             return RedirectToAction("Sanpham");
         }
+        //end Sanpham
         [HttpGet]
         public ActionResult Login()
         {
