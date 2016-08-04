@@ -220,6 +220,111 @@ namespace WebPhuKien.Controllers
             }
             return RedirectToAction("Sanpham");
         }
+        public ActionResult NSX()
+        {
+            var nsx = data.NHASANXUATs.Select(n => n);
+            return View(nsx);
+        }
+        public ActionResult LoaiSP()
+        {
+            var loai = data.LOAISANPHAMs.Select(n => n);
+            return View(loai);
+        }
+        public ActionResult EditLSP(string idloai)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditLSP(string Idloai, FormCollection c)
+        {
+
+            var nv = data.LOAISANPHAMs.First(n => n.Idloai == Idloai);
+            data.LOAISANPHAMs.DeleteOnSubmit(nv);
+            LOAISANPHAM sp2 = new LOAISANPHAM();
+            string ten = c["Tenloai"];
+            sp2.Idloai = Idloai;
+            sp2.Tenloai = ten;           
+            data.LOAISANPHAMs.InsertOnSubmit(sp2);
+            data.SubmitChanges();
+            return RedirectToAction("LoaiSP", "Admin");
+        }
+        public ActionResult DetailsLSP()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult CreateLSP()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateLSP(FormCollection c)
+        {
+            var Maloai = c["Idloai"];
+            var ten = c["Tenloai"];
+            LOAISANPHAM sp = new LOAISANPHAM();
+            sp.Idloai = Maloai;
+            sp.Tenloai = ten;
+            data.LOAISANPHAMs.InsertOnSubmit(sp);
+            data.SubmitChanges();
+            return RedirectToAction("LoaiSP", "Admin");
+        }
+        [HttpPost]
+        public ActionResult DeleteLSP(string idloai, FormCollection c)
+        {
+            var sp = data.LOAISANPHAMs.First(n => n.Idloai == idloai);
+            data.LOAISANPHAMs.DeleteOnSubmit(sp);
+            data.SubmitChanges();
+            return RedirectToAction("LoaiSP", "Admin");
+        }
+        public ActionResult EditNSX(string idloai)
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult EditNSX(string Idnsx, FormCollection c)
+        {
+
+            var nsx = data.NHASANXUATs.First(n => n.Idnsx == Idnsx);
+            data.NHASANXUATs.DeleteOnSubmit(nsx);
+            NHASANXUAT nsx2 = new NHASANXUAT();
+            string ten = c["Tennsx"];
+            string dc = c["Diachi"];
+            string sdt = c["Sdtnsx"];
+            nsx2.Idnsx = Idnsx;
+            nsx2.Tennsx = ten;
+            nsx2.Diachi = dc;
+            nsx2.Sdtnsx = sdt;
+            data.NHASANXUATs.InsertOnSubmit(nsx2);
+            data.SubmitChanges();
+            return RedirectToAction("NSX", "Admin");
+        }
+        public ActionResult DetailsNSX()
+        {
+            return View();
+        }
+        public ActionResult CreateNSX()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateNSX(FormCollection c)
+        {
+            var id = c["Idnsx"];
+            var ten = c["Tennsx"];
+            var dc = c["Diachi"];
+            var sdt = c["Sdtnsx"];
+            NHASANXUAT nsx = new NHASANXUAT();
+            nsx.Idnsx = id;
+            nsx.Tennsx = ten;
+            nsx.Diachi = dc;
+            nsx.Sdtnsx = sdt;
+            data.NHASANXUATs.InsertOnSubmit(nsx);
+            data.SubmitChanges();
+            return RedirectToAction("NSX", "Admin");
+        }
         [HttpGet]
         public ActionResult Login()
         {

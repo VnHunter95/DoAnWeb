@@ -498,6 +498,14 @@
     <Content Include="Views\Admin\Suasp.cshtml" />
     <Content Include="Views\Admin\Banner.cshtml" />
     <Content Include="Views\Admin\Xoabanner.cshtml" />
+    <Content Include="Views\Admin\NSX.cshtml" />
+    <Content Include="Views\Admin\LoaiSP.cshtml" />
+    <Content Include="Views\Admin\EditLSP.cshtml" />
+    <Content Include="Views\Admin\EditNSX.cshtml" />
+    <Content Include="Views\Admin\DetailsLSP.cshtml" />
+    <Content Include="Views\Admin\CreateLSP.cshtml" />
+    <Content Include="Views\Admin\DetailsNSX.cshtml" />
+    <Content Include="Views\Admin\CreateNSX.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

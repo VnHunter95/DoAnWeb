@@ -1,0 +1,42 @@
+﻿@model WebPhuKien.Models.NHASANXUAT
+
+@{
+    ViewBag.Title = "DetailsNSX";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thông tin nhà sản xuất</h2>
+
+<div>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tennsx)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tennsx)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Diachi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diachi)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Sdtnsx)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sdtnsx)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Điều chỉnh", "EditNSX", new { id = Model.Idnsx }) |
+    @Html.ActionLink("Trở về trang trước", "NSX")
+</p>

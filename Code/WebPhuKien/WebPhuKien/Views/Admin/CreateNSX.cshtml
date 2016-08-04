@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "CreateNSX";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thêm Nhà sản xuất</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Tạo mới</legend>
+        <p>
+            Nhập mã cho nhà sản xuất:
+            @Html.TextBox("Idnsx")
+            @ViewData["Loi1"]
+        </p>
+        <p>
+            Nhập tên nhà sản xuất:
+            @Html.TextBox("Tennsx")
+            @ViewData["Loi2"]
+        </p>
+        <p>
+            Địa chỉ:
+            @Html.TextBox("Diachi")
+            @ViewData["Loi3"]
+        </p>
+        <p>
+            Số điện thoại liên lạc:
+            @Html.TextBox("Sdtnsx")
+            @ViewData["Loi4"]
+        </p>
+        <p>
+            <input type="submit" value="Tạo mơi" />
+        </p>
+    </fieldset>
+
+}
+@Html.ActionLink("Trở về trang trước", "LoaiSP", "Admin")
+
