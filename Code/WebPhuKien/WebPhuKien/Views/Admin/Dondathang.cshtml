@@ -54,10 +54,10 @@
             @item.Ngaygiao.Value.ToString("dd/MM/yyyy")
         </td>
         <td>
-            @Html.CheckBoxFor(modelItem => item.Dathanhtoan.Value, new {@name = "thanhtoan" })
+            @Html.CheckBoxFor(modelItem => item.Dathanhtoan)
         </td>
         <td>
-            @Html.CheckBoxFor(modelItem => item.Tinhtranggiaohang.Value, new { @name = "giaohang" })
+            @Html.CheckBoxFor(modelItem => item.Tinhtranggiaohang.Value)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TenNguoiNhan)

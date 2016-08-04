@@ -23,9 +23,10 @@ namespace WebPhuKien.Controllers
         [HttpPost]
         public ActionResult Capnhatdonhang(int SoHD,FormCollection c)
         {
+            var test = c["thanhtoan"];
             DONDATHANG hd = data.DONDATHANGs.FirstOrDefault(n => n.SoHD == SoHD);
-            hd.Tinhtranggiaohang=Boolean.Parse(c["giaohang"]);
-            hd.Dathanhtoan = Boolean.Parse(c["thanhtoan"]);
+            hd.Tinhtranggiaohang = Boolean.Parse(c["Tinhtranggiaohang"]);
+            hd.Dathanhtoan = Boolean.Parse(c["Dathanhtoan"]);
             return RedirectToAction("Dondathang");
         }
         public ActionResult Dondathang()
