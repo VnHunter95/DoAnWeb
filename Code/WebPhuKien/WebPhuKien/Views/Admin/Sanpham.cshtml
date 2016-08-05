@@ -68,7 +68,7 @@
             @Html.DisplayFor(modelItem => item.LOAISANPHAM.Tenloai)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Dongia)
+            @String.Format("{0:0,0}", item.Dongia) Vnđ
         </td>
         <td>
             @Html.Raw(Truncate(item.Thongtin,30))

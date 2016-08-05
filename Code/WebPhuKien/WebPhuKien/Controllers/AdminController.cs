@@ -202,6 +202,11 @@ namespace WebPhuKien.Controllers
                     return null;
                 }
                 ViewBag.Masach = sp.Idsp;
+                string fullPath = Request.MapPath("~/Hinhsanpham/" + sp.Hinhanh);
+                if (System.IO.File.Exists(fullPath))
+                {
+                    System.IO.File.Delete(fullPath);
+                }
                 data.SANPHAMs.DeleteOnSubmit(sp);
                 data.SubmitChanges();
                 return RedirectToAction("Sanpham");
@@ -219,20 +224,34 @@ namespace WebPhuKien.Controllers
             }
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
-          
             return View(sp);
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Suasp(SANPHAM sp, HttpPostedFileBase fileupload, FormCollection c)
+        public ActionResult Suasp(SANPHAM sp, HttpPostedFileBase fileUpdate, FormCollection collection)
         {
-            var tensp = c["Tensanpham"];
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
-            if (fileupload == null)
+            SANPHAM spmoi = data.SANPHAMs.First(n => n.Idsp == sp.Idsp);
+            string nsx = collection["IdNsx"];
+            string loai = collection["IdLoai"];
+            string thongtin = collection["Thongtin"];
+            string Hinhanh= spmoi.Hinhanh;
+
+            spmoi.Idnsx = nsx;
+            spmoi.Idloai = loai;
+            spmoi.Thongtin = thongtin;
+            spmoi.Tensanpham = sp.Tensanpham;
+            spmoi.Soluongcon = sp.Soluongcon;
+            spmoi.Dongia = sp.Dongia;
+            if (collection["Ngaycapnhat"] != null)
             {
-                sp.Tensanpham = c["Tensanpham"];
-                UpdateModel(sp);
+                var ngayupdate = String.Format("{0:MM/dd/yyyy}", collection["Ngaycapnhat"]);
+                spmoi.Ngaycapnhat = DateTime.Parse(ngayupdate);
+            }
+            if (fileUpdate == null)
+            {
+                UpdateModel(spmoi);
                 data.SubmitChanges();
                 return RedirectToAction("Sanpham");
             }
@@ -240,7 +259,7 @@ namespace WebPhuKien.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var fileName = Path.GetFileName(fileupload.FileName);
+                    var fileName = Path.GetFileName(fileUpdate.FileName);
                     var path = Path.Combine(Server.MapPath("~/Hinhsanpham"), fileName);
                     if (System.IO.File.Exists(path))
                     {
@@ -248,11 +267,17 @@ namespace WebPhuKien.Controllers
                     }
                     else
                     {
-                        fileupload.SaveAs(path);
+                        fileUpdate.SaveAs(path);
+                        string fullPath = Request.MapPath("~/Hinhsanpham/" + Hinhanh);
+                        if (System.IO.File.Exists(fullPath))
+                        {
+                            System.IO.File.Delete(fullPath);
+                        }
+                        spmoi.Hinhanh = fileName;
+                        UpdateModel(spmoi);
+                        data.SubmitChanges();
                     }
-                    sp.Hinhanh = fileName;
-                    UpdateModel(sp);
-                    data.SubmitChanges();
+                    
                 }
             }
             return RedirectToAction("Sanpham");

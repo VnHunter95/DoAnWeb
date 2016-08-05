@@ -7,7 +7,7 @@
 
 <h2>Điều Chỉnh Thông Tin Sản Phẩm</h2>
 
-@using (Html.BeginForm("Suasp", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Suasp", "Admin", FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     
@@ -79,8 +79,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Ngaycapnhat, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Ngaycapnhat)
-                @Html.ValidationMessageFor(model => model.Ngaycapnhat)
+                <input type="date" name="Ngaycapnhat" value="@Model.Ngaycapnhat.Value.ToString("yyyy-MM-dd")" />
             </div>
         </div>
 
@@ -93,5 +92,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Trở Về", "Sản Phẩm")
 </div>
