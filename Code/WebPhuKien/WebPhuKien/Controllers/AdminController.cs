@@ -312,6 +312,40 @@ namespace WebPhuKien.Controllers
         {
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
+            if (String.IsNullOrEmpty(sp.Idsp) || sp.Idsp.Length > 5)
+            {
+                ViewData["Loi1"] = "Vui lòng Nhập ID Không Quá 5 Ký Tự";
+                return View();
+            }
+
+            if(data.SANPHAMs.FirstOrDefault(n=>n.Idsp== sp.Idsp)!= null)
+            {
+                 ViewData["Loi1"] = "Trùng ID SP Trong Cở Sở Dữ Liệu !";
+                return View();
+            }
+        
+        
+            if (String.IsNullOrEmpty(sp.Tensanpham) || sp.Tensanpham.Length > 50)
+            {
+                ViewData["Loi2"] = "Vui lòng Nhập Tên SP Không Quá 50 Ký Tự";
+                return View();
+            }
+            if (String.IsNullOrEmpty(sp.Thongtin) || sp.Thongtin.Length > 300)
+            {
+                ViewData["Loi3"] = "Vui lòng Nhập Thông Tin SP Không Quá 300 Ký Tự ( Bao gồm các thẻ HTML )";
+                return View();
+            }
+
+            if (sp.Dongia==null||(decimal)sp.Dongia < 0)
+            {
+                ViewData["Loidongia"] = "Lỗi Đơn Giá !";
+                return View();
+            }
+            if (sp.Ngaycapnhat.Value.Year < 2000 || sp.Ngaycapnhat.Value.Year > 2100)
+            {
+                ViewData["Loi4"] = "Lỗi Ngày !";
+                return View();
+            }
             if (fileupload == null)
             {
                 
@@ -327,6 +361,7 @@ namespace WebPhuKien.Controllers
                     if (System.IO.File.Exists(path))
                     {
                         ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                        return View();
                     }
                     else
                     {
@@ -335,9 +370,10 @@ namespace WebPhuKien.Controllers
                     sp.Hinhanh = fileName;
                     data.SANPHAMs.InsertOnSubmit(sp);
                     data.SubmitChanges();
+
                 }
+                return RedirectToAction("Sanpham");
             }
-            return RedirectToAction("Sanpham");
         }
         //end Sanpham
         [HttpGet]

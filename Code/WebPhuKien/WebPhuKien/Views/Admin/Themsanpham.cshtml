@@ -16,43 +16,46 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Idsp, new { @class = "control-label col-md-2" })
+            @Html.Label("ID", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Idsp)
-    @Html.ValidationMessageFor(model => model.Idsp)
+                @Html.ValidationMessageFor(model => model.Idsp)
+                <font color="red">@ViewData["Loi1"]</font>
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Idnsx, new { @class = "control-label col-md-2" })
+            @Html.Label("Nhà Sản Xuất", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("IdNsx");
+                @Html.DropDownList("IdNsx")
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Idloai, new { @class = "control-label col-md-2" })
+            @Html.Label("Loại", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdLoai")
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Tensanpham, new { @class = "control-label col-md-2" })
+            @Html.Label("Tên Sản Phẩm", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Tensanpham)
                 @Html.ValidationMessageFor(model => model.Tensanpham)
+                <font color="red">@ViewData["Loi2"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Thongtin, new { @class = "control-label col-md-2" })
+            @Html.Label("Thông Tin", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <textarea name="Thongtin">Mô Tả Thông Tin Sản Phẩm</textarea>
+                <font color="red">@ViewData["Loi3"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Soluongcon, new { @class = "control-label col-md-2" })
+            @Html.Label("Số Lượng Tồn", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Soluongcon)
                 @Html.ValidationMessageFor(model => model.Soluongcon)
@@ -60,26 +63,28 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Dongia, new { @class = "control-label col-md-2" })
+            @Html.Label("Đơn Giá", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Dongia)
                 @Html.ValidationMessageFor(model => model.Dongia)
+                <font color="red">@Html.ViewData["Loidongia"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Hinhanh, new { @class = "control-label col-md-2" })
+            @Html.Label("Hình Ảnh", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="file" name="fileupload" />
-                @ViewBag.Thongbao
+                <font color="red">@ViewBag.Thongbao</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Ngaycapnhat, new { @class = "control-label col-md-2" })
+            @Html.Label("Ngày Cập Nhật", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="date" name="Ngaycapnhat" />
+                <input type="date" name="Ngaycapnhat" value="@DateTime.Today.ToString("yyyy-MM-dd")"/>
                 @Html.ValidationMessageFor(model => model.Ngaycapnhat)
+                @Html.ViewData["Loi4"]
             </div>
         </div>
 
