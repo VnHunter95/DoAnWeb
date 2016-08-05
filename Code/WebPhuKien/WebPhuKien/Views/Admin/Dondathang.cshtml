@@ -54,10 +54,24 @@
             @item.Ngaygiao.Value.ToString("dd/MM/yyyy")
         </td>
         <td>
-            @Html.CheckBoxFor(modelItem => item.Dathanhtoan)
+            @if (item.Dathanhtoan.Value == true)
+            {
+                <input type="checkbox" id="Thanhtoan" name="Thanhtoan" value="" checked />
+            }
+            else
+            {
+                <input type="checkbox" id="Thanhtoan" name="Thanhtoan" value="" />
+            } 
         </td>
         <td>
-            @Html.CheckBoxFor(modelItem => item.Tinhtranggiaohang.Value)
+            @if(item.Tinhtranggiaohang.Value==true)
+            {
+            <input type="checkbox" id="Tinhtrang" name="Tinhtrang" value="" checked />
+            }
+            else
+            {
+            <input type="checkbox" id="Tinhtrang" name="Tinhtrang" value="" />
+            } 
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TenNguoiNhan)

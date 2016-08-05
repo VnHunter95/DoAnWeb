@@ -21,14 +21,33 @@ namespace WebPhuKien.Controllers
         }
         //HoaDon
         [HttpPost]
-        public ActionResult Capnhatdonhang(int SoHD,FormCollection c)
+        public ActionResult Capnhatdonhang(int SoHD, FormCollection collection)
         {
-            var test = c["thanhtoan"];
+             string Tinhtrang = Request.Form["Tinhtrang"];
+             string Thanhtoan = Request.Form["Thanhtoan"];
+             
             DONDATHANG hd = data.DONDATHANGs.FirstOrDefault(n => n.SoHD == SoHD);
-            hd.Tinhtranggiaohang = Boolean.Parse(c["Tinhtranggiaohang"]);
-            hd.Dathanhtoan = Boolean.Parse(c["Dathanhtoan"]);
+            if (Tinhtrang == null)
+            {
+                hd.Tinhtranggiaohang = false;
+            }
+            else
+            {
+                hd.Tinhtranggiaohang = true;
+            }
+            if (Thanhtoan == null)
+            {
+                hd.Dathanhtoan = false;
+            }
+            else
+            {
+                hd.Dathanhtoan = true;
+            }
+            UpdateModel(hd);
+            data.SubmitChanges();
             return RedirectToAction("Dondathang");
         }
+        [HttpGet]
         public ActionResult Dondathang()
         {
             return View(data.DONDATHANGs.ToList());
