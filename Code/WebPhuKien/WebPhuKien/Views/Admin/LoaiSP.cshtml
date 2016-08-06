@@ -8,12 +8,14 @@
 <h2>Quản lý Loại Sản phẩm</h2>
 
 <p>
-    @Html.ActionLink("Thêm mới", "CreateLSP")
+    <button type="button">
+        @Html.ActionLink("Thêm mới", "CreateLSP")
+    </button>
 </p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Tenloai)
+        <th style="text-align:center">
+            Tên loại
         </th>
         <th></th>
     </tr>
@@ -24,9 +26,9 @@
             @Html.DisplayFor(modelItem => item.Tenloai)
         </td>
         <td>
-            @Html.ActionLink("Chỉnh sửa", "EditLSP", new { id=item.Idloai }) |
-            @Html.ActionLink("Chi tiết", "DetailsLSP", new { id=item.Idloai }) |
-            @Html.ActionLink("Xóa", "DeleteLSP", new { id=item.Idloai })
+            @Html.ActionLink("Chỉnh sửa", "EditLSP", new { idloai =item.Idloai }) |
+            @Html.ActionLink("Chi tiết", "DetailsLSP", new { idloai =item.Idloai }) |
+            @Html.ActionLink("Xóa", "DeleteLSP", new { idloai =item.Idloai })
         </td>
     </tr>
 }

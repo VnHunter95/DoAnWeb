@@ -73,13 +73,13 @@ namespace WebPhuKien.Controllers
             var diachi = collection["Diachi"];
             var email = collection["Email"];
             
-            if (String.IsNullOrEmpty(user))
+            if (String.IsNullOrEmpty(user) || user.Length>16)
             {
-                ViewData["Loi1"] = "Không được bỏ trống tên đăng nhập";
+                ViewData["Loi1"] = "Vui lòng kiểm tra lại! Không được để trống hoặc đặt hơn 16 ký tự!";
             }
-            if (String.IsNullOrEmpty(pass))
+            if (String.IsNullOrEmpty(pass) || pass.Length>16)
             {
-                ViewData["Loi2"] = "Không được bỏ trống mật khẩu";
+                ViewData["Loi2"] = "Password không được để trống hoặc dài hơn 16 ký tự!";
             }
             else if (pass.CompareTo(pass2) != 0)
             {

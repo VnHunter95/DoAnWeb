@@ -14,19 +14,19 @@
     <div class="form-horizontal">        
         <hr />
         @Html.ValidationSummary(true)
-        @Html.DisplayNameFor(model => model.Idloai)
-
+        Mã loại:
         <div class="form-group">
             @Html.LabelFor(model => model.Tenloai, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Tenloai)
                 @Html.ValidationMessageFor(model => model.Tenloai)
+                @ViewData["Loi"]
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Cập nhật" class="btn btn-default" />
             </div>
         </div>
     </div>

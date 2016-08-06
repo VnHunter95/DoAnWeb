@@ -11,7 +11,7 @@
 	<hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Tennsx)
+            Tên Nhà sản xuất:
         </dt>
 
         <dd>
@@ -19,7 +19,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Diachi)
+            Địa chỉ:
         </dt>
 
         <dd>
@@ -27,7 +27,7 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Sdtnsx)
+           Số điện thoại:
         </dt>
 
         <dd>
@@ -37,6 +37,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Điều chỉnh", "EditNSX", new { id = Model.Idnsx }) |
+    @Html.ActionLink("Điều chỉnh", "EditNSX", new { idnsx = Model.Idnsx }) |
     @Html.ActionLink("Trở về trang trước", "NSX")
 </p>

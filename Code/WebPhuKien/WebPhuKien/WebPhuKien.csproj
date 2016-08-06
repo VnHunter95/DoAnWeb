@@ -506,6 +506,13 @@
     <Content Include="Views\Admin\CreateLSP.cshtml" />
     <Content Include="Views\Admin\DetailsNSX.cshtml" />
     <Content Include="Views\Admin\CreateNSX.cshtml" />
+    <Content Include="Views\Admin\DeleteLSP.cshtml" />
+    <Content Include="Views\Admin\DeleteNSX.cshtml" />
+    <Content Include="Views\Admin\Phanhoi.cshtml" />
+    <Content Include="Views\Admin\TTShop.cshtml" />
+    <Content Include="Views\Admin\EditTTShop.cshtml" />
+    <Content Include="Views\Admin\QLAdmin.cshtml" />
+    <Content Include="Views\Admin\Changepass.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
