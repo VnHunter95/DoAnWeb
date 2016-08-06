@@ -19,6 +19,134 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+        //Code Khác
+        bool KiemTraStringLaSo(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= '0' && c <= '9')))
+                {
+
+                }
+                else
+                    return false;
+            }
+            return true;
+        }
+        bool KiemTraStringLaChu(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c==' '))
+                {
+
+                }
+                else
+                    return false;
+            }
+            return true;
+        }
+
+        //
+        //Khach hang
+        public ActionResult Khachhang(int? page)
+        {
+            int pageNum = (page ?? 1);
+            int pageSize = 1;
+            return View(data.KHACHHANGs.ToList().ToPagedList(pageNum,pageSize));
+        }
+        public ActionResult Chitietkh(string user)
+        {
+            return View(data.KHACHHANGs.First(n=>n.Username==user));
+        }
+        [HttpGet]
+        public ActionResult Suakh(string user)
+        {
+            var b = data.KHACHHANGs.FirstOrDefault(n => n.Username==user);
+            if (b == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            return View(b);
+        }
+        [HttpPost]
+        public ActionResult Suakh(KHACHHANG kh, FormCollection c)
+        
+        {
+          
+            KHACHHANG khmoi = data.KHACHHANGs.FirstOrDefault(n=>n.Username==kh.Username);
+            if (kh.Password.Length > 16 || string.IsNullOrEmpty(kh.Password))
+            { 
+                ViewData["Loi1"]= "Vui lòng nhập password ít hơn 16 ký tự !";
+                return View(kh);
+             }
+          
+            if (kh.Hoten.Length > 25 || string.IsNullOrEmpty(kh.Hoten))
+            {
+                ViewData["Loi2"] = "Vui lòng nhập Họ Tên ít hơn 25 ký tự !";
+                return View(kh);
+            }
+         
+            if (!string.IsNullOrEmpty(kh.Sdt) && (kh.Sdt.Length > 11 || kh.Sdt.Length < 10 || !KiemTraStringLaSo(kh.Sdt)))
+            {
+                    ViewData["Loi3"] = "Sai Số Điện Thoại !";
+                    return View(kh);
+                
+            }
+            
+            if (kh.Diachi.Length > 150 || string.IsNullOrEmpty(kh.Diachi))
+            {
+                ViewData["Loi4"] = "Vui lòng nhập địa chỉ ít hơn 150 ký tự !";
+                return View(kh);
+            }
+            if (kh.Email.Length > 50 || string.IsNullOrEmpty(kh.Email))
+            {
+                ViewData["Loi5"] = "Vui lòng nhập địa chỉ ít hơn 50 ký tự !";
+                return View(kh);
+            }
+            khmoi.Password = kh.Password;
+            khmoi.Hoten = kh.Hoten;
+            khmoi.Sdt = kh.Sdt;
+            khmoi.Email = kh.Email;
+            khmoi.Diachi = kh.Diachi;
+            UpdateModel(khmoi);
+            data.SubmitChanges();
+            return RedirectToAction("Khachhang");
+        }
+        [HttpGet]
+        public ActionResult Xoakh(string user)
+        {
+            
+            var b = data.KHACHHANGs.FirstOrDefault(n => n.Username == user);
+            if (b == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+
+            return View(b);
+        }
+        [HttpPost]
+        public ActionResult Xoakh(string user,FormCollection collection)
+        {
+            KHACHHANG b = data.KHACHHANGs.FirstOrDefault(n => n.Username == user);
+            var a = data.DONDATHANGs.FirstOrDefault(n => n.Username == user);
+            if (a != null)
+            {
+                ViewData["LoiTrung"] = "Cần phải xóa các Đơn Hàng liên quan Khách Hàng này mới có thể xóa thông tin khách hàng !";
+                return View(b);
+            }
+            if (b == null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            data.KHACHHANGs.DeleteOnSubmit(b);
+            data.SubmitChanges();
+            return RedirectToAction("Khachhang");
+        }
+        //
         //HoaDon
         [HttpPost]
         public ActionResult Capnhatdonhang(int SoHD, FormCollection collection)

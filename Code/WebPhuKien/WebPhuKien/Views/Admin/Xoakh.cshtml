@@ -1,0 +1,71 @@
+﻿@model WebPhuKien.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Xoakh";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Xóa Thông Tin Khách Hàng</h2>
+<h3 style="color:red; font-weight:bold;">Bạn Có Muốn Xóa Thông Tin Khách Hàng Này ?</h3>
+<h2>@ViewData["LoiTrung"]</h2>
+<div>
+    <h4>Thông Tin</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Username: 
+        </dt>
+        <dd>
+            @Html.DisplayFor(model=>model.Username)
+        </dd>
+        <dt>
+            Password: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            Họ Tên: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hoten)
+        </dd>
+
+        <dt>
+            Điện Thoại: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sdt)
+        </dd>
+
+        <dt>
+            Địa Chỉ: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diachi)
+        </dd>
+
+        <dt>
+            Email: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Xóa" class="btn btn-default" /> |
+            @Html.ActionLink("Trở Về", "Khachhang")
+        </div>
+    }
+</div>

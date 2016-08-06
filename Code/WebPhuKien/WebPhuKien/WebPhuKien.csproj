@@ -500,6 +500,10 @@
     <Content Include="Views\Admin\Xoabanner.cshtml" />
     <Content Include="Views\Admin\Dondathang.cshtml" />
     <Content Include="Views\Admin\Chitiethd.cshtml" />
+    <Content Include="Views\Admin\Khachhang.cshtml" />
+    <Content Include="Views\Admin\Chitietkh.cshtml" />
+    <Content Include="Views\Admin\Suakh.cshtml" />
+    <Content Include="Views\Admin\Xoakh.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
