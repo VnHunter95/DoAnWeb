@@ -14,9 +14,17 @@ namespace WebPhuKien.Controllers
         //
         // GET: /Admin/
         DataClasses1DataContext data = new DataClasses1DataContext();
-          
+
+        public ActionResult Error()
+        { 
+                return View();
+        }
         public ActionResult Index()
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             return View();
         }
         //Code Khác
@@ -51,17 +59,29 @@ namespace WebPhuKien.Controllers
         //Khach hang
         public ActionResult Khachhang(int? page)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             int pageNum = (page ?? 1);
             int pageSize = 30;
             return View(data.KHACHHANGs.OrderBy(n=>n.Username).ToList().ToPagedList(pageNum,pageSize));
         }
         public ActionResult Chitietkh(string user)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             return View(data.KHACHHANGs.First(n=>n.Username==user));
         }
         [HttpGet]
         public ActionResult Suakh(string user)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             var b = data.KHACHHANGs.FirstOrDefault(n => n.Username==user);
             if (b == null)
             {
@@ -74,7 +94,10 @@ namespace WebPhuKien.Controllers
         public ActionResult Suakh(KHACHHANG kh, FormCollection c)
         
         {
-          
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             KHACHHANG khmoi = data.KHACHHANGs.FirstOrDefault(n=>n.Username==kh.Username);
             if (kh.Password.Length > 16 || string.IsNullOrEmpty(kh.Password))
             { 
@@ -117,7 +140,10 @@ namespace WebPhuKien.Controllers
         [HttpGet]
         public ActionResult Xoakh(string user)
         {
-            
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             var b = data.KHACHHANGs.FirstOrDefault(n => n.Username == user);
             if (b == null)
             {
@@ -130,6 +156,10 @@ namespace WebPhuKien.Controllers
         [HttpPost]
         public ActionResult Xoakh(string user,FormCollection collection)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             KHACHHANG b = data.KHACHHANGs.FirstOrDefault(n => n.Username == user);
             var a = data.DONDATHANGs.FirstOrDefault(n => n.Username == user);
             if (a != null)
@@ -151,6 +181,10 @@ namespace WebPhuKien.Controllers
         [HttpPost]
         public ActionResult Capnhatdonhang(int SoHD, FormCollection collection)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
              string Tinhtrang = Request.Form["Tinhtrang"];
              string Thanhtoan = Request.Form["Thanhtoan"];
              
@@ -178,6 +212,10 @@ namespace WebPhuKien.Controllers
         [HttpGet]
         public ActionResult Dondathang(int ?page)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             int pageNum = (page ?? 1);
             int pageSize = 20;
             return View(data.DONDATHANGs.OrderBy(n=>n.SoHD).ToList().ToPagedList(pageNum, pageSize));
@@ -185,6 +223,10 @@ namespace WebPhuKien.Controllers
         [HttpPost]
         public ActionResult Suattkhcthd(int SoHD, FormCollection collection)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             DONDATHANG hd = data.DONDATHANGs.FirstOrDefault(n=>n.SoHD==SoHD);
             string tennguoinhan = collection["Tennguoinhan"];
             string diachinhan = collection["Diachinhan"];
@@ -218,7 +260,11 @@ namespace WebPhuKien.Controllers
             return RedirectToAction("Chitiethd", new { SoHD = SoHD });
         }
         public ActionResult Capnhatdonhang(DONDATHANG hd)
-        { 
+        {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
           UpdateModel(hd);
           data.SubmitChanges();
           return RedirectToAction("Dondathang");  
@@ -226,6 +272,10 @@ namespace WebPhuKien.Controllers
         [HttpPost]
         public ActionResult Capnhat1sptrongcthd(int SoHD, string IdSP,FormCollection c)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             int soluong = int.Parse(c["soluong"]);
             CT_DDH ct = data.CT_DDHs.SingleOrDefault(n => n.SoHD == SoHD && n.Idsp == IdSP);
             ct.Soluong = soluong;
@@ -236,6 +286,10 @@ namespace WebPhuKien.Controllers
         [HttpGet]
         public ActionResult Chitiethd(int SoHD,int ?page)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             int pageNumber = (page ?? 1);
             int pageSize = 6;
             ViewBag.SoHD = SoHD;
@@ -246,6 +300,10 @@ namespace WebPhuKien.Controllers
         [HttpGet]
         public ActionResult Xoabanner(string banner)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             var b = data.BANNERs.FirstOrDefault(n => n.Banner1 == banner);
             if (b == null)
             {
@@ -257,6 +315,10 @@ namespace WebPhuKien.Controllers
         [HttpPost]
         public ActionResult Xoabanner(string banner,FormCollection c)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             var b = data.BANNERs.FirstOrDefault(n => n.Banner1 == banner);
             if (b == null)
             {
@@ -274,6 +336,10 @@ namespace WebPhuKien.Controllers
         }
         public ActionResult Banner(int? page)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             int pageNumber = (page ?? 1);
             int pageSize = 3;
             return View(data.BANNERs.ToList().ToPagedList(pageNumber,pageSize));
@@ -282,6 +348,10 @@ namespace WebPhuKien.Controllers
         [ValidateInput(false)]
         public ActionResult Banner(BANNER b, HttpPostedFileBase fileupload)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             if (fileupload == null)
             {
 
@@ -314,7 +384,11 @@ namespace WebPhuKien.Controllers
         //SanPham
         [HttpGet]
         public ActionResult Xoasp(string id)
-        { 
+        {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
                 
                 if (sp == null)
@@ -328,6 +402,10 @@ namespace WebPhuKien.Controllers
         [HttpPost,ActionName("Xoasp")]
         public ActionResult Xacnhanxoa(string id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
              SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
                 if (sp == null)
                 {
@@ -347,6 +425,10 @@ namespace WebPhuKien.Controllers
         [HttpGet]
         public ActionResult Suasp(string id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
             ViewBag.Masach = sp.Idsp;
             if (sp == null)
@@ -363,6 +445,10 @@ namespace WebPhuKien.Controllers
         [ValidateInput(false)]
         public ActionResult Suasp(SANPHAM sp, HttpPostedFileBase fileUpdate, FormCollection collection)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
             SANPHAM spmoi = data.SANPHAMs.First(n => n.Idsp == sp.Idsp);
@@ -417,6 +503,10 @@ namespace WebPhuKien.Controllers
         }
         public ActionResult Chitietsp(string id)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             SANPHAM sp = data.SANPHAMs.SingleOrDefault(n => n.Idsp == id);
             ViewBag.Masach = sp.Idsp;
             if (sp == null)
@@ -428,6 +518,10 @@ namespace WebPhuKien.Controllers
         }
         public ActionResult Sanpham(int ?page)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             int pageNum = (page ?? 1);
             int pageSize = 7;
             return View(data.SANPHAMs.ToList().OrderBy(n=>n.Idsp).ToPagedList(pageNum,pageSize));
@@ -435,6 +529,10 @@ namespace WebPhuKien.Controllers
         [HttpGet]
         public ActionResult Themsanpham()
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
             return View();
@@ -443,6 +541,10 @@ namespace WebPhuKien.Controllers
         [ValidateInput(false)]
         public ActionResult Themsanpham(SANPHAM sp, HttpPostedFileBase fileupload)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
             if (String.IsNullOrEmpty(sp.Idsp) || sp.Idsp.Length > 5)
@@ -532,7 +634,7 @@ namespace WebPhuKien.Controllers
                 QUANTRI ad = data.QUANTRIs.SingleOrDefault(n => n.User == tendn && n.Password == mk);
                 if (ad != null)
                 {
-                    Session["Taikhoanadmin"] = ad;
+                    Session["Admin"] = ad;
                     return RedirectToAction("Index", "Admin");
                 }
                 else
