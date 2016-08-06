@@ -52,8 +52,8 @@ namespace WebPhuKien.Controllers
         public ActionResult Khachhang(int? page)
         {
             int pageNum = (page ?? 1);
-            int pageSize = 1;
-            return View(data.KHACHHANGs.ToList().ToPagedList(pageNum,pageSize));
+            int pageSize = 30;
+            return View(data.KHACHHANGs.OrderBy(n=>n.Username).ToList().ToPagedList(pageNum,pageSize));
         }
         public ActionResult Chitietkh(string user)
         {
@@ -176,9 +176,11 @@ namespace WebPhuKien.Controllers
             return RedirectToAction("Dondathang");
         }
         [HttpGet]
-        public ActionResult Dondathang()
+        public ActionResult Dondathang(int ?page)
         {
-            return View(data.DONDATHANGs.ToList());
+            int pageNum = (page ?? 1);
+            int pageSize = 20;
+            return View(data.DONDATHANGs.OrderBy(n=>n.SoHD).ToList().ToPagedList(pageNum, pageSize));
         }
         [HttpPost]
         public ActionResult Suattkhcthd(int SoHD, FormCollection collection)
@@ -232,9 +234,12 @@ namespace WebPhuKien.Controllers
             return RedirectToAction("Chitiethd", new { SoHD = SoHD });
         }
         [HttpGet]
-        public ActionResult Chitiethd(int SoHD)
+        public ActionResult Chitiethd(int SoHD,int ?page)
         {
-            return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD));
+            int pageNumber = (page ?? 1);
+            int pageSize = 6;
+            ViewBag.SoHD = SoHD;
+            return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD).ToPagedList(pageNumber,pageSize));
         }
         //End HoaDon
         //banner

@@ -1,4 +1,6 @@
-﻿@model IEnumerable<WebPhuKien.Models.DONDATHANG>
+﻿@using WebPhuKien.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<WebPhuKien.Models.DONDATHANG>
 
 @{
     ViewBag.Title = "Dondathang";
@@ -95,3 +97,11 @@
 }
 
 </table>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Dondathang", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

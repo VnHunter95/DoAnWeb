@@ -1,5 +1,6 @@
-﻿@model IEnumerable<WebPhuKien.Models.CT_DDH>
-
+﻿@using WebPhuKien.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<WebPhuKien.Models.CT_DDH>
 @{
     ViewBag.Title = "Chitiethd";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -49,6 +50,14 @@
         }
         }
 </table>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Chitiethd", new { SoHD=ViewBag.SoHD, page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
 
 <h2 style="text-align:center">Thông Tin Đơn Đặt Hàng</h2>
 <table align="center">
