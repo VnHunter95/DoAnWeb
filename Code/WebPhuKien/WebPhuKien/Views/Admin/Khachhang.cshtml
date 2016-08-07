@@ -1,0 +1,54 @@
+﻿@using WebPhuKien.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<WebPhuKien.Models.KHACHHANG>
+@{
+    ViewBag.Title = "Khachhang";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Danh Sánh Khách Hàng</h2>
+
+<p>
+    @Html.ActionLink("Tạo Mới", "Dangky","Nguoidung")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Username
+        </th>
+        <th>
+            Họ Tên
+        </th>
+        <th>
+            Email
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem=>item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hoten)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Suakh", new { user=item.Username }) |
+            @Html.ActionLink("Chi tiết", "Chitietkh", new { user=item.Username }) |
+            @Html.ActionLink("Xóa", "Xoakh", new { user=item.Username })
+        </td>
+    </tr>
+}
+</table>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Khachhang", new { page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>

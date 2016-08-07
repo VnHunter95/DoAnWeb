@@ -41,10 +41,14 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">QL Sản Phẩm</a>
+                        <a href="@Url.Action("Sanpham","Admin")">QL Sản Phẩm</a>
                     </li>
                     <li>
+<<<<<<< HEAD
                         <a href="@Url.Action("LoaiSP","Admin")">QL Loại Sản phẩm</a>
+=======
+                        <a href="@Url.Action("Dondathang","Admin")">QL Đơn Hàng </a>
+>>>>>>> refs/remotes/origin/master
                     </li>
                     <li>
                         <a href="@Url.Action("NSX","Admin")">QL Nhà sản xuất</a>
@@ -66,12 +70,7 @@
     </nav>
     <!-- Page Content -->
     <div class="container">
-        <div class="row">
-
-            </div>
-            <div class="col-md-9">
                 <div> @RenderBody() </div>
-            </div>
         </div>
     <!-- /.container -->
     <div class="container">
