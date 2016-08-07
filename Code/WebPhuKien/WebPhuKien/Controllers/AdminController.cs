@@ -610,7 +610,8 @@ namespace WebPhuKien.Controllers
                 return RedirectToAction("Sanpham");
             }
         }
-<<<<<<< HEAD
+
+        //end Sanpham
         public ActionResult NSX()
         {
             var nsx = data.NHASANXUATs.Select(n => n);
@@ -837,54 +838,51 @@ namespace WebPhuKien.Controllers
      //      var t = data.THONGTINs.First();
     //        return View(t);
      //   }
+        [HttpGet]
         public ActionResult EditTTShop()
         {
             var t = data.THONGTINs.First();
             return View(t);
         }
         [HttpPost]
-        public ActionResult EditTTShop(FormCollection c)
+        public ActionResult EditTTShop(FormCollection c,THONGTIN tt)
         {
-                var tt = data.THONGTINs.First();
-                data.THONGTINs.DeleteOnSubmit(tt);
-                THONGTIN tt2 = new THONGTIN();
-                string ten = c["Tencuahang"];
-                string dc = c["Diachi"];
-                string sdt1 = c["Sdt1"];
-                string sdt2 = c["sdt2"];
-                string e1 = c["Email1"];
-                string e2 = c["Email2"];
-                string fb = c["Facebook"];
-                tt2.Tencuahang = ten;
-                tt2.Diachi = dc;
-                tt2.Sdt1 = sdt1;
-                tt2.sdt2 = sdt2;
-                tt2.Email1 = e1;
-                tt2.Email2 = e2;
-                tt2.Facebook = fb;
-                if (string.IsNullOrEmpty(ten) || ten.Length>50)
+                ViewBag.Thongbao = null;
+                if (string.IsNullOrEmpty(tt.Tencuahang) || tt.Tencuahang.Length > 50)
                 {
                     ViewData["Loi1"] = "Tên shop không được bỏ trống hoặc quá 50 ký tự!";
+                    return View(tt);
                 }
-                if(string.IsNullOrEmpty(dc) || dc.Length>150)
+                if (string.IsNullOrEmpty(tt.Diachi) || tt.Diachi.Length > 150)
                 {
                     ViewData["Loi2"] = "Phải có địa chỉ Shop! Không được bỏ trống hoặc ghi khống!";
+                    return View(tt);
                 }
-                if(string.IsNullOrEmpty(sdt1) || sdt1.Length>11)
+                if (string.IsNullOrEmpty(tt.Sdt1) || tt.Sdt1.Length > 11 || tt.Sdt1.Length < 10)
                 {
                     ViewData["Loi3"] = "Phải có số điện thoại! Không được bỏ trống hoặc ghi khống!";
+                    return View(tt);
                 }
-                if(string.IsNullOrEmpty(e1) || e1.Length>50)
+                if (string.IsNullOrEmpty(tt.Email1) || tt.Email1.Length > 50)
                 {
                     ViewData["Loi4"] = "Vui lòng điền ghi email shop!";
+                    return View(tt);
                 }
-                else
-                {
-                    data.THONGTINs.InsertOnSubmit(tt2);
+                //data.THONGTINs.DeleteOnSubmit(tt);
+                //THONGTIN tt2 = new THONGTIN();
+                THONGTIN tt2 = data.THONGTINs.FirstOrDefault();
+                tt2.Tencuahang = tt.Tencuahang;
+                    tt2.Diachi = tt.Diachi;
+                    tt2.Sdt1 = tt.Sdt1;
+                    tt2.sdt2 = tt.sdt2;
+                    tt2.Email1 = tt.Email1;
+                    tt2.Email2 = tt.Email2;
+                    tt2.Facebook = tt.Facebook;
+                    UpdateModel(tt2);
                     data.SubmitChanges();
-                    return RedirectToAction("TTShop", "Admin");
-                }
-                return this.EditTTShop();
+                    ViewBag.Thongbao = "Cập Nhật Thành Công ";
+                    return View(tt2);
+                
             
 
         }
@@ -937,9 +935,6 @@ namespace WebPhuKien.Controllers
             }
             return this.Changepass();
         }
-=======
-        //end Sanpham
->>>>>>> refs/remotes/origin/master
         [HttpGet]
         public ActionResult Login()
         {

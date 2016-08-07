@@ -6,7 +6,7 @@
 }
 
 <h2>Điều chỉnh Thông tin Shop</h2>
-
+<font color="red"><h3>@ViewBag.Thongbao</h3></font>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
@@ -73,7 +73,7 @@
                 @Html.ValidationMessageFor(model => model.Facebook)
             </div>
         </div>
-
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Cập nhật" class="btn btn-default" />
