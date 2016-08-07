@@ -33,6 +33,9 @@ namespace WebPhuKien.Models
     partial void InsertBANNER(BANNER instance);
     partial void UpdateBANNER(BANNER instance);
     partial void DeleteBANNER(BANNER instance);
+    partial void InsertTHONGTIN(THONGTIN instance);
+    partial void UpdateTHONGTIN(THONGTIN instance);
+    partial void DeleteTHONGTIN(THONGTIN instance);
     partial void InsertCT_DDH(CT_DDH instance);
     partial void UpdateCT_DDH(CT_DDH instance);
     partial void DeleteCT_DDH(CT_DDH instance);
@@ -277,8 +280,10 @@ namespace WebPhuKien.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.THONGTIN")]
-	public partial class THONGTIN
+	public partial class THONGTIN : INotifyPropertyChanging, INotifyPropertyChanged
 	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
 		private string _Tencuahang;
 		
@@ -294,8 +299,33 @@ namespace WebPhuKien.Models
 		
 		private string _Facebook;
 		
+		private int _IdTT;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnTencuahangChanging(string value);
+    partial void OnTencuahangChanged();
+    partial void OnDiachiChanging(string value);
+    partial void OnDiachiChanged();
+    partial void OnSdt1Changing(string value);
+    partial void OnSdt1Changed();
+    partial void Onsdt2Changing(string value);
+    partial void Onsdt2Changed();
+    partial void OnEmail1Changing(string value);
+    partial void OnEmail1Changed();
+    partial void OnEmail2Changing(string value);
+    partial void OnEmail2Changed();
+    partial void OnFacebookChanging(string value);
+    partial void OnFacebookChanged();
+    partial void OnIdTTChanging(int value);
+    partial void OnIdTTChanged();
+    #endregion
+		
 		public THONGTIN()
 		{
+			OnCreated();
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Tencuahang", DbType="NVarChar(50)")]
@@ -309,7 +339,11 @@ namespace WebPhuKien.Models
 			{
 				if ((this._Tencuahang != value))
 				{
+					this.OnTencuahangChanging(value);
+					this.SendPropertyChanging();
 					this._Tencuahang = value;
+					this.SendPropertyChanged("Tencuahang");
+					this.OnTencuahangChanged();
 				}
 			}
 		}
@@ -325,7 +359,11 @@ namespace WebPhuKien.Models
 			{
 				if ((this._Diachi != value))
 				{
+					this.OnDiachiChanging(value);
+					this.SendPropertyChanging();
 					this._Diachi = value;
+					this.SendPropertyChanged("Diachi");
+					this.OnDiachiChanged();
 				}
 			}
 		}
@@ -341,7 +379,11 @@ namespace WebPhuKien.Models
 			{
 				if ((this._Sdt1 != value))
 				{
+					this.OnSdt1Changing(value);
+					this.SendPropertyChanging();
 					this._Sdt1 = value;
+					this.SendPropertyChanged("Sdt1");
+					this.OnSdt1Changed();
 				}
 			}
 		}
@@ -357,7 +399,11 @@ namespace WebPhuKien.Models
 			{
 				if ((this._sdt2 != value))
 				{
+					this.Onsdt2Changing(value);
+					this.SendPropertyChanging();
 					this._sdt2 = value;
+					this.SendPropertyChanged("sdt2");
+					this.Onsdt2Changed();
 				}
 			}
 		}
@@ -373,7 +419,11 @@ namespace WebPhuKien.Models
 			{
 				if ((this._Email1 != value))
 				{
+					this.OnEmail1Changing(value);
+					this.SendPropertyChanging();
 					this._Email1 = value;
+					this.SendPropertyChanged("Email1");
+					this.OnEmail1Changed();
 				}
 			}
 		}
@@ -389,7 +439,11 @@ namespace WebPhuKien.Models
 			{
 				if ((this._Email2 != value))
 				{
+					this.OnEmail2Changing(value);
+					this.SendPropertyChanging();
 					this._Email2 = value;
+					this.SendPropertyChanged("Email2");
+					this.OnEmail2Changed();
 				}
 			}
 		}
@@ -405,8 +459,52 @@ namespace WebPhuKien.Models
 			{
 				if ((this._Facebook != value))
 				{
+					this.OnFacebookChanging(value);
+					this.SendPropertyChanging();
 					this._Facebook = value;
+					this.SendPropertyChanged("Facebook");
+					this.OnFacebookChanged();
 				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTT", DbType="Int NOT NULL", IsPrimaryKey=true)]
+		public int IdTT
+		{
+			get
+			{
+				return this._IdTT;
+			}
+			set
+			{
+				if ((this._IdTT != value))
+				{
+					this.OnIdTTChanging(value);
+					this.SendPropertyChanging();
+					this._IdTT = value;
+					this.SendPropertyChanged("IdTT");
+					this.OnIdTTChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
@@ -1950,7 +2048,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(1)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="VarChar(50)")]
 		public string Email
 		{
 			get
@@ -2667,7 +2765,7 @@ namespace WebPhuKien.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thongtin", DbType="NVarChar(150)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Thongtin", DbType="NVarChar(300)")]
 		public string Thongtin
 		{
 			get

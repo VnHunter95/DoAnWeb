@@ -1,0 +1,32 @@
+﻿@model WebPhuKien.Models.LOAISANPHAM
+
+@{
+    ViewBag.Title = "DeleteLSP";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Xóa loại</h2>
+
+<h3>Có chắc chắn muốn xóa vĩnh viễn loại này?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên loại muốn xóa:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tenloai)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Trở về trang trước", "LoaiSP")
+        </div>
+    }
+</div>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WebPhuKien.Models.LIENHE>
+
+@{
+    ViewBag.Title = "Phanhoi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Phanhoi</h2>
+
+
+<table class="table">
+    <tr>
+        <th style="text-align:center">
+            Họ tên
+        </th>
+        <th style="text-align:center">
+            Tiêu đề
+        </th>
+        <th style="text-align:center">
+            Nội dung
+        </th>
+        <th style="text-align:center">
+            Email
+        </th>
+        <th style="text-align:center">
+            Số điện thoại
+        </th>
+        <th>Đã xem</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hoten)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tieude)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Noidung)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sdt)
+        </td>        
+        <td>
+           
+        </td>
+    </tr>
+}
+@Html.ActionLink("Trở về trang chủ","Index")
+</table>

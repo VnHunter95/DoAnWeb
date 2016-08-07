@@ -14,6 +14,7 @@
       <Column Name="Email1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Email2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Facebook" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="IdTT" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.CT_DDH" Member="CT_DDHs">
@@ -89,7 +90,7 @@
       <Column Name="Hoten" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
       <Column Name="Tieude" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Column Name="Noidung" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="VarChar(1)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Sdt" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
     </Type>
   </Table>
@@ -129,7 +130,7 @@
       <Column Name="Idnsx" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
       <Column Name="Idloai" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
       <Column Name="Tensanpham" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Thongtin" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Thongtin" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
       <Column Name="Soluongcon" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="Dongia" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="Hinhanh" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />

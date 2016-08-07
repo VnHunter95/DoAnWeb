@@ -610,7 +610,331 @@ namespace WebPhuKien.Controllers
                 return RedirectToAction("Sanpham");
             }
         }
+
         //end Sanpham
+        public ActionResult NSX()
+        {
+            var nsx = data.NHASANXUATs.Select(n => n);
+            return View(nsx);
+        }
+        public ActionResult LoaiSP()
+        {
+            var loai = data.LOAISANPHAMs.Select(n => n);
+            return View(loai);
+        }
+        public ActionResult EditLSP(string idloai)
+        {
+            var nv = data.LOAISANPHAMs.First(n => n.Idloai == idloai);
+            return View(nv);
+        }
+        [HttpPost]
+        public ActionResult EditLSP(string idloai, FormCollection c)
+        {
+            
+            
+                var nv = data.LOAISANPHAMs.First(n => n.Idloai == idloai);
+                data.LOAISANPHAMs.DeleteOnSubmit(nv);
+                LOAISANPHAM sp2 = new LOAISANPHAM();
+                string ten = c["Tenloai"];
+                sp2.Idloai = idloai;
+                sp2.Tenloai = ten;
+                if (string.IsNullOrEmpty(ten))
+                {
+                    ViewData["Loi"] = "Hãy nhập tên loại, không được để trống!";
+                }
+                else
+                {
+                    data.LOAISANPHAMs.InsertOnSubmit(sp2);
+                    data.SubmitChanges();
+                    return RedirectToAction("LoaiSP", "Admin");
+                }
+
+                return this.EditLSP(idloai);
+            
+        }
+        public ActionResult DetailsLSP(string idloai)
+        {
+            var loai = data.LOAISANPHAMs.First(n => n.Idloai == idloai);
+            return View(loai);
+        }
+        [HttpGet]
+        public ActionResult CreateLSP()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateLSP(string idloai, FormCollection c)
+        {
+            LOAISANPHAM a = data.LOAISANPHAMs.SingleOrDefault(n => n.Idloai == idloai);
+            if (a != null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            else
+            {
+                var Maloai = c["Idloai"];
+                var ten = c["Tenloai"];
+                if (string.IsNullOrEmpty(idloai) || idloai.Length>4)
+                {
+                    ViewData["Loi1"] = "Hãy nhập mã loại, mã loại 4 ký tự bao gồm cả chữ và số!";
+                }
+                else if (string.IsNullOrEmpty(ten))
+                {
+                    ViewData["Loi2"] = "Hãy nhập tên loại!";
+                }
+                else
+                {
+                    LOAISANPHAM sp = new LOAISANPHAM();
+                    sp.Idloai = Maloai;
+                    sp.Tenloai = ten;
+                    data.LOAISANPHAMs.InsertOnSubmit(sp);
+                    data.SubmitChanges();
+                    return RedirectToAction("LoaiSP", "Admin");
+                }
+                return this.CreateLSP();
+                
+            }
+            
+        }
+        public ActionResult DeleteLSP(string idloai)
+        {
+            var d = data.LOAISANPHAMs.First(m => m.Idloai == idloai);
+            return View(d);
+        }
+        [HttpPost]
+        public ActionResult DeleteLSP(string idloai, FormCollection c)
+        {
+            SANPHAM a = data.SANPHAMs.SingleOrDefault(n => n.Idloai == idloai);
+            if (a != null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            else
+            {
+                var sp = data.LOAISANPHAMs.First(n => n.Idloai == idloai);
+                data.LOAISANPHAMs.DeleteOnSubmit(sp);
+                data.SubmitChanges();
+                return RedirectToAction("LoaiSP", "Admin");
+            }
+            
+        }
+        public ActionResult EditNSX(string idnsx)
+        {
+            var nsx = data.NHASANXUATs.First(n => n.Idnsx == idnsx);
+            return View(nsx);
+        }
+        [HttpPost]
+        public ActionResult EditNSX(string idnsx, FormCollection c)
+        {
+            SANPHAM a = data.SANPHAMs.SingleOrDefault(n => n.Idnsx == idnsx);
+            if (a != null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            else
+            {
+                var nsx = data.NHASANXUATs.First(n => n.Idnsx == idnsx);
+                data.NHASANXUATs.DeleteOnSubmit(nsx);
+                NHASANXUAT nsx2 = new NHASANXUAT();
+                string ten = c["Tennsx"];
+                string dc = c["Diachi"];
+                string sdt = c["Sdtnsx"];
+                nsx2.Idnsx = idnsx;
+                nsx2.Tennsx = ten;
+                nsx2.Diachi = dc;
+                nsx2.Sdtnsx = sdt;               
+                if (string.IsNullOrEmpty(ten))
+                {
+                    ViewData["Loi2"] = "Hãy nhập tên Nhà sản xuất!";
+                }
+                else
+                {
+                    data.NHASANXUATs.InsertOnSubmit(nsx2);
+                    data.SubmitChanges();
+                    return RedirectToAction("NSX", "Admin");
+                }
+                return this.EditNSX(idnsx);
+            }
+            
+        }
+        public ActionResult DetailsNSX(string idnsx)
+        {
+            var nsx = data.NHASANXUATs.First(n => n.Idnsx == idnsx);
+            return View(nsx);
+        }
+        public ActionResult CreateNSX()
+        {
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult CreateNSX(string idnsx,FormCollection c)
+        {
+            NHASANXUAT a = data.NHASANXUATs.SingleOrDefault(n => n.Idnsx == idnsx);
+            if (a != null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            else
+            {
+                var id = c["Idnsx"];
+                var ten = c["Tennsx"];
+                var dc = c["Diachi"];
+                var sdt = c["Sdtnsx"];
+                NHASANXUAT nsx = new NHASANXUAT();
+                if (string.IsNullOrEmpty(id))
+                {
+                    ViewData["Loi1"] = "Nhập mã Nhà sản xuất! Bao gồm 5 ký tự bao gồm chữ và số";
+                }
+                else
+                if (string.IsNullOrEmpty(ten))
+                {
+                    ViewData["Loi2"] = "Vui lòng nhập tên Nhà sản xuất!";
+                }
+                else
+                {
+                    nsx.Idnsx = id;
+                    nsx.Tennsx = ten;
+                    nsx.Diachi = dc;
+                    nsx.Sdtnsx = sdt;
+                    data.NHASANXUATs.InsertOnSubmit(nsx);
+                    data.SubmitChanges();
+                    return RedirectToAction("NSX", "Admin");
+                }
+                return this.CreateNSX();
+            }
+            
+        }
+        public ActionResult DeleteNSX(string idnsx)
+        {
+            var d = data.NHASANXUATs.First(m => m.Idnsx == idnsx);
+            return View(d);
+        }
+        [HttpPost]
+        public ActionResult DeleteNSX(string idnsx, FormCollection c)
+        {
+            SANPHAM a = data.SANPHAMs.SingleOrDefault(n => n.Idnsx == idnsx);
+            if (a != null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            else
+            {
+                var nsx = data.NHASANXUATs.First(n => n.Idnsx == idnsx);
+                data.NHASANXUATs.DeleteOnSubmit(nsx);
+                data.SubmitChanges();
+                return RedirectToAction("NSX", "Admin");
+            }
+            
+        }
+    //    public ActionResult TTShop()
+    //    {
+     //      var t = data.THONGTINs.First();
+    //        return View(t);
+     //   }
+        [HttpGet]
+        public ActionResult EditTTShop()
+        {
+            var t = data.THONGTINs.First();
+            return View(t);
+        }
+        [HttpPost]
+        public ActionResult EditTTShop(FormCollection c,THONGTIN tt)
+        {
+                ViewBag.Thongbao = null;
+                if (string.IsNullOrEmpty(tt.Tencuahang) || tt.Tencuahang.Length > 50)
+                {
+                    ViewData["Loi1"] = "Tên shop không được bỏ trống hoặc quá 50 ký tự!";
+                    return View(tt);
+                }
+                if (string.IsNullOrEmpty(tt.Diachi) || tt.Diachi.Length > 150)
+                {
+                    ViewData["Loi2"] = "Phải có địa chỉ Shop! Không được bỏ trống hoặc ghi khống!";
+                    return View(tt);
+                }
+                if (string.IsNullOrEmpty(tt.Sdt1) || tt.Sdt1.Length > 11 || tt.Sdt1.Length < 10)
+                {
+                    ViewData["Loi3"] = "Phải có số điện thoại! Không được bỏ trống hoặc ghi khống!";
+                    return View(tt);
+                }
+                if (string.IsNullOrEmpty(tt.Email1) || tt.Email1.Length > 50)
+                {
+                    ViewData["Loi4"] = "Vui lòng điền ghi email shop!";
+                    return View(tt);
+                }
+                //data.THONGTINs.DeleteOnSubmit(tt);
+                //THONGTIN tt2 = new THONGTIN();
+                THONGTIN tt2 = data.THONGTINs.FirstOrDefault();
+                tt2.Tencuahang = tt.Tencuahang;
+                    tt2.Diachi = tt.Diachi;
+                    tt2.Sdt1 = tt.Sdt1;
+                    tt2.sdt2 = tt.sdt2;
+                    tt2.Email1 = tt.Email1;
+                    tt2.Email2 = tt.Email2;
+                    tt2.Facebook = tt.Facebook;
+                    UpdateModel(tt2);
+                    data.SubmitChanges();
+                    ViewBag.Thongbao = "Cập Nhật Thành Công ";
+                    return View(tt2);
+                
+            
+
+        }
+
+        public ActionResult Phanhoi()
+        {
+            
+            var idph = data.LIENHEs.Select(n => n);
+            return View(idph);
+        }
+        [HttpGet]
+        public ActionResult Changepass()
+        {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Phukien");
+            }
+            QUANTRI ad = (QUANTRI)Session["Admin"];
+            return View(ad);
+        }
+        [HttpPost]
+        public ActionResult Changepass(FormCollection qt, QUANTRI d)
+        {
+            var tendn = d.User;
+            var mk = d.Password;
+            QUANTRI dm = data.QUANTRIs.SingleOrDefault(n => n.User == tendn);
+
+            string pass1 = qt["password"];
+            string pass2 = qt["pass2"];
+            string pass3 = qt["pass3"];
+
+            if(pass1 != dm.Password)
+            {
+                ViewData["Loi1"] = "Mật khẩu cũ không đúng!";
+            }
+            else if (pass1 == pass2)
+            {
+                ViewData["Loi2"] = "Mật khẩu mới không được trùng mật khẩu củ!";
+            }
+            else if (pass3 != pass2)
+            {
+                ViewData["Loi3"] = "Mật khẩu nhập lại không trùng nhau!";
+            }
+            else
+            {
+                dm.Password = pass2;
+                UpdateModel(dm);
+                data.SubmitChanges();
+                return RedirectToAction("QLAdmin", "Admin");
+            }
+            return this.Changepass();
+        }
         [HttpGet]
         public ActionResult Login()
         {

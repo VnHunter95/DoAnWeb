@@ -1,0 +1,74 @@
+﻿@model WebPhuKien.Models.THONGTIN
+
+@{
+    ViewBag.Title = "TTShop";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thông tin về Shop</h2>
+
+<div>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên Shop:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tencuahang)
+        </dd>
+
+        <dt>
+            Địa chỉ:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diachi)
+        </dd>
+
+        <dt>
+            Số điện thoại:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sdt1)
+        </dd>
+
+        <dt>
+            Hotline:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sdt2)
+        </dd>
+
+        <dt>
+            Email 1:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email1)
+        </dd>
+
+        <dt>
+            Email 2:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email2)
+        </dd>
+
+        <dt>
+            Facebook shop:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Facebook)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Điều chỉnh", "EditTTShop", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Trở về trang trước", "TTShop")
+</p>

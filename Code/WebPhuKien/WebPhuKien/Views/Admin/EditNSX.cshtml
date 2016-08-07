@@ -1,0 +1,54 @@
+﻿@model WebPhuKien.Models.NHASANXUAT
+
+@{
+    ViewBag.Title = "EditNSX";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chỉnh sửa thông tin Nhà sản xuất</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Idnsx)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Tennsx, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Tennsx)
+                @Html.ValidationMessageFor(model => model.Tennsx)
+                @ViewData["Loi2"]
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Diachi, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Diachi)
+                @Html.ValidationMessageFor(model => model.Diachi)
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sdtnsx, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Sdtnsx)
+                @Html.ValidationMessageFor(model => model.Sdtnsx)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cập nhật" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Trở về trang trước", "NSX")
+</div>

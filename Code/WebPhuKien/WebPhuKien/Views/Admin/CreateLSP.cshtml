@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "CreateLSP";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thêm mới Loại sản phẩm</h2>
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Tạo mới</legend>
+        <p>
+            Nhập mã Loại:
+            @Html.TextBox("Idloai")
+            @ViewData["Loi1"]
+        </p>
+        <p>
+            Nhập tên loại:
+            @Html.TextBox("Tenloai")
+            @ViewData["Loi2"]
+        </p>
+        <p>
+            <input type="submit" value="Tạo mới" />
+        </p>
+    </fieldset>
+
+}
+@Html.ActionLink("Trở về trang trước", "LoaiSP", "Admin")
+

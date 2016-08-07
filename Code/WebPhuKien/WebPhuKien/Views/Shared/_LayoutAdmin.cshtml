@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Trang Quản Lýs</title>
+    <title>Trang Quản Lý</title>
     <!-- Bootstrap Core CSS -->
     <link href="~/content/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -44,10 +44,22 @@
                         <a href="@Url.Action("Sanpham","Admin")">QL Sản Phẩm</a>
                     </li>
                     <li>
+                        <a href="@Url.Action("LoaiSP","Admin")">QL Loại Sản phẩm</a>
+                    </li>
+                    <li>
                         <a href="@Url.Action("Dondathang","Admin")">QL Đơn Hàng </a>
                     </li>
                     <li>
-                        <a href="#">Liên hệ</a>
+                        <a href="@Url.Action("NSX","Admin")">QL Nhà sản xuất</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Phanhoi","Admin")">Mục phản hồi</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("EditTTShop","Admin")">Thông tin shop</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Changepass", "Admin")">Đổi Mật Khẫu</a>
                     </li>
                 </ul>
             </div>

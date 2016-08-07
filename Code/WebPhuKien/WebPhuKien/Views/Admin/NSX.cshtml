@@ -1,0 +1,48 @@
+﻿@model IEnumerable<WebPhuKien.Models.NHASANXUAT>
+
+@{
+    ViewBag.Title = "NSX";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>QUẢN LÝ THÔNG TIN NHÀ SẢN XUẤT</h2>
+
+<p>
+    <button type="button">
+        @Html.ActionLink("Thêm mới", "CreateNSX")
+    </button>    
+</p>
+<table class="table">
+    <tr>
+        <th style="text-align:center">
+            Tên nhà sản xuất
+        </th>
+        <th style="text-align:center">
+            Địa chỉ
+        </th>
+        <th style="text-align:center">
+            Số điện thoại
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tennsx)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Diachi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sdtnsx)
+        </td>
+        <td>
+            @Html.ActionLink("Chỉnh sửa", "EditNSX", new { idnsx=item.Idnsx }) |
+            @Html.ActionLink("Chi tiết", "DetailsNSX", new { idnsx=item.Idnsx }) |
+            @Html.ActionLink("Xóa", "DeleteNSX", new { idnsx=item.Idnsx })
+        </td>
+    </tr>
+}
+
+</table>
