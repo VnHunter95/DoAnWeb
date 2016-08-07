@@ -7,7 +7,7 @@
 
 <h2>Điều Chỉnh Thông Tin Sản Phẩm</h2>
 
-@using (Html.BeginForm("Suasp", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Suasp", "Admin", FormMethod.Post, new { enctype = "multipart/form-data"}))
 {
     @Html.AntiForgeryToken()
     
@@ -17,27 +17,27 @@
         @Html.HiddenFor(model => model.Idsp)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Idsp, new { @class = "control-label col-md-2" })
+            @Html.Label("ID: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                <div style="font:18px;padding: 5px 0 0 5px">@Model.Idsp</div>
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(model => model.Idnsx, new { @class = "control-label col-md-2" })
+            @Html.Label("Nhà Sản Xuất", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdNsx")
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Idloai, new { @class = "control-label col-md-2" })
+            @Html.Label("Loại", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdLoai")
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Tensanpham, new { @class = "control-label col-md-2" })
+            @Html.Label("Tên Sản Phẩm", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Tensanpham)
                 @Html.ValidationMessageFor(model => model.Tensanpham)
@@ -45,14 +45,14 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Thongtin, new { @class = "control-label col-md-2" })
+            @Html.Label("Thông Tin", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                <textarea name="Thongtin">@Model.Thongtin</textarea>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Soluongcon, new { @class = "control-label col-md-2" })
+            @Html.Label("Số Lượng Còn", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Soluongcon)
                 @Html.ValidationMessageFor(model => model.Soluongcon)
@@ -60,7 +60,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Dongia, new { @class = "control-label col-md-2" })
+            @Html.Label("Đơn Giá", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Dongia)
                 @Html.ValidationMessageFor(model => model.Dongia)
@@ -68,7 +68,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Hinhanh, new { @class = "control-label col-md-2" })
+            @Html.Label("Hình Ảnh", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                <input type="file" name="fileUpdate" />
                <img src="@Url.Content("~/Hinhsanpham/"+Model.Hinhanh)" height="200px" width="200px"/> (Ảnh hiện tại)
@@ -77,10 +77,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Ngaycapnhat, new { @class = "control-label col-md-2" })
+            @Html.Label("Ngày Cập Nhật", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Ngaycapnhat)
-                @Html.ValidationMessageFor(model => model.Ngaycapnhat)
+                <input type="date" name="Ngaycapnhat" value="@Model.Ngaycapnhat.Value.ToString("yyyy-MM-dd")" />
             </div>
         </div>
 
@@ -93,5 +92,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Trở Về", "Sanpham")
 </div>

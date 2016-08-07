@@ -1,0 +1,60 @@
+﻿@model WebPhuKien.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Chitietkh";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Thông Tin Khách Hàng</h2>
+
+<div>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Username: 
+        </dt>
+        <dd>
+             @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt>
+            Password: 
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            Họ Tên: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hoten)
+        </dd>
+
+        <dt>
+            Điện Thoại: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Sdt)
+        </dd>
+        <dt>
+            Địa Chỉ: 
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Diachi)
+        </dd>
+        <dt>
+            Email: 
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Suakh", new { user = Model.Username }) |
+    @Html.ActionLink("Trở Về", "Khachhang")
+</p>

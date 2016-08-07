@@ -225,6 +225,7 @@
     <Content Include="Hinhsanpham\N002.jpg" />
     <Content Include="images\1%402x.jpg" />
     <Content Include="images\1.jpg" />
+    <Content Include="images\error.jpg" />
     <Content Include="images\ancient-place.jpg" />
     <Content Include="images\ancient-place2.jpg" />
     <Content Include="images\apple-touch-icon-114-precomposed.png" />
@@ -234,6 +235,7 @@
     <Content Include="images\dolphins.jpg" />
     <Content Include="images\dolphins2.jpg" />
     <Content Include="images\favicon.png" />
+    <Content Include="images\HomeButton.png" />
     <Content Include="images\kayaks.jpg" />
     <Content Include="images\kayaks2.jpg" />
     <Content Include="images\mountain-view.jpg" />
@@ -498,6 +500,13 @@
     <Content Include="Views\Admin\Suasp.cshtml" />
     <Content Include="Views\Admin\Banner.cshtml" />
     <Content Include="Views\Admin\Xoabanner.cshtml" />
+    <Content Include="Views\Admin\Dondathang.cshtml" />
+    <Content Include="Views\Admin\Chitiethd.cshtml" />
+    <Content Include="Views\Admin\Khachhang.cshtml" />
+    <Content Include="Views\Admin\Chitietkh.cshtml" />
+    <Content Include="Views\Admin\Suakh.cshtml" />
+    <Content Include="Views\Admin\Xoakh.cshtml" />
+    <Content Include="Views\Admin\Error.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

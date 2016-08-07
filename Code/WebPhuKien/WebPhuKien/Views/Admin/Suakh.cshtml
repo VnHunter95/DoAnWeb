@@ -1,0 +1,82 @@
+﻿@model WebPhuKien.Models.KHACHHANG
+
+@{
+    ViewBag.Title = "Suakh";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Sửa Thông Tin Khách Hàng</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>KHACHHANG</h4>
+        <hr />
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(model => model.Username)
+
+        <div class="form-group">
+            @Html.Label("Username: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model=>model.Username)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Password: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Password)
+                @Html.ValidationMessageFor(model => model.Password)
+                <font color="red">@ViewData["Loi1"]</font>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Họ Tên: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Hoten)
+                @Html.ValidationMessageFor(model => model.Hoten)
+                <font color="red">@ViewData["Loi2"]</font>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Điện Thoại: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Sdt)
+                @Html.ValidationMessageFor(model => model.Sdt)
+                <font color="red">@ViewData["Loi3"]</font>
+                
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Địa Chỉ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Diachi)
+                @Html.ValidationMessageFor(model => model.Diachi)
+                <font color="red">@ViewData["Loi4"]</font>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Email: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)
+                <font color="red">@ViewData["Loi5"]</font>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Trở Về", "Khachhang")
+</div>
