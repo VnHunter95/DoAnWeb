@@ -504,39 +504,43 @@ namespace WebPhuKien.Controllers
             var idph = data.LIENHEs.Select(n => n);
             return View(idph);
         }
-        public ActionResult QLAdmin()
-        {
-            return View();
-        }
+        [HttpGet]
         public ActionResult Changepass()
         {
-            return View();
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Phukien");
+            }
+            QUANTRI ad = (QUANTRI)Session["Admin"];
+            return View(ad);
         }
         [HttpPost]
         public ActionResult Changepass(FormCollection qt, QUANTRI d)
         {
             var tendn = d.User;
             var mk = d.Password;
-            QUANTRI ad = (QUANTRI)Session["Taikhoanadmin"];
-            QUANTRI dm = data.QUANTRIs.SingleOrDefault(n => n.User == tendn && n.Password == mk);
-            
-            data.QUANTRIs.DeleteOnSubmit(ad);
-            QUANTRI q = new QUANTRI();
+            QUANTRI dm = data.QUANTRIs.SingleOrDefault(n => n.User == tendn);
+
             string pass1 = qt["password"];
             string pass2 = qt["pass2"];
             string pass3 = qt["pass3"];
-            ad.Password = pass2;
-            if(pass1 != ad.Password)
+
+            if(pass1 != dm.Password)
             {
                 ViewData["Loi1"] = "Mật khẩu cũ không đúng!";
             }
+            else if (pass1 == pass2)
+            {
+                ViewData["Loi2"] = "Mật khẩu mới không được trùng mật khẩu củ!";
+            }
             else if (pass3 != pass2)
             {
-                ViewData["Loi2"] = "Mật khẩu nhập lại không trùng nhau!";
+                ViewData["Loi3"] = "Mật khẩu nhập lại không trùng nhau!";
             }
             else
             {
-                data.QUANTRIs.InsertOnSubmit(ad);
+                dm.Password = pass2;
+                UpdateModel(dm);
                 data.SubmitChanges();
                 return RedirectToAction("QLAdmin", "Admin");
             }
@@ -565,7 +569,7 @@ namespace WebPhuKien.Controllers
                 QUANTRI ad = data.QUANTRIs.SingleOrDefault(n => n.User == tendn && n.Password == mk);
                 if (ad != null)
                 {
-                    Session["Taikhoanadmin"] = ad;
+                    Session["Admin"] = ad;
                     return RedirectToAction("Index", "Admin");
                 }
                 else

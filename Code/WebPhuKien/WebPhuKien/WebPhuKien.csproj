@@ -511,7 +511,6 @@
     <Content Include="Views\Admin\Phanhoi.cshtml" />
     <Content Include="Views\Admin\TTShop.cshtml" />
     <Content Include="Views\Admin\EditTTShop.cshtml" />
-    <Content Include="Views\Admin\QLAdmin.cshtml" />
     <Content Include="Views\Admin\Changepass.cshtml" />
   </ItemGroup>
   <ItemGroup>
