@@ -27,6 +27,10 @@ namespace WebPhuKien.Controllers
             else 
             {
                 KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
+                ViewData["Loipass"]=TempData["Loipass"];
+                ViewData["Loipassmoi"] = TempData["Loipass2"];
+                ViewData["Loipassmoi2"] = TempData["Loipass3"];
+                ViewData["Ketqua"] = TempData["Ketqua"];
                 return View(kh);
             }
         }
@@ -56,18 +60,23 @@ namespace WebPhuKien.Controllers
             string passmoi = collection["passmoi"];
             string passmoi2 = collection["passmoi2"];
             if (String.IsNullOrEmpty(pass) || pass.Length > 16)
-            { 
-                ViewBag.Loipass="Nhập Mật Khẩu Hiện Tại Không Quá 16 Ký Tự !";
+            {
+                TempData["Loipass"] = "Nhập Mật Khẫu 16 Ký Tự !";
                 return RedirectToAction("UserCP");  
             }
             if (String.IsNullOrEmpty(passmoi) || passmoi.Length > 16)
             {
-                ViewData["LoiPassMoi"] = "Nhập Mật Khẩu Mới Không Quá 16 Ký Tự !";
+                TempData["Loipass2"] = "Nhập Mật Khẩu Mới Không Quá 16 Ký Tự !";
                 return RedirectToAction("UserCP");     
             }
             if (String.IsNullOrEmpty(passmoi2) || passmoi2.Length > 16)
             {
-                ViewData["LoiPassMoi"] = "Nhập Lại Mật Khẩu Mối Không Quá 16 Ký Tự !";
+                TempData["Loipass3"] = "Nhập Lại Mật Khẩu Mối Không Quá 16 Ký Tự !";
+                if (passmoi.CompareTo(passmoi2) != 0)
+                {
+
+                    TempData["Loipass3"] = "Sai Mật Khẩu Nhập Lại !";
+                }
                 return RedirectToAction("UserCP");  
             }
             KHACHHANG kh = data.KHACHHANGs.FirstOrDefault(n => n.Username == user);
@@ -81,11 +90,11 @@ namespace WebPhuKien.Controllers
                 kh.Password = passmoi;
                 UpdateModel(kh);
                 data.SubmitChanges();
-                ViewBag.Thongbao = "Cập Nhật Mật Khẩu Thành Công ";
+                TempData["Ketqua"] = "Cập Nhật Mật Khẩu Thành Công ";
                 return RedirectToAction("UserCP");   
             }
 
-            ViewBag.Thongbao = "Cập Nhật Mật Khẩu Thất Bại";
+            TempData["Ketqua"] = "Sai Mật Khẩu ";
             return RedirectToAction("UserCP");   
         }   
         [HttpGet]
