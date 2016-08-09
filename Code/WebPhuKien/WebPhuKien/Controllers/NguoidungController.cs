@@ -17,6 +17,7 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+        [HttpGet]
         public ActionResult UserCP()
         {
             if (Session["Taikhoan"] == null)
@@ -29,6 +30,64 @@ namespace WebPhuKien.Controllers
                 return View(kh);
             }
         }
+        [HttpPost]
+        public ActionResult UserCP(KHACHHANG kh, FormCollection collection)
+        { 
+            KHACHHANG khmoi = data.KHACHHANGs.FirstOrDefault(n=>n.Username==kh.Username);
+            if(khmoi==null)
+            {
+                Response.StatusCode = 404;
+                return null;
+            }
+            khmoi.Hoten = kh.Hoten;
+            khmoi.Diachi = kh.Diachi;
+            khmoi.Sdt = kh.Sdt;
+            khmoi.Email = kh.Email;
+            UpdateModel(khmoi);
+            data.SubmitChanges();
+            ViewBag.Thongbao = "Cập Nhật Thành Công";
+            return View(khmoi);
+            
+        }
+        [HttpPost]
+        public ActionResult Changepass(string user, FormCollection collection)
+        {
+            string pass = collection["pass"];
+            string passmoi = collection["passmoi"];
+            string passmoi2 = collection["passmoi2"];
+            if (String.IsNullOrEmpty(pass) || pass.Length > 16)
+            { 
+                ViewBag.Loipass="Nhập Mật Khẩu Hiện Tại Không Quá 16 Ký Tự !";
+                return RedirectToAction("UserCP");  
+            }
+            if (String.IsNullOrEmpty(passmoi) || passmoi.Length > 16)
+            {
+                ViewData["LoiPassMoi"] = "Nhập Mật Khẩu Mới Không Quá 16 Ký Tự !";
+                return RedirectToAction("UserCP");     
+            }
+            if (String.IsNullOrEmpty(passmoi2) || passmoi2.Length > 16)
+            {
+                ViewData["LoiPassMoi"] = "Nhập Lại Mật Khẩu Mối Không Quá 16 Ký Tự !";
+                return RedirectToAction("UserCP");  
+            }
+            KHACHHANG kh = data.KHACHHANGs.FirstOrDefault(n => n.Username == user);
+                if(kh==null)
+                {
+                    Response.StatusCode = 404;
+                    return null;
+                }
+            if(kh.Password == pass)
+            {
+                kh.Password = passmoi;
+                UpdateModel(kh);
+                data.SubmitChanges();
+                ViewBag.Thongbao = "Cập Nhật Mật Khẩu Thành Công ";
+                return RedirectToAction("UserCP");   
+            }
+
+            ViewBag.Thongbao = "Cập Nhật Mật Khẩu Thất Bại";
+            return RedirectToAction("UserCP");   
+        }   
         [HttpGet]
         public ActionResult Dangnhap()
         {

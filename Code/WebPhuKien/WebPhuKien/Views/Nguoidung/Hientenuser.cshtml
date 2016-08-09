@@ -13,7 +13,7 @@ else
     
     KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
     <li>
-        <a href="#">Xin chào, @kh.Hoten</a>
+        <a href="@Url.Action("UserCP","Nguoidung")">Xin chào, @kh.Hoten</a>
     </li>
     <li>
         <a href="@Url.Action("DangXuat","Nguoidung")">Đăng Xuất</a>
