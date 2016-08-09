@@ -17,6 +17,18 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+        public ActionResult UserCP()
+        {
+            if (Session["Taikhoan"] == null)
+            {
+                return RedirectToAction("Dangnhap", "Nguoidung");
+            }
+            else 
+            {
+                KHACHHANG kh = (KHACHHANG)Session["Taikhoan"];
+                return View(kh);
+            }
+        }
         [HttpGet]
         public ActionResult Dangnhap()
         {
