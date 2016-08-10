@@ -17,6 +17,19 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+        bool KiemTraStringLaSo(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= '0' && c <= '9')))
+                {
+
+                }
+                else
+                    return false;
+            }
+            return true;
+        }
         [HttpGet]
         public ActionResult UserCP()
         {
@@ -36,12 +49,39 @@ namespace WebPhuKien.Controllers
         }
         [HttpPost]
         public ActionResult UserCP(KHACHHANG kh, FormCollection collection)
-        { 
+        {
+            if (Session["Taikhoan"] == null)
+            {
+                return RedirectToAction("Dangnhap", "Nguoidung");
+            }
             KHACHHANG khmoi = data.KHACHHANGs.FirstOrDefault(n=>n.Username==kh.Username);
             if(khmoi==null)
             {
                 Response.StatusCode = 404;
                 return null;
+            }
+            if (kh.Hoten.Length > 25 || string.IsNullOrEmpty(kh.Hoten))
+            {
+                ViewData["Loi2"] = "Vui lòng nhập Họ Tên ít hơn 25 ký tự !";
+                return View(kh);
+            }
+
+            if (!string.IsNullOrEmpty(kh.Sdt) && (kh.Sdt.Length > 11 || kh.Sdt.Length < 10 || !KiemTraStringLaSo(kh.Sdt)))
+            {
+                ViewData["Loi3"] = "Sai Số Điện Thoại !";
+                return View(kh);
+
+            }
+
+            if (kh.Diachi.Length > 150 || string.IsNullOrEmpty(kh.Diachi))
+            {
+                ViewData["Loi4"] = "Vui lòng nhập địa chỉ ít hơn 150 ký tự !";
+                return View(kh);
+            }
+            if (kh.Email.Length > 50 || string.IsNullOrEmpty(kh.Email))
+            {
+                ViewData["Loi5"] = "Vui lòng nhập email ít hơn 50 ký tự !";
+                return View(kh);
             }
             khmoi.Hoten = kh.Hoten;
             khmoi.Diachi = kh.Diachi;
@@ -56,12 +96,16 @@ namespace WebPhuKien.Controllers
         [HttpPost]
         public ActionResult Changepass(string user, FormCollection collection)
         {
+            if (Session["Taikhoan"] == null)
+            {
+                return RedirectToAction("Dangnhap", "Nguoidung");
+            }
             string pass = collection["pass"];
             string passmoi = collection["passmoi"];
             string passmoi2 = collection["passmoi2"];
             if (String.IsNullOrEmpty(pass) || pass.Length > 16)
             {
-                TempData["Loipass"] = "Nhập Mật Khẫu 16 Ký Tự !";
+                TempData["Loipass"] = "Nhập Mật Khẩu 16 Ký Tự !";
                 return RedirectToAction("UserCP");  
             }
             if (String.IsNullOrEmpty(passmoi) || passmoi.Length > 16)
@@ -69,32 +113,32 @@ namespace WebPhuKien.Controllers
                 TempData["Loipass2"] = "Nhập Mật Khẩu Mới Không Quá 16 Ký Tự !";
                 return RedirectToAction("UserCP");     
             }
-            if (String.IsNullOrEmpty(passmoi2) || passmoi2.Length > 16)
+            if (pass == passmoi)
             {
-                TempData["Loipass3"] = "Nhập Lại Mật Khẩu Mối Không Quá 16 Ký Tự !";
-                if (passmoi.CompareTo(passmoi2) != 0)
-                {
-
-                    TempData["Loipass3"] = "Sai Mật Khẩu Nhập Lại !";
-                }
+                TempData["Loipass2"] = "Không Được Trùng Mật Khẩu Hiện Tại !";
+                return RedirectToAction("UserCP");     
+            }
+            if (passmoi != passmoi2)
+            {
+                TempData["Loipass3"] = "Sai Mật Khẩu Nhập Lại !";
                 return RedirectToAction("UserCP");  
             }
+                    
             KHACHHANG kh = data.KHACHHANGs.FirstOrDefault(n => n.Username == user);
-                if(kh==null)
-                {
-                    Response.StatusCode = 404;
-                    return null;
-                }
-            if(kh.Password == pass)
+            if (kh == null)
             {
-                kh.Password = passmoi;
-                UpdateModel(kh);
-                data.SubmitChanges();
-                TempData["Ketqua"] = "Cập Nhật Mật Khẩu Thành Công ";
-                return RedirectToAction("UserCP");   
+                Response.StatusCode = 404;
+                return null;
             }
-
-            TempData["Ketqua"] = "Sai Mật Khẩu ";
+            if (kh.Password != pass)
+            {
+                TempData["Ketqua"] = "Sai Mật Khẩu ";
+                return RedirectToAction("UserCP");
+            }
+            kh.Password = passmoi;
+            UpdateModel(kh);
+            data.SubmitChanges();
+            TempData["Ketqua"] = "Cập Nhật Mật Khẩu Thành Công ";
             return RedirectToAction("UserCP");   
         }   
         [HttpGet]
@@ -143,7 +187,7 @@ namespace WebPhuKien.Controllers
         }
 
         [HttpPost]
-        public ActionResult Dangky(FormCollection collection, KHACHHANG kh)
+        public ActionResult Dangky(FormCollection collection)
         {
             var user = collection["Username"];
             var pass = collection["Password"];
@@ -152,29 +196,48 @@ namespace WebPhuKien.Controllers
             var sdt = collection["Sdt"];
             var diachi = collection["Diachi"];
             var email = collection["Email"];
-            
+            if (!string.IsNullOrEmpty(sdt) && (sdt.Length > 11 || sdt.Length < 10 || !KiemTraStringLaSo(sdt)))
+            {
+                ViewData["Loidt"] = "Sai Số Điện Thoại !";
+                return this.Dangky();
+
+            }
+            if (diachi.Length > 150 || string.IsNullOrEmpty(diachi))
+            {
+                ViewData["Loidc"] = "Vui lòng nhập địa chỉ ít hơn 150 ký tự !";
+                return this.Dangky();
+            }
+            if (email.Length > 50 || string.IsNullOrEmpty(email))
+            {
+                ViewData["Loiemail"] = "Vui lòng nhập email ít hơn 50 ký tự !";
+                return this.Dangky();
+            }
             if (String.IsNullOrEmpty(user) || user.Length>16)
             {
                 ViewData["Loi1"] = "Vui lòng kiểm tra lại! Không được để trống hoặc đặt hơn 16 ký tự!";
+                return this.Dangky();
             }
             if (String.IsNullOrEmpty(pass) || pass.Length>16)
             {
                 ViewData["Loi2"] = "Password không được để trống hoặc dài hơn 16 ký tự!";
+                return this.Dangky();
             }
-            else if (pass.CompareTo(pass2) != 0)
+            if (pass.CompareTo(pass2) != 0)
             {
                     ViewData["Loi2"] = "Mật khẩu nhập lại không đúng !";
+                    return this.Dangky();
             }
             if (String.IsNullOrEmpty(pass2))
             {
                 ViewData["Loi3"] = "Nhập lại mật khẩu !";
+                return this.Dangky();
             }
             if (String.IsNullOrEmpty(ten))
             {
                 ViewData["Loi4"] = "Vui lòng nhập tên !";
+                return this.Dangky();
             }
-            else
-            {
+            KHACHHANG kh = new KHACHHANG();
                 kh.Username = user;
                 kh.Password = pass;
                 kh.Hoten = ten;
@@ -184,10 +247,6 @@ namespace WebPhuKien.Controllers
                 data.KHACHHANGs.InsertOnSubmit(kh);
                 data.SubmitChanges();
                 return RedirectToAction("Dangnhap");
-
-
-            }
-            return this.Dangky();
         }
 
         public ActionResult DangXuat()

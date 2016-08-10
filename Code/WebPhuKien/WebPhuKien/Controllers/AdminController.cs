@@ -125,7 +125,7 @@ namespace WebPhuKien.Controllers
             }
             if (kh.Email.Length > 50 || string.IsNullOrEmpty(kh.Email))
             {
-                ViewData["Loi5"] = "Vui lòng nhập địa chỉ ít hơn 50 ký tự !";
+                ViewData["Loi5"] = "Vui lòng nhập email ít hơn 50 ký tự !";
                 return View(kh);
             }
             khmoi.Password = kh.Password;
@@ -900,40 +900,43 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Index", "Phukien");
             }
-            QUANTRI ad = (QUANTRI)Session["Admin"];
-            return View(ad);
+            return View();
         }
         [HttpPost]
-        public ActionResult Changepass(FormCollection qt, QUANTRI d)
+        public ActionResult Changepass(FormCollection qt)
         {
-            var tendn = d.User;
-            var mk = d.Password;
-            QUANTRI dm = data.QUANTRIs.SingleOrDefault(n => n.User == tendn);
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Phukien");
+            }
+            QUANTRI ad = (QUANTRI)Session["Admin"];
 
             string pass1 = qt["password"];
             string pass2 = qt["pass2"];
             string pass3 = qt["pass3"];
 
-            if(pass1 != dm.Password)
+            if(pass1 != ad.Password)
             {
                 ViewData["Loi1"] = "Mật khẩu cũ không đúng!";
+                return this.Changepass();
             }
-            else if (pass1 == pass2)
+            if (pass1 == pass2)
             {
                 ViewData["Loi2"] = "Mật khẩu mới không được trùng mật khẩu củ!";
+                return this.Changepass();
             }
-            else if (pass3 != pass2)
+            if (pass3 != pass2)
             {
                 ViewData["Loi3"] = "Mật khẩu nhập lại không trùng nhau!";
+                return this.Changepass();
             }
-            else
-            {
-                dm.Password = pass2;
-                UpdateModel(dm);
-                data.SubmitChanges();
-                return RedirectToAction("QLAdmin", "Admin");
-            }
+            ad.Password = pass2;
+            UpdateModel(ad);
+            data.SubmitChanges();
+            Session["Admin"] = ad;
+            ViewBag.Thongbao = "Đổi Mật Khẩu Thành Công !";
             return this.Changepass();
+            
         }
         [HttpGet]
         public ActionResult Login()

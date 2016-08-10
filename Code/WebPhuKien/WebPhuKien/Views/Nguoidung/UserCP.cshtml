@@ -16,13 +16,14 @@
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Username)
-        <h2>Thông Tin Cá Nhân</h2>
+        <h1>Thông Tin Cá Nhân</h1>
         <hr />
         <div class="form-group">
             @Html.Label("Họ Tên: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Hoten)
                 @Html.ValidationMessageFor(model => model.Hoten)
+                <font color="red">@ViewData["Loi2"]</font>
             </div>
         </div>
 
@@ -31,6 +32,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Sdt)
                 @Html.ValidationMessageFor(model => model.Sdt)
+                <font color="red">@ViewData["Loi3"]</font>
             </div>
         </div>
 
@@ -39,6 +41,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Diachi)
                 @Html.ValidationMessageFor(model => model.Diachi)
+                <font color="red">@ViewData["Loi4"]</font>
             </div>
         </div>
 
@@ -47,6 +50,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
+                <font color="red">@ViewData["Loi5"]</font>
             </div>
         </div>
 
@@ -63,7 +67,7 @@
      <div class="form-horizontal">
         @Html.ValidationSummary(true)
      <h2>Đổi Mật Khẩu</h2>
-         <font color="red"><h3>@ViewData["Ketqua"]</h3></font>
+         <font color="red"><h1>@ViewData["Ketqua"]</h1></font>
         <hr />
         <div class="form-group">
             @Html.Label("Mật Khẩu Hiện Tại: ", new { @class = "control-label col-md-2" })
@@ -93,8 +97,3 @@
         </div>
          </div>
 }
-
-
-<div>
-    @Html.ActionLink("Trở Về", "Index","Phukien")
-</div>
