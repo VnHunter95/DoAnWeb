@@ -2,64 +2,98 @@
 
 @{
     ViewBag.Title = "UserCP";
-    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Layout = "~/Views/Shared/_LayoutUserPageNoBanner.cshtml";
 }
 
-<h2>UserCP</h2>
+<h2>Chỉnh Sửa Thông Tin</h2>
+<font color="red"><h3>@ViewBag.Thongbao</h3></font>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>KHACHHANG</h4>
         <hr />
         @Html.ValidationSummary(true)
         @Html.HiddenFor(model => model.Username)
-        <h2>Đổi Mật Khẩu</h2>
-        <hr />
-        <h2>Thông Tin Cá Nhân</h2>
+        <h1>Thông Tin Cá Nhân</h1>
         <hr />
         <div class="form-group">
-            @Html.LabelFor(model => model.Hoten, new { @class = "control-label col-md-2" })
+            @Html.Label("Họ Tên: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Hoten)
                 @Html.ValidationMessageFor(model => model.Hoten)
+                <font color="red">@ViewData["Loi2"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Sdt, new { @class = "control-label col-md-2" })
+            @Html.Label("Điện Thoại: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Sdt)
                 @Html.ValidationMessageFor(model => model.Sdt)
+                <font color="red">@ViewData["Loi3"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Diachi, new { @class = "control-label col-md-2" })
+            @Html.Label("Địa Chỉ: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Diachi)
                 @Html.ValidationMessageFor(model => model.Diachi)
+                <font color="red">@ViewData["Loi4"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+            @Html.Label("Email: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email)
                 @Html.ValidationMessageFor(model => model.Email)
+                <font color="red">@ViewData["Loi5"]</font>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Lưu Lại" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@using (Html.BeginForm("Changepass", "Nguoidung", new { user = Model.Username }))
+{ 
+    @Html.AntiForgeryToken()
+     <div class="form-horizontal">
+        @Html.ValidationSummary(true)
+     <h2>Đổi Mật Khẩu</h2>
+         <font color="red"><h1>@ViewData["Ketqua"]</h1></font>
+        <hr />
+        <div class="form-group">
+            @Html.Label("Mật Khẩu Hiện Tại: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="password" name="pass"/>
+                <font color="red">@ViewData["Loipass"]</font>
+            </div>
+        </div>
+    <div class="form-group">
+            @Html.Label("Mật Khẩu Mới: " ,new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="password" name="passmoi" />
+               <font color="red">@ViewData["Loipassmoi"]</font>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.Label("Nhập Lại Mật Khẩu: " ,new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="password" name="passmoi2" />
+                <font color="red">@ViewData["Loipassmoi2"] </font>
+            </div>
+        </div>
+     <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Đổi Mật Khẩu" class="btn btn-default" />
+            </div>
+        </div>
+         </div>
+}

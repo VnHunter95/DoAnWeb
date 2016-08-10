@@ -1,44 +1,35 @@
-﻿@model WebPhuKien.Models.QUANTRI
-
-@{
+﻿@{
     ViewBag.Title = "Changepass";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <h2>Đổi mật khẩu</h2>
+<h1><font color="red">@ViewBag.Thongbao</font></h1>
 <table align="left">
     @using (Html.BeginForm())
     {
         @Html.ValidationSummary(true)
                 <tr style="height:40px">
-                    <td align="right">Username: </td>
-                    <td>
-                        @Html.DisplayFor(model=>model.User)
-                    </td>
-                </tr>
-                <tr style="height:40px">
                     <td align="right">Nhập mật khẩu cũ: </td>
                     <td>
-                        @Html.Password("password")
-                        @ViewData["Loi1"]
+                        <input type="password" name="password" />
+                               @ViewData["Loi1"]
                     </td>
                 </tr>
                  <tr style="height:40px">
                     <td align="right">Nhập mật khẩu mới: </td>
                     <td>
-                        @Html.Password("pass2")
+                        <input type="password" name="pass2" />
                         @ViewData["Loi2"]
                     </td>
                 </tr>
                 <tr style="height:40px">
                     <td align="right">Nhập lại mật khẩu: </td>
                     <td>
-                        @Html.Password("pass3")
+                        <input type="password" name="pass3" />
                         @ViewData["Loi3"]
                     </td>
                 </tr>
-
-
                 <tr style="height:40px">
             <td></td>
             <td>
@@ -47,7 +38,3 @@
         </tr>
 }
     </table>
-
-        <div>
-            @Html.ActionLink("Trở về", "QLAdmin")
-        </div>
