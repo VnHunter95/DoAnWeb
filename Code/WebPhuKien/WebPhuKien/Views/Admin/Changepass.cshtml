@@ -20,22 +20,22 @@
                     <td align="right">Nhập mật khẩu cũ: </td>
                     <td>
                         @Html.Password("password")
-                        @ViewData["Loi1"]
-                    </td>
+                        <p style="color:red">@ViewData["Loi1"]</p>
+                </td>
                 </tr>
                  <tr style="height:40px">
                     <td align="right">Nhập mật khẩu mới: </td>
                     <td>
                         @Html.Password("pass2")
-                        @ViewData["Loi2"]
-                    </td>
+                        <p style="color:red">@ViewData["Loi2"]</p>
+                </td>
                 </tr>
                 <tr style="height:40px">
                     <td align="right">Nhập lại mật khẩu: </td>
                     <td>
                         @Html.Password("pass3")
-                        @ViewData["Loi3"]
-                    </td>
+                        <p style="color:red">@ViewData["Loi3"]</p>
+                </td>
                 </tr>
 
 
@@ -49,5 +49,5 @@
     </table>
 
         <div>
-            @Html.ActionLink("Trở về", "QLAdmin")
+            @Html.ActionLink("Trở về", "Index")
         </div>

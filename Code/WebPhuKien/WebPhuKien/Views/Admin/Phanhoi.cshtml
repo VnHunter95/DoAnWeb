@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Phanhoi</h2>
+<h2>Phản hồi từ khách hàng</h2>
 
 
 <table class="table">
@@ -25,7 +25,7 @@
         <th style="text-align:center">
             Số điện thoại
         </th>
-        <th>Đã xem</th>
+        <th>Đã duyệt</th>
     </tr>
 
 @foreach (var item in Model) {
@@ -46,7 +46,7 @@
             @Html.DisplayFor(modelItem => item.Sdt)
         </td>        
         <td>
-           
+            @Html.ActionLink("Xóa", "DelPhanhoi", new { idlh = item.Idlienhe })
         </td>
     </tr>
 }

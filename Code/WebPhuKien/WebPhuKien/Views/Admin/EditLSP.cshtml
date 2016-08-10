@@ -20,7 +20,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Tenloai)
                 @Html.ValidationMessageFor(model => model.Tenloai)
-                @ViewData["Loi"]
+                <p style="color:red">@ViewData["Loi"]</p>
             </div>
         </div>
 

@@ -13,23 +13,23 @@
         <p>
             Nhập mã cho nhà sản xuất:
             @Html.TextBox("Idnsx")
-            @ViewData["Loi1"]
-        </p>
+            <p style="color:red">@ViewData["Loi1"]</p>
+    </p>
         <p>
             Nhập tên nhà sản xuất:
             @Html.TextBox("Tennsx")
-            @ViewData["Loi2"]
-        </p>
+            <p style="color:red">@ViewData["Loi2"]</p>
+    </p>
         <p>
             Địa chỉ:
             @Html.TextBox("Diachi")
-            @ViewData["Loi3"]
-        </p>
+            <p style="color:red">@ViewData["Loi3"]</p>
+    </p>
         <p>
             Số điện thoại liên lạc:
             @Html.TextBox("Sdtnsx")
-            @ViewData["Loi4"]
-        </p>
+           <p style="color:red">@ViewData["Loi4"]</p>
+    </p>
         <p>
             <input type="submit" value="Tạo mới" />
         </p>

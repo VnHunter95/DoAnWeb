@@ -13,13 +13,13 @@
         <p>
             Nhập mã Loại:
             @Html.TextBox("Idloai")
-            @ViewData["Loi1"]
-        </p>
+        <p style="color:red">@ViewData["Loi1"]</p>
+    </p>
         <p>
             Nhập tên loại:
             @Html.TextBox("Tenloai")
-            @ViewData["Loi2"]
-        </p>
+        <p style="color:red">@ViewData["Loi2"]</p>
+    </p>
         <p>
             <input type="submit" value="Tạo mới" />
         </p>

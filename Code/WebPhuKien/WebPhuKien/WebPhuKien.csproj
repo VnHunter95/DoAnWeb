@@ -521,6 +521,7 @@
     <Content Include="Views\Admin\NSX.cshtml" />
     <Content Include="Views\Admin\Phanhoi.cshtml" />
     <Content Include="Views\Admin\TTShop.cshtml" />
+    <Content Include="Views\Admin\DelPhanhoi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
