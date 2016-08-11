@@ -43,6 +43,7 @@
 
     @foreach (var item in Model)
     {
+       
         using (Html.BeginForm("Capnhatdonhang", "Admin", new { SoHD = item.SoHD }))
         {
             Html.ValidationSummary(true);
@@ -91,7 +92,7 @@
                 <td>
                     <input type="submit" value="Cập Nhật" />
                     @Html.ActionLink("Chi Tiết", "Chitiethd", new { SoHD = item.SoHD }) |
-                    @Html.ActionLink("Delete", "Xóahd", new { SoHD = item.SoHD })
+                    @Html.ActionLink("Delete", "Xoahd", new { SoHD = item.SoHD })
                 </td>
             </tr>
         }
@@ -106,3 +107,8 @@
         display: inline;
     }
 </style>
+<div class="pull-right">
+    <p>
+        <font size="8" color="red">Tổng Doanh Thu: @String.Format("{0:0,0}", ViewBag.Doanhthu)</font> 
+    </p>
+</div>

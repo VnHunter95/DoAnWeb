@@ -41,6 +41,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Tensanpham)
                 @Html.ValidationMessageFor(model => model.Tensanpham)
+                <font color="red">@ViewData["LoiTensp"]</font>
             </div>
         </div>
 
@@ -48,22 +49,21 @@
             @Html.Label("Thông Tin", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                <textarea name="Thongtin">@Model.Thongtin</textarea>
+                <font color="red">@ViewData["Loithongtin"]</font>
             </div>
         </div>
 
         <div class="form-group">
             @Html.Label("Số Lượng Còn", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Soluongcon)
-                @Html.ValidationMessageFor(model => model.Soluongcon)
+                <input type="number" min="0" name="Soluong" value="@Model.Soluongcon" required />
             </div>
         </div>
 
         <div class="form-group">
             @Html.Label("Đơn Giá", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Dongia)
-                @Html.ValidationMessageFor(model => model.Dongia)
+                <input type="number" min="1" name="Dongia" value="@Model.Dongia" required />
             </div>
         </div>
 
@@ -80,6 +80,7 @@
             @Html.Label("Ngày Cập Nhật", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <input type="date" name="Ngaycapnhat" value="@Model.Ngaycapnhat.Value.ToString("yyyy-MM-dd")" />
+                <font color="red">@ViewData["Loi4"]</font>
             </div>
         </div>
 

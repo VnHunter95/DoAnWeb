@@ -3,11 +3,12 @@
 @model PagedList.PagedList<WebPhuKien.Models.DONDATHANG>
 
 @{
-    ViewBag.Title = "Hoadon";
+    ViewBag.Title = "ThongKeNgay";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    Decimal doanhthu = 0;
 }
 
-<h2>Thống Kê Đơn Hàng</h2>
+<h2>Thống Kê Ngày @DateTime.Today.ToString("dd/MM/yyyy")</h2>
 
 <table class="table">
     <tr>
@@ -94,15 +95,22 @@
                     @Html.ActionLink("Delete", "Xoahd", new { SoHD = item.SoHD })
                 </td>
             </tr>
+            
         }
     }
 
 </table>
 <div class="MenuTrang">
-    @Html.PagedListPager(Model, page => Url.Action("Hoadon", new { page = page }))
+    @Html.PagedListPager(Model, page => Url.Action("ThongKeThang", new { page = page }))
 </div>
 <style>
     .MenuTrang li {
         display: inline;
     }
 </style>
+
+<div class="pull-right">
+    <p>
+        <font size="8" color="red">Tổng Doanh Thu: @String.Format("{0:0,0}", ViewBag.Doanhthu)</font>
+    </p>
+</div>

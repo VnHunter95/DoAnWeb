@@ -41,7 +41,7 @@
                     @{
                           decimal thanhtien = item.Soluong.Value *item.Dongia.Value;
                     }
-                    @thanhtien
+                    @String.Format("{0:0,0}",thanhtien)
                 </td>
                 <td>
                     <input type="submit" value="Cập Nhật"/>
@@ -88,7 +88,10 @@
         </tr>
         <tr style="height:40px">
             <td> Ngày giao hàng: </td>
-            <td><input type="date" name="Ngaygiao" value="@item.DONDATHANG.Ngaygiao.Value.ToString("yyyy-MM-dd")"/></td>
+            <td>
+                <input type="date" name="Ngaygiao" value="@item.DONDATHANG.Ngaygiao.Value.ToString("yyyy-MM-dd")"/>
+                <font color="red">@ViewData["LoiNgayGiao"]</font>
+            </td>
         </tr>
         <tr style="text-align:center;height:75px">
             <td><b>Thông  Tin Người Nhận</b></td>
