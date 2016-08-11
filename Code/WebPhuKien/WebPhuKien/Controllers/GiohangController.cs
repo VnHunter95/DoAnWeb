@@ -21,7 +21,7 @@ namespace WebPhuKien.Controllers
             }
             if (Session["Giohang"] == null)
             {
-                return RedirectToAction("Index", "BookStore");
+                return RedirectToAction("Index", "Phukien");
             }
 
             List<Giohang> lstGiohang = Laygiohang();
@@ -41,17 +41,27 @@ namespace WebPhuKien.Controllers
             if (String.IsNullOrEmpty(tennguoinhan))
             {
                 ViewData["LoiTen"] = "Hãy nhập tên người nhận !";
-                return View();
+                return this.DatHang();
             }
             if (String.IsNullOrEmpty(diachinhan))
             {
                 ViewData["LoiDiachi"] = "Hãy nhập địa chỉ người nhận !";
-                return View();
+                return this.DatHang();
             }
             if (String.IsNullOrEmpty(sdtnhan))
             {
                 ViewData["LoiSdt"] = "Hãy nhập số điện thoại người nhận !";
-                return View();
+                return this.DatHang();
+            }
+            DateTime ngaygiao = DateTime.Now;
+            if (collection["Ngaygiao"] != null)
+            {
+                ngaygiao = DateTime.Parse(String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]));
+                if (ngaygiao <= DateTime.Today)
+                {
+                    ViewData["LoiNgayGiao"] = "Lỗi Ngày Giao !";
+                    return this.DatHang();
+                }
             }
 
             DONDATHANG ddh = new DONDATHANG();
@@ -63,12 +73,8 @@ namespace WebPhuKien.Controllers
             ddh.Sdtnguoinhan = sdtnhan;
             ddh.Username = kh.Username;
             ddh.Ngaydat = DateTime.Now;
-            if (collection["Ngaygiao"] != null)
-            {
-                var ngaygiao = String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]);
-                ddh.Ngaygiao = DateTime.Parse(ngaygiao);
-            }
             ddh.Tinhtranggiaohang = false;
+            ddh.Ngaygiao = ngaygiao;
             ddh.Dathanhtoan = false;
             data.DONDATHANGs.InsertOnSubmit(ddh);
             data.SubmitChanges();
