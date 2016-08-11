@@ -7,6 +7,7 @@
 }
 
 <h2>Chi Tiết Đơn Hàng</h2>
+<h3><font color="red">Xóa Đơn Hàng Này ?</font></h3>
 <table class="table">
     <tr>
         <td>Hình</td>
@@ -113,7 +114,7 @@
                 <td style="font-weight: bold">@item.DONDATHANG.Emailnguoinhan</td>
             </tr>
             <tr style="height:40px">
-                <td></td>
+                <td><a href="@Url.Action(ViewData["url"].ToString(),"Admin")">Trở Về</a></td>
                 <td> <input type="submit" value="Xóa Đơn Hàng" /></td>
             </tr>
             break;

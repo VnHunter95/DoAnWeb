@@ -178,8 +178,20 @@ namespace WebPhuKien.Controllers
         }
         //
         //HoaDon
+        [HttpGet]
+        public ActionResult Xemchitiet(int SoHD,int ?page)
+        { 
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
+            int pageNumber = (page ?? 1);
+            int pageSize = 6;
+            ViewBag.SoHD = SoHD;
+            return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD).ToPagedList(pageNumber,pageSize));
+        }
         [HttpPost]
-        public ActionResult Capnhatdonhang(int SoHD, FormCollection collection)
+        public ActionResult Capnhatdonhang(int SoHD, FormCollection collection, string URL)
         {
             if (Session["Admin"] == null)
             {
@@ -207,7 +219,11 @@ namespace WebPhuKien.Controllers
             }
             UpdateModel(hd);
             data.SubmitChanges();
-            return RedirectToAction("Dondathang");
+            if (String.IsNullOrEmpty(URL))
+            {
+                return RedirectToAction("Dondathang");
+            }
+            return RedirectToAction(URL);
         }
         [HttpGet]
         public ActionResult ThongKeNgay(int? page)
@@ -268,7 +284,7 @@ namespace WebPhuKien.Controllers
             return View(data.DONDATHANGs.OrderBy(n => n.SoHD).Where(n=>n.Dathanhtoan==true&&n.Tinhtranggiaohang==true).ToList().ToPagedList(pageNum, pageSize));
         }
         [HttpPost]
-        public ActionResult Suattkhcthd(int SoHD, FormCollection collection)
+        public ActionResult Suattkhcthd(int SoHD, FormCollection collection,String URL)
         {
             if (Session["Admin"] == null)
             {
@@ -281,17 +297,17 @@ namespace WebPhuKien.Controllers
             if (String.IsNullOrEmpty(tennguoinhan))
             {
                 ViewData["LoiTen"] = "Hãy nhập tên người nhận !";
-                return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+                return this.Chitiethd(SoHD, null, URL);
             }
             if (String.IsNullOrEmpty(diachinhan))
             {
                 ViewData["LoiDiachi"] = "Hãy nhập địa chỉ người nhận !";
-                return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+                return this.Chitiethd(SoHD, null, URL);
             }
             if (String.IsNullOrEmpty(sdtnhan))
             {
                 ViewData["LoiSdt"] = "Hãy nhập số điện thoại người nhận !";
-                return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+                return this.Chitiethd(SoHD, null, URL);
             }
             DateTime ngaygiao = DateTime.Now;
             if (collection["Ngaygiao"] != null)
@@ -300,7 +316,7 @@ namespace WebPhuKien.Controllers
                 if (ngaygiao <= DateTime.Today)
                 {
                     ViewData["LoiNgayGiao"] = "Lỗi Ngày Giao !";
-                    return this.Chitiethd(SoHD,null);
+                    return this.Chitiethd(SoHD, null, URL);
                 }
             }
             hd.Emailnguoinhan = collection["Emailnhan"];
@@ -309,7 +325,7 @@ namespace WebPhuKien.Controllers
             hd.Sdtnguoinhan = sdtnhan;
             UpdateModel(hd);
             data.SubmitChanges();
-            return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+             return this.Chitiethd(SoHD, null, URL);
         }
         public ActionResult Capnhatdonhang(DONDATHANG hd)
         {
@@ -322,7 +338,7 @@ namespace WebPhuKien.Controllers
           return RedirectToAction("Dondathang");  
         }
         [HttpPost]
-        public ActionResult Capnhat1sptrongcthd(int SoHD, string IdSP,FormCollection c)
+        public ActionResult Capnhat1sptrongcthd(int SoHD, string IdSP,FormCollection c,String URL)
         {
             if (Session["Admin"] == null)
             {
@@ -333,10 +349,10 @@ namespace WebPhuKien.Controllers
             ct.Soluong = soluong;
             UpdateModel(ct);
             data.SubmitChanges();
-            return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+            return this.Chitiethd(SoHD, null, URL);
         }
         [HttpGet]
-        public ActionResult Chitiethd(int SoHD,int ?page)
+        public ActionResult Chitiethd(int SoHD,int ?page,String URL)
         {
             if (Session["Admin"] == null)
             {
@@ -345,22 +361,24 @@ namespace WebPhuKien.Controllers
             int pageNumber = (page ?? 1);
             int pageSize = 6;
             ViewBag.SoHD = SoHD;
+            ViewData["url"] = URL;
             return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD).ToPagedList(pageNumber,pageSize));
         }
         [HttpGet]
-        public ActionResult Xoahd(int SoHD,int ?page)
+        public ActionResult Xoahd(int SoHD,int ?page, string URL)
         { 
             if (Session["Admin"] == null)
             {
                 return RedirectToAction("Error");
             }
+            ViewData["url"] = URL;
             int pageNumber = (page ?? 1);
             int pageSize = 6;
             ViewBag.SoHD = SoHD;
             return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD).ToPagedList(pageNumber,pageSize));
         }
         [HttpPost]
-        public ActionResult Xoahd(int SoHD, FormCollection collection)
+        public ActionResult Xoahd(int SoHD, FormCollection collection, string URL)
         {
             if (Session["Admin"] == null)
             {
@@ -374,7 +392,11 @@ namespace WebPhuKien.Controllers
             DONDATHANG donhang = data.DONDATHANGs.FirstOrDefault(n => n.SoHD == SoHD);
             data.DONDATHANGs.DeleteOnSubmit(donhang);
             data.SubmitChanges();
-            return RedirectToAction("Dondathang");
+            if (String.IsNullOrEmpty(URL))
+            {
+                return RedirectToAction("Dondathang");
+            }
+            return RedirectToAction(URL);
         }
         //End HoaDon
         //banner
