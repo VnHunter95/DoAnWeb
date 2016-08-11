@@ -209,6 +209,18 @@ namespace WebPhuKien.Controllers
             data.SubmitChanges();
             return RedirectToAction("Dondathang");
         }
+
+        [HttpGet]
+        public ActionResult ThongKeThang(int? page)
+        {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
+            int pageNum = (page ?? 1);
+            int pageSize = 20;
+            return View(data.DONDATHANGs.OrderBy(n => n.SoHD).Where(n => n.Dathanhtoan == true && n.Tinhtranggiaohang == true && n.Ngaydat.Value.Month==DateTime.Now.Month && n.Ngaydat.Value.Year==DateTime.Now.Year).ToList().ToPagedList(pageNum, pageSize));
+        }
         [HttpGet]
         public ActionResult Dondathang(int ?page)
         {
@@ -218,7 +230,18 @@ namespace WebPhuKien.Controllers
             }
             int pageNum = (page ?? 1);
             int pageSize = 20;
-            return View(data.DONDATHANGs.OrderBy(n=>n.SoHD).ToList().ToPagedList(pageNum, pageSize));
+            return View(data.DONDATHANGs.OrderBy(n=>n.SoHD).Where(n=>n.Dathanhtoan == false || n.Tinhtranggiaohang==false).ToList().ToPagedList(pageNum, pageSize));
+        }
+        [HttpGet]
+        public ActionResult HoaDon(int? page)
+        {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
+            int pageNum = (page ?? 1);
+            int pageSize = 20;
+            return View(data.DONDATHANGs.OrderBy(n => n.SoHD).Where(n=>n.Dathanhtoan==true&&n.Tinhtranggiaohang==true).ToList().ToPagedList(pageNum, pageSize));
         }
         [HttpPost]
         public ActionResult Suattkhcthd(int SoHD, FormCollection collection)

@@ -522,6 +522,8 @@
     <Content Include="Views\Admin\Phanhoi.cshtml" />
     <Content Include="Views\Admin\TTShop.cshtml" />
     <Content Include="Views\Nguoidung\UserCP.cshtml" />
+    <Content Include="Views\Admin\HoaDon.cshtml" />
+    <Content Include="Views\Admin\ThongKeThang.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
