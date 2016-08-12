@@ -300,6 +300,7 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
+            TempData["LoiNgayGiao"] = null;
             DONDATHANG hd = data.DONDATHANGs.FirstOrDefault(n=>n.SoHD==SoHD);
             string tennguoinhan = collection["Tennguoinhan"];
             string diachinhan = collection["Diachinhan"];
@@ -307,17 +308,17 @@ namespace WebPhuKien.Controllers
             if (String.IsNullOrEmpty(tennguoinhan))
             {
                 ViewData["LoiTen"] = "Hãy nhập tên người nhận !";
-                return this.Chitiethd(SoHD, null, URL);
+                return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
             }
             if (String.IsNullOrEmpty(diachinhan))
             {
                 ViewData["LoiDiachi"] = "Hãy nhập địa chỉ người nhận !";
-                return this.Chitiethd(SoHD, null, URL);
+                return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
             }
             if (String.IsNullOrEmpty(sdtnhan))
             {
                 ViewData["LoiSdt"] = "Hãy nhập số điện thoại người nhận !";
-                return this.Chitiethd(SoHD, null, URL);
+                return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
             }
             DateTime ngaygiao = DateTime.Now;
             if (collection["Ngaygiao"] != null)
@@ -325,8 +326,8 @@ namespace WebPhuKien.Controllers
                 ngaygiao = DateTime.Parse(String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]));
                 if (ngaygiao <= DateTime.Today)
                 {
-                    ViewData["LoiNgayGiao"] = "Lỗi Ngày Giao !";
-                    return this.Chitiethd(SoHD, null, URL);
+                    TempData["LoiNgayGiao"] = "Lỗi Ngày Giao !";
+                    return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
                 }
             }
             hd.Emailnguoinhan = collection["Emailnhan"];
@@ -335,7 +336,7 @@ namespace WebPhuKien.Controllers
             hd.Sdtnguoinhan = sdtnhan;
             UpdateModel(hd);
             data.SubmitChanges();
-             return this.Chitiethd(SoHD, null, URL);
+            return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
         }
         public ActionResult Capnhatdonhang(DONDATHANG hd)
         {
@@ -359,7 +360,7 @@ namespace WebPhuKien.Controllers
             ct.Soluong = soluong;
             UpdateModel(ct);
             data.SubmitChanges();
-            return this.Chitiethd(SoHD, null, URL);
+            return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
         }
         [HttpGet]
         public ActionResult Chitiethd(int SoHD,int ?page,String URL)
@@ -372,6 +373,7 @@ namespace WebPhuKien.Controllers
             int pageSize = 6;
             ViewBag.SoHD = SoHD;
             ViewData["url"] = URL;
+            ViewData["Loingaygiao"]=TempData["LoiNgayGiao"];
             return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD).ToPagedList(pageNumber,pageSize));
         }
         [HttpGet]

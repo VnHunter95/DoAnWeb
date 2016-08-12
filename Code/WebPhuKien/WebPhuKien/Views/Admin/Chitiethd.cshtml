@@ -4,7 +4,7 @@
 @{
     ViewBag.Title = "Chitiethd";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
-    
+    string Action = ViewData["url"].ToString();
 }
 
         <h2>Chi Tiết Đơn Hàng</h2>
@@ -23,7 +23,7 @@
 
         @foreach (var item in Model)
         {
-            using (Html.BeginForm("Capnhat1sptrongcthd", "Admin", new { SoHD = item.SoHD, IdSP = item.Idsp}))
+            using (Html.BeginForm("Capnhat1sptrongcthd", "Admin", new { SoHD = item.SoHD, IdSP = item.Idsp, URL = Action }))
         {
             <tr>
                 <td>
@@ -65,7 +65,7 @@
     
         @foreach (var item in Model)
         { 
-        using (Html.BeginForm("Suattkhcthd", "Admin",FormMethod.Post, new { SoHD = item.SoHD , URL = ViewData["url"].ToString()}))
+        using (Html.BeginForm("Suattkhcthd", "Admin", new { SoHD = item.SoHD,URL=Action}))
         {
             Html.ValidationSummary(true);
         <tr style="text-align:center;height:75px">
@@ -100,29 +100,31 @@
         <tr style="height:40px">
             <td>
                 Họ Tên Người nhận:
-                <p style="color:red;"><i>@ViewData["LoiTen"]</i></p>
             </td>
-            <td style="font-weight: bold"> <input type="text" value="@item.DONDATHANG.TenNguoiNhan" name="Tennguoinhan" /> </td>
+            <td style="font-weight: bold"> <input type="text" value="@item.DONDATHANG.TenNguoiNhan" name="Tennguoinhan" required maxlength="25"/>
+            <font color="red">@ViewData["LoiTen"] </font> 
+            </td>
         </tr>
         <tr style="height:40px">
             <td>
                 Địa Chỉ Người nhận:
-                @ViewData["LoiDiachi"]
             </td>
-            <td style="font-weight: bold"> <input type="text" value="@item.DONDATHANG.Diachinguoinhan" name="Diachinhan" />  </td>
+            <td style="font-weight: bold"> <input type="text" value="@item.DONDATHANG.Diachinguoinhan" name="Diachinhan" required maxlength="150"/> 
+                <font color="red">@ViewData["LoiDiachi"] </font>  </td>
         </tr>
         <tr style="height:40px">
             <td>
                 Số Điện thoại:
-                @ViewData["LoiSdt"]
             </td>
-            <td style="font-weight: bold"> <input type="text" value="@item.DONDATHANG.Sdtnguoinhan" name="Sdtnguoinhan" />  </td>
+            <td style="font-weight: bold"> <input type="text" value="@item.DONDATHANG.Sdtnguoinhan" name="Sdtnguoinhan" required maxlength="11" min="10"/> 
+                <font color="red">@ViewData["LoiSdt"] </font> 
+             </td>
         </tr>
         <tr style="height:40px">
             <td>
                 Email:
             </td>
-            <td style="font-weight: bold"> <input type="text" value="@item.DONDATHANG.Emailnguoinhan" name="Emailnhan" />  </td>
+            <td style="font-weight: bold"> <input type="email" value="@item.DONDATHANG.Emailnguoinhan" name="Emailnhan" />  </td>
         </tr>
         <tr style="height:40px">
             <td><a href="@Url.Action(ViewData["url"].ToString(),"Admin")">Trở Về</a></td>
