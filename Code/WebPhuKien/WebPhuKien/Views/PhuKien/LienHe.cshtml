@@ -1,4 +1,5 @@
-﻿@{
+﻿@model WebPhuKien.Models.LIENHE
+@{
     ViewBag.Title = "LienHe";
     Layout = "~/Views/Shared/_LayoutPageUserNoBanner.cshtml";
 }
@@ -11,36 +12,38 @@
         <tr style="height:40px">
             <td align="right">Người gửi: </td>
             <td>
-                @Html.TextBox("From")
-                @ViewData["Loi1"]
+                @Html.TextBoxFor(model => model.Hoten, new { @class = "text", type = "Text", required = "required" })
+            <font color="red">@ViewData["Loi1"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right">Email: </td>
             <td>
-                @Html.TextBox("Email")
-                @ViewData["Loi2"]
+               @Html.TextBoxFor(model => model.Email, new { @class = "text", type = "Email", required = "required" })
+             <font color="red">@ViewData["Loi2"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right">Số điện thoại: </td>
             <td>
-                @Html.TextBox("SDT")
-                @ViewData["Loi3"]
+                @Html.TextBoxFor(model => model.Sdt, new { @class = "text", type = "Text"})
+                <font color="red">@ViewData["Loi3"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right"><b>Tiêu đề bài gửi: </b></td>
-            <td>
-                @Html.TextBox("Tit")
-                @ViewData["Loi4"]
+            <td>                
+                @Html.TextBoxFor(model => model.Tieude, new { @class = "text", type = "Text", required = "required" })
+                <br />
+                <font color="red">@ViewData["Loi4"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right">Nội dung: </td>
             <td>
-                @Html.TextArea("content")
-                @ViewData["Loi5"]
+                <textarea name="Noidung" style="width:400px;height:180px;" required>Nội Dung Thư</textarea>
+                <br />
+                <font color="red">@ViewData["Loi5"]</font>
             </td>
         </tr>
 
