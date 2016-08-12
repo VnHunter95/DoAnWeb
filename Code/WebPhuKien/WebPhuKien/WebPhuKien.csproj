@@ -423,7 +423,9 @@
     <Content Include="tinymce\js\tinymce\themes\modern\theme.min.js" />
     <Content Include="tinymce\js\tinymce\tinymce.min.js" />
     <Content Include="tinymce\LICENSE.TXT" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -527,6 +529,7 @@
     <Content Include="Views\Admin\ThongKeNgay.cshtml" />
     <Content Include="Views\Admin\Xoahd.cshtml" />
     <Content Include="Views\Admin\Xemchitiet.cshtml" />
+    <Content Include="Views\Admin\DelPhanhoi.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

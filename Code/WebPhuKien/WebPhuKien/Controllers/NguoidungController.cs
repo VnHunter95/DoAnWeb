@@ -237,7 +237,9 @@ namespace WebPhuKien.Controllers
                 ViewData["Loi4"] = "Vui lòng nhập tên !";
                 return this.Dangky();
             }
-            KHACHHANG kh = new KHACHHANG();
+            else
+            {
+                KHACHHANG kh = new KHACHHANG();
                 kh.Username = user;
                 kh.Password = pass;
                 kh.Hoten = ten;
@@ -247,6 +249,7 @@ namespace WebPhuKien.Controllers
                 data.KHACHHANGs.InsertOnSubmit(kh);
                 data.SubmitChanges();
                 return RedirectToAction("Dangnhap");
+            }
         }
 
         public ActionResult DangXuat()

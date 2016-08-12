@@ -46,7 +46,7 @@
             @Html.DisplayFor(modelItem => item.Sdt)
         </td>        
         <td>
-           
+           @Html.ActionLink("Xóa", "DelPhanhoi", new { id = item.Idlienhe })
         </td>
     </tr>
 }
