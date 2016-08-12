@@ -17,6 +17,17 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+        bool KiemTraStringCoSo(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= '0' && c <= '9')))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         bool KiemTraStringLaSo(string text) //Kt CHuỗi
         {
             foreach (char c in text)
@@ -187,15 +198,22 @@ namespace WebPhuKien.Controllers
         }
 
         [HttpPost]
-        public ActionResult Dangky(FormCollection collection)
+        public ActionResult Dangky(FormCollection collection,KHACHHANG KH)
         {
+
             var user = collection["Username"];
             var pass = collection["Password"];
             var pass2 = collection["Password2nd"];
-            var ten = collection["Name"];
+            var ten = collection["Hoten"];
             var sdt = collection["Sdt"];
             var diachi = collection["Diachi"];
             var email = collection["Email"];
+
+            if (String.IsNullOrEmpty(ten) || ten.Length > 25 || KiemTraStringCoSo(ten))
+            {
+                ViewData["Loi4"] = "Vui lòng nhập tên không quá 25 ký tự!";
+                return this.Dangky();
+            }
             if (!string.IsNullOrEmpty(sdt) && (sdt.Length > 11 || sdt.Length < 10 || !KiemTraStringLaSo(sdt)))
             {
                 ViewData["Loidt"] = "Sai Số Điện Thoại !";
@@ -224,21 +242,9 @@ namespace WebPhuKien.Controllers
             }
             if (pass.CompareTo(pass2) != 0)
             {
-                    ViewData["Loi2"] = "Mật khẩu nhập lại không đúng !";
+                    ViewData["Loi3"] = "Mật khẩu nhập lại không đúng !";
                     return this.Dangky();
             }
-            if (String.IsNullOrEmpty(pass2))
-            {
-                ViewData["Loi3"] = "Nhập lại mật khẩu !";
-                return this.Dangky();
-            }
-            if (String.IsNullOrEmpty(ten))
-            {
-                ViewData["Loi4"] = "Vui lòng nhập tên !";
-                return this.Dangky();
-            }
-            else
-            {
                 KHACHHANG kh = new KHACHHANG();
                 kh.Username = user;
                 kh.Password = pass;
@@ -249,7 +255,7 @@ namespace WebPhuKien.Controllers
                 data.KHACHHANGs.InsertOnSubmit(kh);
                 data.SubmitChanges();
                 return RedirectToAction("Dangnhap");
-            }
+            
         }
 
         public ActionResult DangXuat()

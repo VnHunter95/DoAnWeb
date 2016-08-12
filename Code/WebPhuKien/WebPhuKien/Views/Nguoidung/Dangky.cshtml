@@ -14,21 +14,21 @@
             <td align="right">Tên đăng nhập: </td>
             <td>
                 @Html.TextBox("Username")
-                @ViewData["Loi1"]
+                <font color="red">@ViewData["Loi1"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right">Mật khẩu: </td>
             <td>
                 @Html.Password("Password")
-                @ViewData["Loi2"]
+                <font color="red">@ViewData["Loi2"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right">Nhập lại mật khẩu: </td>
             <td>
                 @Html.Password("Password2nd")
-                @ViewData["Loi3"]
+                <font color="red">@ViewData["Loi3"]</font>
             </td>
         </tr>
         <tr style="height:40px">
@@ -38,29 +38,29 @@
         <tr style="height:40px">
             <td align="right">Họ Tên:</td>
             <td>
-                @Html.TextBox("Name")
-                @ViewData["Loi4"]
+                @Html.TextBox("Hoten")
+                <font color="red">@ViewData["Loi4"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right">Số điện thoại:</td>
             <td>
                 @Html.TextBox("Sdt")
-                @ViewData["Loidt"]
+                <font color="red">@ViewData["Loidt"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right">Địa Chỉ:</td>
             <td>
                 @Html.TextBox("Diachi")
-                @ViewData["Loidc"]
+                <font color="red">@ViewData["Loidc"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right">Email:</td>
             <td>
                @Html.TextBox("Email")
-               @ViewData["Loiemail"]
+                <font color="red">@ViewData["Loiemail"]</font>
             </td>
         </tr>
         <tr style="height:40px">
