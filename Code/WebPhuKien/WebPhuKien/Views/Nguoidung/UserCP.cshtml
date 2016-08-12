@@ -22,7 +22,7 @@
             @Html.Label("Họ Tên: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Hoten)
-                @Html.ValidationMessageFor(model => model.Hoten)
+                @Html.ValidationMessageFor(model => model.Hoten)<br />
                 <font color="red">@ViewData["Loi2"]</font>
             </div>
         </div>
@@ -31,7 +31,7 @@
             @Html.Label("Điện Thoại: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Sdt)
-                @Html.ValidationMessageFor(model => model.Sdt)
+                @Html.ValidationMessageFor(model => model.Sdt)<br />
                 <font color="red">@ViewData["Loi3"]</font>
             </div>
         </div>
@@ -40,7 +40,7 @@
             @Html.Label("Địa Chỉ: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Diachi)
-                @Html.ValidationMessageFor(model => model.Diachi)
+                @Html.ValidationMessageFor(model => model.Diachi)<br />
                 <font color="red">@ViewData["Loi4"]</font>
             </div>
         </div>
@@ -49,7 +49,7 @@
             @Html.Label("Email: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email)
-                @Html.ValidationMessageFor(model => model.Email)
+                @Html.ValidationMessageFor(model => model.Email)<br />
                 <font color="red">@ViewData["Loi5"]</font>
             </div>
         </div>
@@ -67,26 +67,26 @@
      <div class="form-horizontal">
         @Html.ValidationSummary(true)
      <h2>Đổi Mật Khẩu</h2>
-         <font color="red"><h1>@ViewData["Ketqua"]</h1></font>
+         <font color="red"><h3>@ViewData["Ketqua"]</h3></font>
         <hr />
         <div class="form-group">
             @Html.Label("Mật Khẩu Hiện Tại: ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="password" name="pass"/>
+                <input type="password" name="pass"/><br />
                 <font color="red">@ViewData["Loipass"]</font>
             </div>
         </div>
     <div class="form-group">
             @Html.Label("Mật Khẩu Mới: " ,new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="password" name="passmoi" />
+                <input type="password" name="passmoi" /><br />
                <font color="red">@ViewData["Loipassmoi"]</font>
             </div>
         </div>
         <div class="form-group">
             @Html.Label("Nhập Lại Mật Khẩu: " ,new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="password" name="passmoi2" />
+                <input type="password" name="passmoi2" /><br />
                 <font color="red">@ViewData["Loipassmoi2"] </font>
             </div>
         </div>
