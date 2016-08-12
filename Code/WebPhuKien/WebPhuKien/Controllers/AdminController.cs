@@ -1016,6 +1016,19 @@ namespace WebPhuKien.Controllers
             var idph = data.LIENHEs.Select(n => n);
             return View(idph);
         }
+        public ActionResult DelPhanhoi(int id)
+        {
+            var d = data.LIENHEs.First(m => m.Idlienhe == id);
+            return View(d);
+        }
+        [HttpPost]
+        public ActionResult Delphanhoi(int id,FormCollection c)
+        {
+            var d = data.LIENHEs.First(n => n.Idlienhe == id);
+            data.LIENHEs.DeleteOnSubmit(d);
+            data.SubmitChanges();
+            return RedirectToAction("Phanhoi", "Admin");
+        }
         [HttpGet]
         public ActionResult Changepass()
         {
