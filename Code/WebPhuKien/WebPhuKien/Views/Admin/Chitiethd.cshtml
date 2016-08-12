@@ -23,9 +23,8 @@
 
         @foreach (var item in Model)
         {
-            using (Html.BeginForm("Capnhat1sptrongcthd", "Admin", new { SoHD = item.SoHD, IdSP = item.Idsp, URL = ViewData["url"].ToString() }))
+            using (Html.BeginForm("Capnhat1sptrongcthd", "Admin", new { SoHD = item.SoHD, IdSP = item.Idsp}))
         {
-            Html.ValidationSummary(true);
             <tr>
                 <td>
                     <img src="~/Hinhsanpham/@item.SANPHAM.Hinhanh" width="150px" height="150px"/>
@@ -66,7 +65,7 @@
     
         @foreach (var item in Model)
         { 
-        using (Html.BeginForm("Suattkhcthd", "Admin", new { SoHD = item.SoHD , URL = ViewData["url"].ToString()}))
+        using (Html.BeginForm("Suattkhcthd", "Admin",FormMethod.Post, new { SoHD = item.SoHD , URL = ViewData["url"].ToString()}))
         {
             Html.ValidationSummary(true);
         <tr style="text-align:center;height:75px">
