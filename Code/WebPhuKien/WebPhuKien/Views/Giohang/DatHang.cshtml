@@ -81,23 +81,31 @@
         <tr style="height:40px">
             <td> 
                 Họ Tên Người nhận: 
-                <p style="color:red;"><i>@ViewData["LoiTen"]</i></p>
             </td>
-            <td style="font-weight: bold"> <input type="text" value="@kh.Hoten" name="Tennguoinhan"/> </td>
+            <td> <input type="text" value="@kh.Hoten" name="TenNguoiNhan" style="font-weight:bold" required/>
+                <br />
+
+                <font color="red">@ViewData["LoiTen"]</font>
+             </td>
         </tr>
         <tr style="height:40px">
             <td> 
                 Địa Chỉ Người nhận: 
-                @ViewData["LoiDiachi"]
             </td>
-            <td style="font-weight: bold"> <input type="text" value="@kh.Diachi" name="Diachinhan" />  </td>
+            <td> <input type="text" value="@kh.Diachi" name="Diachinguoinhan" style="font-weight:bold" required />  
+                <br />
+                <font color="red">@ViewData["LoiDiachi"]</font>
+            </td>
         </tr>
         <tr style="height:40px">
             <td> 
-                Số Điện thoại: 
-                @ViewData["LoiSdt"]
+                Số Điện thoại:
             </td>
-            <td style="font-weight: bold"> <input type="text" value="@kh.Sdt" name="Sdtnguoinhan" />  </td>
+            <td> 
+                <input type="text" value="@kh.Sdt" name="Sdtnguoinhan" style="font-weight:bold" required />  
+                <br />
+                 <font color="red">@ViewData["LoiSdt"]</font>
+            </td>
         </tr>
         <tr style="height:40px">
             <td> 
