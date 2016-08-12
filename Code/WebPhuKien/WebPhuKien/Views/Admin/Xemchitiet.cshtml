@@ -1,0 +1,126 @@
+﻿@using WebPhuKien.Models;
+@using PagedList.Mvc;
+@model PagedList.PagedList<WebPhuKien.Models.CT_DDH>
+@{
+    ViewBag.Title = "Xoahd";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Chi Tiết Đơn Hàng</h2>
+<h3><font color="red">Xóa Đơn Hàng Này ?</font></h3>
+<table class="table">
+    <tr>
+        <td>Hình</td>
+        <td>Tên Sản Phẩm</td>
+        <th>
+            Đơn Giá
+        </th>
+        <th>
+            Số Lượng
+        </th>
+        <th>Thành Tiền</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src="~/Hinhsanpham/@item.SANPHAM.Hinhanh" width="150px" height="150px" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SANPHAM.Tensanpham)
+            </td>
+            <td>
+                @String.Format("{0:0,0}", item.Dongia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Soluong)
+            </td>
+            <td>
+                @{
+        decimal thanhtien = item.Soluong.Value * item.Dongia.Value;
+                }
+                @String.Format("{0:0,0}", thanhtien)
+            </td>
+        </tr>
+    }
+</table>
+<div class="MenuTrang">
+    @Html.PagedListPager(Model, page => Url.Action("Xoahd", new { SoHD = ViewBag.SoHD, page = page }))
+</div>
+<style>
+    .MenuTrang li {
+        display: inline;
+    }
+</style>
+
+<h2 style="text-align:center">Thông Tin Đơn Đặt Hàng</h2>
+<table align="center">
+
+    @foreach (var item in Model)
+    {
+        Html.BeginForm();
+        Html.ValidationSummary(true);
+        <tr style="text-align:center;height:75px">
+            <td><b>Thông Tin Người Đặt</b></td>
+        </tr>
+        <tr style="height:40px">
+            <td> Họ Tên Khách Hàng: </td>
+            <td style="font-weight: bold">@item.DONDATHANG.KHACHHANG.Hoten  </td>
+        </tr>
+        <tr style="height:40px">
+            <td> Địa Chỉ: </td>
+            <td style="font-weight: bold"> @item.DONDATHANG.KHACHHANG.Diachi </td>
+        </tr>
+        <tr style="height:40px">
+            <td> Điện thoại: </td>
+            <td style="font-weight: bold"> @item.DONDATHANG.KHACHHANG.Sdt </td>
+        </tr>
+        <tr style="height:40px">
+            <td> Ngày đặt: </td>
+            <td style="font-weight: bold"> @item.DONDATHANG.Ngaydat.Value.ToString("dd/MM/yyyy")</td>
+        </tr>
+        <tr style="height:40px">
+            <td> Ngày giao hàng: </td>
+            <td>
+                @item.DONDATHANG.Ngaygiao.Value.ToString("dd/MM/yyyy")
+            </td>
+        </tr>
+        <tr style="text-align:center;height:75px">
+            <td><b>Thông  Tin Người Nhận</b></td>
+        </tr>
+        <tr style="height:40px">
+            <td>
+                Họ Tên Người nhận:
+            </td>
+            <td style="font-weight: bold"> @item.DONDATHANG.TenNguoiNhan</td>
+        </tr>
+        <tr style="height:40px">
+            <td>
+                Địa Chỉ Người nhận:
+            </td>
+            <td style="font-weight: bold">@item.DONDATHANG.Diachinguoinhan</td>
+        </tr>
+        <tr style="height:40px">
+            <td>
+                Số Điện thoại:
+            </td>
+            <td style="font-weight: bold">@item.DONDATHANG.Sdtnguoinhan</td>
+        </tr>
+        <tr style="height:40px">
+            <td>
+                Email:
+            </td>
+            <td style="font-weight: bold">@item.DONDATHANG.Emailnguoinhan</td>
+        </tr>
+        <tr style="height:40px">
+            <td></td>
+            <td> <input type="submit" value="Trở Về" /></td>
+        </tr>
+        break;
+    }
+    }
+</table>
+
+
+

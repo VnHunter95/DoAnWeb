@@ -5,6 +5,8 @@
 @{
     ViewBag.Title = "Dondathang";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    string Action = "Dondathang";
 }
 
 <h2>Đơn Hàng Chưa Hoàn Thành</h2>
@@ -42,7 +44,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    using (Html.BeginForm("Capnhatdonhang", "Admin", new { SoHD = item.SoHD }))
+    using (Html.BeginForm("Capnhatdonhang", "Admin", new { SoHD = item.SoHD, URL = Action }))
     {
         Html.ValidationSummary(true);
     <tr>
@@ -89,8 +91,8 @@
         </td>
         <td>
             <input type="submit" value="Cập Nhật" />
-            @Html.ActionLink("Chi Tiết", "Chitiethd", new { SoHD = item.SoHD }) |
-            @Html.ActionLink("Delete", "Xóahd", new { SoHD = item.SoHD })
+            @Html.ActionLink("Chi Tiết", "Chitiethd", new { SoHD = item.SoHD, URL=Action }) |
+            @Html.ActionLink("Delete", "Xoahd", new { SoHD = item.SoHD, URL = Action })
         </td>
     </tr>
     }

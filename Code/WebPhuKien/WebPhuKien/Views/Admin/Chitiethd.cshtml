@@ -4,6 +4,7 @@
 @{
     ViewBag.Title = "Chitiethd";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    
 }
 
         <h2>Chi Tiết Đơn Hàng</h2>
@@ -20,8 +21,9 @@
                 <th>Thành Tiền</th>
             </tr>
 
-        @foreach (var item in Model) {
-        using (Html.BeginForm("Capnhat1sptrongcthd", "Admin", new { SoHD = item.SoHD, IdSP = item.Idsp }))
+        @foreach (var item in Model)
+        {
+            using (Html.BeginForm("Capnhat1sptrongcthd", "Admin", new { SoHD = item.SoHD, IdSP = item.Idsp, URL = ViewData["url"].ToString() }))
         {
             Html.ValidationSummary(true);
             <tr>
@@ -41,7 +43,7 @@
                     @{
                           decimal thanhtien = item.Soluong.Value *item.Dongia.Value;
                     }
-                    @thanhtien
+                    @String.Format("{0:0,0}",thanhtien)
                 </td>
                 <td>
                     <input type="submit" value="Cập Nhật"/>
@@ -51,7 +53,7 @@
         }
 </table>
 <div class="MenuTrang">
-    @Html.PagedListPager(Model, page => Url.Action("Chitiethd", new { SoHD=ViewBag.SoHD, page = page }))
+    @Html.PagedListPager(Model, page => Url.Action("Chitiethd", new { SoHD = ViewBag.SoHD, page = page, URL = ViewData["url"].ToString() }))
 </div>
 <style>
     .MenuTrang li {
@@ -64,7 +66,7 @@
     
         @foreach (var item in Model)
         { 
-        using (Html.BeginForm("Suattkhcthd", "Admin", new { SoHD = item.SoHD }))
+        using (Html.BeginForm("Suattkhcthd", "Admin", new { SoHD = item.SoHD , URL = ViewData["url"].ToString()}))
         {
             Html.ValidationSummary(true);
         <tr style="text-align:center;height:75px">
@@ -88,7 +90,10 @@
         </tr>
         <tr style="height:40px">
             <td> Ngày giao hàng: </td>
-            <td><input type="date" name="Ngaygiao" value="@item.DONDATHANG.Ngaygiao.Value.ToString("yyyy-MM-dd")"/></td>
+            <td>
+                <input type="date" name="Ngaygiao" value="@item.DONDATHANG.Ngaygiao.Value.ToString("yyyy-MM-dd")"/>
+                <font color="red">@ViewData["LoiNgayGiao"]</font>
+            </td>
         </tr>
         <tr style="text-align:center;height:75px">
             <td><b>Thông  Tin Người Nhận</b></td>
@@ -121,13 +126,14 @@
             <td style="font-weight: bold"> <input type="text" value="@item.DONDATHANG.Emailnguoinhan" name="Emailnhan" />  </td>
         </tr>
         <tr style="height:40px">
-            <td></td>
+            <td><a href="@Url.Action(ViewData["url"].ToString(),"Admin")">Trở Về</a></td>
             <td> <input type="submit" value="Cập Nhật Thông Tin Đơn Hàng" /></td>
         </tr>
             break;
             }
         }
 </table>
+
 
     
 

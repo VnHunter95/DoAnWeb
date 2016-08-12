@@ -126,7 +126,7 @@ namespace WebPhuKien.Controllers
             }
             if (kh.Email.Length > 50 || string.IsNullOrEmpty(kh.Email))
             {
-                ViewData["Loi5"] = "Vui lòng nhập địa chỉ ít hơn 50 ký tự !";
+                ViewData["Loi5"] = "Vui lòng nhập email ít hơn 50 ký tự !";
                 return View(kh);
             }
             khmoi.Password = kh.Password;
@@ -179,8 +179,20 @@ namespace WebPhuKien.Controllers
         }
         //
         //HoaDon
+        [HttpGet]
+        public ActionResult Xemchitiet(int SoHD,int ?page)
+        { 
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
+            int pageNumber = (page ?? 1);
+            int pageSize = 6;
+            ViewBag.SoHD = SoHD;
+            return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD).ToPagedList(pageNumber,pageSize));
+        }
         [HttpPost]
-        public ActionResult Capnhatdonhang(int SoHD, FormCollection collection)
+        public ActionResult Capnhatdonhang(int SoHD, FormCollection collection, string URL)
         {
             if (Session["Admin"] == null)
             {
@@ -208,7 +220,47 @@ namespace WebPhuKien.Controllers
             }
             UpdateModel(hd);
             data.SubmitChanges();
-            return RedirectToAction("Dondathang");
+            if (String.IsNullOrEmpty(URL))
+            {
+                return RedirectToAction("Dondathang");
+            }
+            return RedirectToAction(URL);
+        }
+        [HttpGet]
+        public ActionResult ThongKeNgay(int? page)
+        {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
+            int pageNum = (page ?? 1);
+            int pageSize = 20; 
+            decimal Doanhthu = 0;
+            var b = data.CT_DDHs.Where(n => n.DONDATHANG.Dathanhtoan == true && n.DONDATHANG.Tinhtranggiaohang == true && n.DONDATHANG.Ngaydat.Value.Date==DateTime.Today).Sum(n => n.Soluong * n.Dongia);
+            if (b != null)
+            {
+                Doanhthu = (decimal)b;
+            }
+            ViewBag.Doanhthu = Doanhthu;
+            return View(data.DONDATHANGs.OrderBy(n => n.SoHD).Where(n => n.Dathanhtoan == true && n.Tinhtranggiaohang == true && n.Ngaydat.Value.Date==DateTime.Today).ToList().ToPagedList(pageNum, pageSize));
+        }
+        [HttpGet]
+        public ActionResult ThongKeThang(int? page)
+        {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
+            int pageNum = (page ?? 1);
+            int pageSize = 20;
+            decimal Doanhthu = 0;
+            var b= data.CT_DDHs.Where(n => n.DONDATHANG.Dathanhtoan == true && n.DONDATHANG.Tinhtranggiaohang == true && n.DONDATHANG.Ngaydat.Value.Month == DateTime.Now.Month && n.DONDATHANG.Ngaydat.Value.Year == DateTime.Now.Year).Sum(n => n.Soluong * n.Dongia);
+            if (b != null)
+            {
+                Doanhthu = (decimal)b;
+            }
+            ViewBag.Doanhthu = Doanhthu;
+            return View(data.DONDATHANGs.OrderBy(n => n.SoHD).Where(n => n.Dathanhtoan == true && n.Tinhtranggiaohang == true && n.Ngaydat.Value.Month==DateTime.Now.Month && n.Ngaydat.Value.Year==DateTime.Now.Year).ToList().ToPagedList(pageNum, pageSize));
         }
         [HttpGet]
         public ActionResult Dondathang(int ?page)
@@ -219,10 +271,21 @@ namespace WebPhuKien.Controllers
             }
             int pageNum = (page ?? 1);
             int pageSize = 20;
-            return View(data.DONDATHANGs.OrderBy(n=>n.SoHD).ToList().ToPagedList(pageNum, pageSize));
+            return View(data.DONDATHANGs.OrderBy(n=>n.SoHD).Where(n=>n.Dathanhtoan == false || n.Tinhtranggiaohang==false).ToList().ToPagedList(pageNum, pageSize));
+        }
+        [HttpGet]
+        public ActionResult HoaDon(int? page)
+        {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
+            int pageNum = (page ?? 1);
+            int pageSize = 20;
+            return View(data.DONDATHANGs.OrderBy(n => n.SoHD).Where(n=>n.Dathanhtoan==true&&n.Tinhtranggiaohang==true).ToList().ToPagedList(pageNum, pageSize));
         }
         [HttpPost]
-        public ActionResult Suattkhcthd(int SoHD, FormCollection collection)
+        public ActionResult Suattkhcthd(int SoHD, FormCollection collection,String URL)
         {
             if (Session["Admin"] == null)
             {
@@ -236,22 +299,27 @@ namespace WebPhuKien.Controllers
             if (String.IsNullOrEmpty(tennguoinhan))
             {
                 ViewData["LoiTen"] = "Hãy nhập tên người nhận !";
-                return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+                return this.Chitiethd(SoHD, null, URL);
             }
             if (String.IsNullOrEmpty(diachinhan))
             {
                 ViewData["LoiDiachi"] = "Hãy nhập địa chỉ người nhận !";
-                return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+                return this.Chitiethd(SoHD, null, URL);
             }
             if (String.IsNullOrEmpty(sdtnhan))
             {
                 ViewData["LoiSdt"] = "Hãy nhập số điện thoại người nhận !";
-                return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+                return this.Chitiethd(SoHD, null, URL);
             }
+            DateTime ngaygiao = DateTime.Now;
             if (collection["Ngaygiao"] != null)
             {
-                var ngaygiao = String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]);
-                hd.Ngaygiao = DateTime.Parse(ngaygiao);
+                ngaygiao = DateTime.Parse(String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]));
+                if (ngaygiao <= DateTime.Today)
+                {
+                    ViewData["LoiNgayGiao"] = "Lỗi Ngày Giao !";
+                    return this.Chitiethd(SoHD, null, URL);
+                }
             }
             hd.Emailnguoinhan = collection["Emailnhan"];
             hd.TenNguoiNhan = tennguoinhan;
@@ -259,7 +327,7 @@ namespace WebPhuKien.Controllers
             hd.Sdtnguoinhan = sdtnhan;
             UpdateModel(hd);
             data.SubmitChanges();
-            return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+             return this.Chitiethd(SoHD, null, URL);
         }
         public ActionResult Capnhatdonhang(DONDATHANG hd)
         {
@@ -272,7 +340,7 @@ namespace WebPhuKien.Controllers
           return RedirectToAction("Dondathang");  
         }
         [HttpPost]
-        public ActionResult Capnhat1sptrongcthd(int SoHD, string IdSP,FormCollection c)
+        public ActionResult Capnhat1sptrongcthd(int SoHD, string IdSP,FormCollection c,String URL)
         {
             if (Session["Admin"] == null)
             {
@@ -283,10 +351,10 @@ namespace WebPhuKien.Controllers
             ct.Soluong = soluong;
             UpdateModel(ct);
             data.SubmitChanges();
-            return RedirectToAction("Chitiethd", new { SoHD = SoHD });
+            return this.Chitiethd(SoHD, null, URL);
         }
         [HttpGet]
-        public ActionResult Chitiethd(int SoHD,int ?page)
+        public ActionResult Chitiethd(int SoHD,int ?page,String URL)
         {
             if (Session["Admin"] == null)
             {
@@ -295,7 +363,42 @@ namespace WebPhuKien.Controllers
             int pageNumber = (page ?? 1);
             int pageSize = 6;
             ViewBag.SoHD = SoHD;
+            ViewData["url"] = URL;
             return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD).ToPagedList(pageNumber,pageSize));
+        }
+        [HttpGet]
+        public ActionResult Xoahd(int SoHD,int ?page, string URL)
+        { 
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
+            ViewData["url"] = URL;
+            int pageNumber = (page ?? 1);
+            int pageSize = 6;
+            ViewBag.SoHD = SoHD;
+            return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD).ToPagedList(pageNumber,pageSize));
+        }
+        [HttpPost]
+        public ActionResult Xoahd(int SoHD, FormCollection collection, string URL)
+        {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
+            List<CT_DDH> ct = data.CT_DDHs.Where(n => n.SoHD == SoHD).ToList();
+            foreach (CT_DDH item in ct)
+            {
+                data.CT_DDHs.DeleteOnSubmit(item);
+            }
+            DONDATHANG donhang = data.DONDATHANGs.FirstOrDefault(n => n.SoHD == SoHD);
+            data.DONDATHANGs.DeleteOnSubmit(donhang);
+            data.SubmitChanges();
+            if (String.IsNullOrEmpty(URL))
+            {
+                return RedirectToAction("Dondathang");
+            }
+            return RedirectToAction(URL);
         }
         //End HoaDon
         //banner
@@ -439,6 +542,7 @@ namespace WebPhuKien.Controllers
                 return null;
 
             }
+
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
             return View(sp);
@@ -458,17 +562,36 @@ namespace WebPhuKien.Controllers
             string loai = collection["IdLoai"];
             string thongtin = collection["Thongtin"];
             string Hinhanh= spmoi.Hinhanh;
+            int sl = int.Parse(collection["Soluong"]);
+            decimal dongia = decimal.Parse(collection["Dongia"]);
+            if (String.IsNullOrEmpty(sp.Tensanpham) || sp.Tensanpham.Length > 50)
+            {
+                ViewData["LoiTensp"] = "Nhập Tên Sản Phẩm 50 Ký Tự !";
+                return this.Suasp(sp.Idsp);
+            }
+            if (String.IsNullOrEmpty(sp.Thongtin) ||sp.Thongtin.Length > 300)
+            {
+                ViewData["Loithongtin"] = "Không Được Quá 300 Ký Tự ( Gồm Những Thẻ HTML )";
+                return this.Suasp(sp.Idsp);
+            }
 
             spmoi.Idnsx = nsx;
+            spmoi.Idnsx = sp.Idnsx;
             spmoi.Idloai = loai;
             spmoi.Thongtin = thongtin;
             spmoi.Tensanpham = sp.Tensanpham;
-            spmoi.Soluongcon = sp.Soluongcon;
-            spmoi.Dongia = sp.Dongia;
+            spmoi.Soluongcon = sl;
+            spmoi.Dongia = dongia;
             if (collection["Ngaycapnhat"] != null)
             {
-                var ngayupdate = String.Format("{0:MM/dd/yyyy}", collection["Ngaycapnhat"]);
-                spmoi.Ngaycapnhat = DateTime.Parse(ngayupdate);
+                DateTime ngayupdate = DateTime.Parse(String.Format("{0:MM/dd/yyyy}", collection["Ngaycapnhat"]));
+
+                if (ngayupdate.Year < 2000 || ngayupdate.Year > 2100)
+                {
+                    ViewData["Loi4"] = "Lỗi Ngày !";
+                    return this.Suasp(sp.Idsp);
+                }
+                spmoi.Ngaycapnhat = ngayupdate;
             }
             if (fileUpdate == null)
             {
@@ -541,7 +664,7 @@ namespace WebPhuKien.Controllers
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Themsanpham(SANPHAM sp, HttpPostedFileBase fileupload)
+        public ActionResult Themsanpham(SANPHAM sp, HttpPostedFileBase fileupload,FormCollection collection)
         {
             if (Session["Admin"] == null)
             {
@@ -549,6 +672,8 @@ namespace WebPhuKien.Controllers
             }
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
+            Decimal dongia = decimal.Parse(collection["dongia"]);
+            int soluong = int.Parse(collection["soluong"]);
             if (String.IsNullOrEmpty(sp.Idsp) || sp.Idsp.Length > 5)
             {
                 ViewData["Loi1"] = "Vui lòng Nhập ID Không Quá 5 Ký Tự";
@@ -573,11 +698,7 @@ namespace WebPhuKien.Controllers
                 return View();
             }
 
-            if (sp.Dongia==null||(decimal)sp.Dongia < 0)
-            {
-                ViewData["Loidongia"] = "Lỗi Đơn Giá !";
-                return View();
-            }
+
             if (sp.Ngaycapnhat.Value.Year < 2000 || sp.Ngaycapnhat.Value.Year > 2100)
             {
                 ViewData["Loi4"] = "Lỗi Ngày !";
@@ -605,6 +726,8 @@ namespace WebPhuKien.Controllers
                         fileupload.SaveAs(path);
                     }
                     sp.Hinhanh = fileName;
+                    sp.Dongia=dongia;
+                    sp.Soluongcon = soluong;
                     data.SANPHAMs.InsertOnSubmit(sp);
                     data.SubmitChanges();
 
@@ -908,44 +1031,51 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Index", "Phukien");
             }
-            QUANTRI ad = (QUANTRI)Session["Admin"];
-            return View(ad);
+            return View();
         }
         [HttpPost]
-        public ActionResult Changepass(FormCollection qt, QUANTRI d)
+        public ActionResult Changepass(FormCollection qt)
         {
-            var tendn = d.User;
-            var mk = d.Password;
-            QUANTRI dm = data.QUANTRIs.SingleOrDefault(n => n.User == tendn);
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Index", "Phukien");
+            }
+            QUANTRI ad = (QUANTRI)Session["Admin"];
 
             string pass1 = qt["password"];
             string pass2 = qt["pass2"];
             string pass3 = qt["pass3"];
 
-            if(pass1 != dm.Password)
+            if(pass1 != ad.Password)
             {
                 ViewData["Loi1"] = "Mật khẩu cũ không đúng!";
+                return this.Changepass();
             }
-            else if (pass1 == pass2)
+            if (pass1 == pass2)
             {
                 ViewData["Loi2"] = "Mật khẩu mới không được trùng mật khẩu củ!";
+                return this.Changepass();
             }
-            else if (pass3 != pass2)
+            if (pass3 != pass2)
             {
                 ViewData["Loi3"] = "Mật khẩu nhập lại không trùng nhau!";
+                return this.Changepass();
             }
-            else
-            {
-                dm.Password = pass2;
-                UpdateModel(dm);
-                data.SubmitChanges();
-                return RedirectToAction("QLAdmin", "Admin");
-            }
+            ad.Password = pass2;
+            UpdateModel(ad);
+            data.SubmitChanges();
+            Session["Admin"] = ad;
+            ViewBag.Thongbao = "Đổi Mật Khẩu Thành Công !";
             return this.Changepass();
+            
         }
         [HttpGet]
         public ActionResult Login()
         {
+            if (Session["Admin"] != null)
+            {
+                RedirectToAction("Index");
+            }
             return View();
         }
         [HttpPost]
