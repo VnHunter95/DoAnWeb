@@ -14,7 +14,17 @@ namespace WebPhuKien.Controllers
         //
         // GET: /Admin/
         DataClasses1DataContext data = new DataClasses1DataContext();
-
+        bool KiemTraStringCoSo(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= '0' && c <= '9')))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public ActionResult Error()
         { 
                 return View();
@@ -996,24 +1006,50 @@ namespace WebPhuKien.Controllers
         public ActionResult EditTTShop(FormCollection c,THONGTIN tt)
         {
                 ViewBag.Thongbao = null;
+                Boolean coloi = false;
                 if (string.IsNullOrEmpty(tt.Tencuahang) || tt.Tencuahang.Length > 50)
                 {
-                    ViewData["Loi1"] = "Tên shop không được bỏ trống hoặc quá 50 ký tự!";
-                    return View(tt);
+                    ViewData["Loi1"] = "Nhập tên shop không quá 50 ký tự!";
+                    coloi = true;
                 }
                 if (string.IsNullOrEmpty(tt.Diachi) || tt.Diachi.Length > 150)
                 {
-                    ViewData["Loi2"] = "Phải có địa chỉ Shop! Không được bỏ trống hoặc ghi khống!";
-                    return View(tt);
+                    ViewData["Loi2"] = "Nhập địa chỉ không quá 150 ký tự!";
+                    coloi = true;
                 }
-                if (string.IsNullOrEmpty(tt.Sdt1) || tt.Sdt1.Length > 11 || tt.Sdt1.Length < 10)
+                if (string.IsNullOrEmpty(tt.Sdt1) || tt.Sdt1.Length > 11 || tt.Sdt1.Length < 10||!KiemTraStringLaSo(tt.Sdt1))
                 {
-                    ViewData["Loi3"] = "Phải có số điện thoại! Không được bỏ trống hoặc ghi khống!";
-                    return View(tt);
+                    ViewData["Loi3"] = "Sai Số Điện Thoại";
+                    coloi = true;
+                }
+                if (!string.IsNullOrEmpty(tt.sdt2) && (tt.sdt2.Length > 11 || tt.sdt2.Length < 10 || !KiemTraStringLaSo(tt.sdt2)))
+                {
+                    ViewData["LoiSdt2"] = "Sai Số Điện Thoại";
+                    coloi = true;
                 }
                 if (string.IsNullOrEmpty(tt.Email1) || tt.Email1.Length > 50)
                 {
-                    ViewData["Loi4"] = "Vui lòng điền ghi email shop!";
+                    ViewData["Loi4"] = "Nhập email shop không quá 50 ký tự!";
+                    coloi = true;
+                }
+                if (!string.IsNullOrEmpty(tt.Email2))
+                {
+                    if (tt.Email2.Length > 50)
+                    {
+                        ViewData["Loi5"] = "Nhập email 2 không quá 50 ký tự!";
+                        coloi = true;
+                    }
+                }
+                if (!string.IsNullOrEmpty(tt.Facebook))
+                {
+                    if (tt.Facebook.Length > 50)
+                    {
+                        ViewData["Loi6"] = "Nhập Facebook không quá 50 ký tự!";
+                        coloi = true;
+                    }
+                }
+                if (coloi)
+                {
                     return View(tt);
                 }
                 //data.THONGTINs.DeleteOnSubmit(tt);

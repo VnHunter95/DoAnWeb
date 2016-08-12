@@ -15,62 +15,65 @@
         <hr />
         @Html.ValidationSummary(true)
         <div class="form-group">
-            @Html.LabelFor(model => model.Tencuahang, new { @class = "control-label col-md-2" })
+            @Html.Label("Tên Cửa Hàng", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Tencuahang)
                 @Html.ValidationMessageFor(model => model.Tencuahang)
-                @ViewData["Loi1"]
+                <font color="red">@ViewData["Loi1"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Diachi, new { @class = "control-label col-md-2" })
+            @Html.Label("Địa Chỉ", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Diachi)
                 @Html.ValidationMessageFor(model => model.Diachi)
-                @ViewData["Loi2"]
+                <font color="red">@ViewData["Loi2"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Sdt1, new { @class = "control-label col-md-2" })
+            @Html.Label("Số Điện Thoại 1", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Sdt1)
                 @Html.ValidationMessageFor(model => model.Sdt1)
-                @ViewData["Loi3"]
+                <font color="red">@ViewData["Loi3"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.sdt2, new { @class = "control-label col-md-2" })
+            @Html.Label("Số Điện Thoại 2", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.sdt2)
                 @Html.ValidationMessageFor(model => model.sdt2)
+                <font color="red">@ViewData["Loisdt2"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email1, new { @class = "control-label col-md-2" })
+            @Html.Label("Email 1", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email1)
                 @Html.ValidationMessageFor(model => model.Email1)
-                @ViewData["Loi4"]
+                <font color="red">@ViewData["Loi4"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email2, new { @class = "control-label col-md-2" })
+            @Html.Label("Email 2", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Email2)
                 @Html.ValidationMessageFor(model => model.Email2)
+                <font color="red">@ViewData["Loi5"]</font>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Facebook, new { @class = "control-label col-md-2" })
+            @Html.Label("FaceBook", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Facebook)
                 @Html.ValidationMessageFor(model => model.Facebook)
+                <font color="red">@ViewData["Loi6"]</font>
             </div>
         </div>
         </div>
@@ -82,5 +85,5 @@
 }
 
 <div>
-    @Html.ActionLink("Trở về trang trước", "TTShop")
+    @Html.ActionLink("Trở về trang trước", "Index")
 </div>
