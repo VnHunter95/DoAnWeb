@@ -52,7 +52,7 @@ namespace WebPhuKien.Controllers
             int pageSize = 3;
             int pageNum = (page ?? 1);
 
-            var spmoi = Laysanpham(15);
+            var spmoi = Laysanpham(9);
             return View(spmoi.ToPagedList(pageNum, pageSize));
 
         }
