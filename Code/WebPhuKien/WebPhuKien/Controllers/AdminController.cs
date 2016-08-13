@@ -900,28 +900,40 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
-                var nsx = data.NHASANXUATs.First(n => n.Idnsx == idnsx);
-                data.NHASANXUATs.DeleteOnSubmit(nsx);
-                NHASANXUAT nsx2 = new NHASANXUAT();
-                string ten = c["Tennsx"];
-                string dc = c["Diachi"];
-                string sdt = c["Sdtnsx"];
-                nsx2.Idnsx = idnsx;
-                nsx2.Tennsx = ten;
-                nsx2.Diachi = dc;
-                nsx2.Sdtnsx = sdt;               
-                if (string.IsNullOrEmpty(ten)||ten.Length>25)
-                {
-                    ViewData["Loi2"] = "Nhập tên Nhà sản xuất tối đa 25 ký tự!";
-                }
-                else
-                {
-                    data.NHASANXUATs.InsertOnSubmit(nsx2);
-                    data.SubmitChanges();
-                    return RedirectToAction("NSX", "Admin");
-                }
+            Boolean coloi = false;
+            string ten = c["Tennsx"];
+            string dc = c["Diachi"];
+            string sdt = c["Sdtnsx"];
+            if (string.IsNullOrEmpty(ten) || ten.Length > 25)
+            {
+                ViewData["Loi2"] = "Nhập tên Nhà sản xuất tối đa 25 ký tự!";
+                coloi = true;
+            }
+            if (dc.Length > 150)
+            {
+                ViewData["Loi3"] = "Nhập tên Nhà sản xuất tối đa 150 ký tự!";
+                coloi = true;
+            }
+            if (!string.IsNullOrEmpty(sdt) && (sdt.Length > 11 || sdt.Length < 10 || !KiemTraStringLaSo(sdt)))
+            {
+                ViewData["Loi4"] = "Sai Số Điện Thoại!";
+                coloi = true;
+            }
+            if (coloi)
+            {
                 return this.EditNSX(idnsx);
-            
+            }
+            var nsx = data.NHASANXUATs.First(n => n.Idnsx == idnsx);
+            data.NHASANXUATs.DeleteOnSubmit(nsx);
+            NHASANXUAT nsx2 = new NHASANXUAT();
+            nsx2.Idnsx = idnsx;
+            nsx2.Tennsx = ten;
+            nsx2.Diachi = dc;
+            nsx2.Sdtnsx = sdt;
+            data.NHASANXUATs.InsertOnSubmit(nsx2);
+            data.SubmitChanges();
+            return RedirectToAction("NSX", "Admin");
+                
             
         }
         public ActionResult DetailsNSX(string idnsx)
@@ -935,7 +947,7 @@ namespace WebPhuKien.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateNSX(string idnsx,FormCollection c)
+        public ActionResult CreateNSX(string idnsx,FormCollection c,NHASANXUAT nsx2)
         {
             NHASANXUAT a = data.NHASANXUATs.SingleOrDefault(n => n.Idnsx == idnsx);
             if (a != null)
@@ -945,6 +957,7 @@ namespace WebPhuKien.Controllers
             }
             else
             {
+                Boolean coloi = false;
                 var id = c["Idnsx"];
                 var ten = c["Tennsx"];
                 var dc = c["Diachi"];
@@ -953,14 +966,28 @@ namespace WebPhuKien.Controllers
                 if (string.IsNullOrEmpty(id)||id.Length>5)
                 {
                     ViewData["Loi1"] = "Nhập mã Nhà sản xuất! Bao gồm 5 ký tự bao gồm chữ và số";
+                    coloi = true;
                 }
-                else
                 if (string.IsNullOrEmpty(ten)||ten.Length>25)
                 {
                     ViewData["Loi2"] = "Vui lòng nhập tên Nhà sản xuất không quá 25 ký tự!";
+                    coloi = true;
                 }
-                else
+                if (dc.Length > 150)
                 {
+                    ViewData["Loi3"] = "Nhập tên Nhà sản xuất tối đa 150 ký tự!";
+                    coloi = true;
+                }
+                if (!string.IsNullOrEmpty(sdt) &&(sdt.Length>11||sdt.Length<10||!KiemTraStringLaSo(sdt)) )
+                {
+                    ViewData["Loi4"] = "Sai Số Điện Thoại!";
+                    coloi = true;
+                }
+                if(coloi)
+                {
+
+                    return this.CreateNSX();
+                }
                     nsx.Idnsx = id;
                     nsx.Tennsx = ten;
                     nsx.Diachi = dc;
@@ -968,8 +995,7 @@ namespace WebPhuKien.Controllers
                     data.NHASANXUATs.InsertOnSubmit(nsx);
                     data.SubmitChanges();
                     return RedirectToAction("NSX", "Admin");
-                }
-                return this.CreateNSX();
+                
             }
             
         }

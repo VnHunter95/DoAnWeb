@@ -21,7 +21,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Tennsx)
                 @Html.ValidationMessageFor(model => model.Tennsx)
-                @ViewData["Loi2"]
+                <font color="red">@ViewData["Loi2"]</font>
             </div>
         </div>
 
@@ -30,6 +30,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Diachi)
                 @Html.ValidationMessageFor(model => model.Diachi)
+                <font color="red">@ViewData["Loi3"]</font>
             </div>
         </div>
 
@@ -38,6 +39,7 @@
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Sdtnsx)
                 @Html.ValidationMessageFor(model => model.Sdtnsx)
+                <font color="red">@ViewData["Loi4"]</font>
             </div>
         </div>
 
