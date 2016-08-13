@@ -49,7 +49,7 @@
         <div class="form-group">
             @Html.Label("Thông Tin", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <textarea name="Thongtin" required>Mô Tả Thông Tin Sản Phẩm</textarea>
+                <textarea name="Thongtin"  required></textarea>
                 <font color="red">@ViewData["Loi3"]</font>
             </div>
         </div>
@@ -64,7 +64,7 @@
         <div class="form-group">
             @Html.Label("Đơn Giá", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="number" min="1" name="dongia" required></div>
+                <input type="number" min="0" name="dongia" required></div>
         </div>
 
         <div class="form-group">

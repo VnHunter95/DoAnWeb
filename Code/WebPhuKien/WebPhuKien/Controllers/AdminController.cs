@@ -680,6 +680,7 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
+            Boolean coloi = false;
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
             Decimal dongia = decimal.Parse(collection["dongia"]);
@@ -687,41 +688,43 @@ namespace WebPhuKien.Controllers
             if (String.IsNullOrEmpty(sp.Idsp) || sp.Idsp.Length > 5)
             {
                 ViewData["Loi1"] = "Vui lòng Nhập ID Không Quá 5 Ký Tự";
-                return View();
+                coloi = true;
             }
 
             if(data.SANPHAMs.FirstOrDefault(n=>n.Idsp== sp.Idsp)!= null)
             {
                  ViewData["Loi1"] = "Trùng ID SP Trong Cở Sở Dữ Liệu !";
-                return View();
+                 coloi = true;
             }
         
         
             if (String.IsNullOrEmpty(sp.Tensanpham) || sp.Tensanpham.Length > 50)
             {
                 ViewData["Loi2"] = "Vui lòng Nhập Tên SP Không Quá 50 Ký Tự";
-                return View();
+                coloi = true;
             }
             if (String.IsNullOrEmpty(sp.Thongtin) || sp.Thongtin.Length > 300)
             {
                 ViewData["Loi3"] = "Vui lòng Nhập Thông Tin SP Không Quá 300 Ký Tự ( Bao gồm các thẻ HTML )";
-                return View();
+                coloi = true;
             }
 
 
             if (sp.Ngaycapnhat.Value.Year < 2000 || sp.Ngaycapnhat.Value.Year > 2100)
             {
                 ViewData["Loi4"] = "Lỗi Ngày !";
-                return View();
+                coloi = true;
             }
             if (fileupload == null)
             {
                 
                 ViewBag.Thongbao = "Hảy Chọn Ảnh Sản Phẩm";
-                return View();
+                coloi = true;
             }
-            else
+            if(coloi)
             {
+                return this.Themsanpham();
+            }
                 if (ModelState.IsValid)
                 {
                     var fileName = Path.GetFileName(fileupload.FileName);
@@ -743,7 +746,7 @@ namespace WebPhuKien.Controllers
 
                 }
                 return RedirectToAction("Sanpham");
-            }
+            
         }
 
         //end Sanpham
