@@ -793,7 +793,7 @@ namespace WebPhuKien.Controllers
                 sp2.Tenloai = ten;
                 if (string.IsNullOrEmpty(ten)||ten.Length>25)
                 {
-                    ViewData["Loi"] = "Nhập tên lại tối đa 25 ký tự";
+                    ViewData["Loi"] = "Nhập tên loại tối đa 25 ký tự";
                 }
                 else
                 {
@@ -805,15 +805,6 @@ namespace WebPhuKien.Controllers
                 return this.EditLSP(idloai);
             
         }
-        public ActionResult DetailsLSP(string idloai)
-        {
-            if (Session["Admin"] == null)
-            {
-                return RedirectToAction("Error");
-            }
-            var loai = data.LOAISANPHAMs.First(n => n.Idloai == idloai);
-            return View(loai);
-        }
         [HttpGet]
         public ActionResult CreateLSP()
         {
@@ -824,7 +815,7 @@ namespace WebPhuKien.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateLSP(string idloai, FormCollection c)
+        public ActionResult CreateLSP(string idloai, FormCollection c,LOAISANPHAM Loai)
         {
             if (Session["Admin"] == null)
             {
@@ -842,11 +833,11 @@ namespace WebPhuKien.Controllers
                 var ten = c["Tenloai"];
                 if (string.IsNullOrEmpty(idloai) || idloai.Length>4)
                 {
-                    ViewData["Loi1"] = "Hãy nhập mã loại, mã loại 4 ký tự bao gồm cả chữ và số!";
+                    ViewData["Loi1"] = "Nhập Mã Loại Tối Đa 4 Ký Tự!";
                 }
                 else if (string.IsNullOrEmpty(ten)||ten.Length>25)
                 {
-                    ViewData["Loi2"] = "Hãy nhập tên loại tối đa 25 ký tự!";
+                    ViewData["Loi2"] = "Nhập tên loại tối đa 25 ký tự!";
                 }
                 else
                 {
