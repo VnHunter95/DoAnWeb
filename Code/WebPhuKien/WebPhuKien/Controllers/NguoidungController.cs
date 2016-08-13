@@ -205,12 +205,20 @@ namespace WebPhuKien.Controllers
         [HttpGet]
         public ActionResult Dangky()
         {
+            if (Session["Taikhoan"] != null)
+            {
+                return RedirectToAction("Index","Phukien");
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult Dangky(FormCollection collection,KHACHHANG KH)
         {
+            if (Session["Taikhoan"] != null)
+            {
+                return RedirectToAction("Index","Phukien");
+            }
             Boolean coloi = false ;
             var user = collection["Username"];
             var pass = collection["Password"];

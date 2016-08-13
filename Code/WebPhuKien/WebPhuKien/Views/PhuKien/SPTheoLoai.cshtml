@@ -24,7 +24,7 @@
                     @Html.Raw(SANPHAM.Thongtin)
                 </p>
             </div>
-                <div class="uname">
+                <div class="uname" style="height:50px">
                     <p style="text-align:right; padding-right:10px;"><a href="@Url.Action("Chitiet", "PhuKien" , new { id=SANPHAM.Idsp })">Chi tiết</a> | <a href="@Url.Action("ThemGiohang", "Giohang", new { @Masp = SANPHAM.Idsp })">Thêm giỏ hàng</a></p>
                 </div>
         </div>

@@ -60,7 +60,7 @@
         <tr style="height:40px">
             <td align="right">Email:</td>
             <td>
-               @Html.TextBox("Email")<br />
+               @Html.TextBox("Email","", new { type="email"})<br />
                 <font color="red">@ViewData["Loiemail"]</font>
             </td>
         </tr>
