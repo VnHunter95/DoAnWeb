@@ -14,13 +14,18 @@
     <div class="form-horizontal">        
         <hr />
         @Html.ValidationSummary(true)
-        Mã loại:
+        <div class="form-group">
+            @Html.Label("Mã Loại: ", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DisplayFor(model=>model.Idloai)
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.Tenloai, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Tenloai)
                 @Html.ValidationMessageFor(model => model.Tenloai)
-                @ViewData["Loi"]
+                <font color="red">@ViewData["Loi"]</font>
             </div>
         </div>
 

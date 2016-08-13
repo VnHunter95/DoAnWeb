@@ -15,6 +15,30 @@ namespace WebPhuKien.Controllers
         //
         // GET: /PhuKien/
         DataClasses1DataContext data = new DataClasses1DataContext();
+        bool KiemTraStringCoSo(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= '0' && c <= '9')))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        bool KiemTraStringLaSo(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= '0' && c <= '9')))
+                {
+
+                }
+                else
+                    return false;
+            }
+            return true;
+        }
 
         private List<SANPHAM> Laysanpham(int count)
         {
@@ -28,7 +52,7 @@ namespace WebPhuKien.Controllers
             int pageSize = 3;
             int pageNum = (page ?? 1);
 
-            var spmoi = Laysanpham(15);
+            var spmoi = Laysanpham(9);
             return View(spmoi.ToPagedList(pageNum, pageSize));
 
         }
@@ -76,35 +100,43 @@ namespace WebPhuKien.Controllers
         [HttpPost]
         public ActionResult LienHe(FormCollection collection,LIENHE LH)
         {
-            string user = collection["From"];            
+            string user = collection["Hoten"];            
             string Email = collection["Email"];
-            string SDT = collection["SDT"];
-            string Tittle = collection["Tit"];
-            string Content = collection["content"];
-
-            if (String.IsNullOrEmpty(user))
+            string SDT = collection["Sdt"];
+            string Tittle = collection["Tieude"];
+            string Content = collection["Noidung"];
+            Boolean coloi = false;
+            if (String.IsNullOrEmpty(user)||user.Length>25||KiemTraStringCoSo(user))
             {
-                ViewData["Loi1"] = "Chưa nhập tên";
+                ViewData["Loi1"] = "Nhập Tên Tối Đa 25 Ký Tự !";
+                coloi = true;
             }
-            if (String.IsNullOrEmpty(Email))
+            if (String.IsNullOrEmpty(Email)||Email.Length>50)
             {
-                ViewData["Loi2"] = "Chưa nhập email";
+                ViewData["Loi2"] = "Nhập Email Tối Đa 50 Ký Tự !";
+                coloi = true;
             }
             
-            if (String.IsNullOrEmpty(SDT))
+            if (!String.IsNullOrEmpty(SDT)&&(SDT.Length>11||SDT.Length<10||!KiemTraStringLaSo(SDT)))
             {
-                ViewData["Loi3"] = "Nhập số điện thoại";
+                ViewData["Loi3"] = "Sai Số Điện Thoại ! ";
+                coloi = true;
             }
-            if (String.IsNullOrEmpty(Tittle))
+            if (String.IsNullOrEmpty(Tittle)||Tittle.Length>150)
             {
-                ViewData["Loi4"] = "Vui lòng nhập tiêu đề";
+                ViewData["Loi4"] = "Nhập tiêu đề tối đa 150 ký tự !";
+                coloi = true;
             }
-            if (String.IsNullOrEmpty(Content))
+            if (String.IsNullOrEmpty(Content)||Content.Length>500)
             {
-                ViewData["Loi5"] = "Nhập nội dung cần gửi";
+                ViewData["Loi5"] = "Nhập nội dung cần gửi ! Tối đa 500 ký tự ( Bao Gồm Các Thẻ Định Dạng HTML )";
+                coloi = true;
             }
-            else
+            if (coloi)
             {
+
+                return this.LienHe();
+            }
                 LH.Hoten = user;
                 LH.Email = Email;
                 LH.Tieude = Tittle;
@@ -114,10 +146,6 @@ namespace WebPhuKien.Controllers
                 data.SubmitChanges();
                 return RedirectToAction("Sent");
 
-
-            }
-
-            return this.LienHe();
         }
         public ActionResult Sent()
         {

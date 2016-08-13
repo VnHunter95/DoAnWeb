@@ -17,6 +17,17 @@ namespace WebPhuKien.Controllers
         {
             return View();
         }
+        bool KiemTraStringCoSo(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= '0' && c <= '9')))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         bool KiemTraStringLaSo(string text) //Kt CHuỗi
         {
             foreach (char c in text)
@@ -60,33 +71,41 @@ namespace WebPhuKien.Controllers
                 Response.StatusCode = 404;
                 return null;
             }
-            if (kh.Hoten.Length > 25 || string.IsNullOrEmpty(kh.Hoten))
+            string hoten = collection["Hoten"];
+            string Sdt = collection["Sdt"];
+            string Diachi = collection["Diachi"];
+            string Email = collection["Email"];
+            Boolean coloi = false;
+            if (hoten.Length > 25 || string.IsNullOrEmpty(hoten) || KiemTraStringCoSo(hoten))
             {
                 ViewData["Loi2"] = "Vui lòng nhập Họ Tên ít hơn 25 ký tự !";
-                return View(kh);
+                coloi = true;
             }
 
-            if (!string.IsNullOrEmpty(kh.Sdt) && (kh.Sdt.Length > 11 || kh.Sdt.Length < 10 || !KiemTraStringLaSo(kh.Sdt)))
+            if (string.IsNullOrEmpty(Sdt) || Sdt.Length > 11 || Sdt.Length < 10 || !KiemTraStringLaSo(Sdt))
             {
                 ViewData["Loi3"] = "Sai Số Điện Thoại !";
-                return View(kh);
-
+                coloi = true;
             }
 
-            if (kh.Diachi.Length > 150 || string.IsNullOrEmpty(kh.Diachi))
+            if (Diachi.Length > 150 || string.IsNullOrEmpty(Diachi))
             {
                 ViewData["Loi4"] = "Vui lòng nhập địa chỉ ít hơn 150 ký tự !";
-                return View(kh);
+                coloi = true;
             }
-            if (kh.Email.Length > 50 || string.IsNullOrEmpty(kh.Email))
+            if (Email.Length > 50 || string.IsNullOrEmpty(Email))
             {
                 ViewData["Loi5"] = "Vui lòng nhập email ít hơn 50 ký tự !";
+                coloi = true;
+            }
+            if (coloi)
+            {
                 return View(kh);
             }
-            khmoi.Hoten = kh.Hoten;
-            khmoi.Diachi = kh.Diachi;
-            khmoi.Sdt = kh.Sdt;
-            khmoi.Email = kh.Email;
+            khmoi.Hoten = hoten;
+            khmoi.Diachi = Diachi;
+            khmoi.Sdt = Sdt;
+            khmoi.Email = Email;
             UpdateModel(khmoi);
             data.SubmitChanges();
             ViewBag.Thongbao = "Cập Nhật Thành Công";
@@ -100,45 +119,48 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Dangnhap", "Nguoidung");
             }
+            Boolean coloi = false;
             string pass = collection["pass"];
             string passmoi = collection["passmoi"];
             string passmoi2 = collection["passmoi2"];
-            if (String.IsNullOrEmpty(pass) || pass.Length > 16)
-            {
-                TempData["Loipass"] = "Nhập Mật Khẩu 16 Ký Tự !";
-                return RedirectToAction("UserCP");  
-            }
-            if (String.IsNullOrEmpty(passmoi) || passmoi.Length > 16)
-            {
-                TempData["Loipass2"] = "Nhập Mật Khẩu Mới Không Quá 16 Ký Tự !";
-                return RedirectToAction("UserCP");     
-            }
-            if (pass == passmoi)
-            {
-                TempData["Loipass2"] = "Không Được Trùng Mật Khẩu Hiện Tại !";
-                return RedirectToAction("UserCP");     
-            }
-            if (passmoi != passmoi2)
-            {
-                TempData["Loipass3"] = "Sai Mật Khẩu Nhập Lại !";
-                return RedirectToAction("UserCP");  
-            }
-                    
+
             KHACHHANG kh = data.KHACHHANGs.FirstOrDefault(n => n.Username == user);
             if (kh == null)
             {
                 Response.StatusCode = 404;
                 return null;
             }
-            if (kh.Password != pass)
+            if (String.IsNullOrEmpty(pass) || pass.Length > 16)
             {
-                TempData["Ketqua"] = "Sai Mật Khẩu ";
-                return RedirectToAction("UserCP");
+                TempData["Loipass"] = "Nhập Mật Khẩu 16 Ký Tự !";
+                coloi = true;
             }
-            kh.Password = passmoi;
-            UpdateModel(kh);
-            data.SubmitChanges();
-            TempData["Ketqua"] = "Cập Nhật Mật Khẩu Thành Công ";
+            else if (kh.Password != pass)
+                {
+                    TempData["Ketqua"] = "Sai Mật Khẩu ";
+                    coloi = true;
+                }
+            if (String.IsNullOrEmpty(passmoi) || passmoi.Length > 16)
+            {
+                TempData["Loipass2"] = "Nhập Mật Khẩu Mới Không Quá 16 Ký Tự !";
+                coloi = true;   
+            }else if (pass == passmoi)
+            {
+                TempData["Loipass2"] = "Không Được Trùng Mật Khẩu Hiện Tại !";
+                coloi = true;      
+            }
+            if (passmoi != passmoi2)
+            {
+                TempData["Loipass3"] = "Sai Mật Khẩu Nhập Lại !";
+                coloi = true;  
+            }
+            if (!coloi)
+            {
+                kh.Password = passmoi;
+                UpdateModel(kh);
+                data.SubmitChanges();
+                TempData["Ketqua"] = "Cập Nhật Mật Khẩu Thành Công ";
+            }
             return RedirectToAction("UserCP");   
         }   
         [HttpGet]
@@ -183,62 +205,73 @@ namespace WebPhuKien.Controllers
         [HttpGet]
         public ActionResult Dangky()
         {
+            if (Session["Taikhoan"] != null)
+            {
+                return RedirectToAction("Index","Phukien");
+            }
             return View();
         }
 
         [HttpPost]
-        public ActionResult Dangky(FormCollection collection)
+        public ActionResult Dangky(FormCollection collection,KHACHHANG KH)
         {
+            if (Session["Taikhoan"] != null)
+            {
+                return RedirectToAction("Index","Phukien");
+            }
+            Boolean coloi = false ;
             var user = collection["Username"];
             var pass = collection["Password"];
             var pass2 = collection["Password2nd"];
-            var ten = collection["Name"];
+            var ten = collection["Hoten"];
             var sdt = collection["Sdt"];
             var diachi = collection["Diachi"];
             var email = collection["Email"];
-            if (!string.IsNullOrEmpty(sdt) && (sdt.Length > 11 || sdt.Length < 10 || !KiemTraStringLaSo(sdt)))
+            KHACHHANG b = data.KHACHHANGs.FirstOrDefault(n => n.Username==user);
+            if (String.IsNullOrEmpty(user) || user.Length > 16)
+            {
+                ViewData["Loi1"] = "Nhập Username Tối Đa 16 Ký Tự!";
+                coloi = true;
+            }else if (b != null)
+                {
+                    ViewData["Loi1"] = "Tên Tài Khoản Này Đã Được Đăng Ký !";
+                    coloi = true;
+                }
+            if (String.IsNullOrEmpty(pass) || pass.Length > 16)
+            {
+                ViewData["Loi2"] = "Nhập Mật Khẩu Tối Đa 16 Ký Tự!";
+                coloi = true;
+            }
+            if (pass.CompareTo(pass2) != 0)
+            {
+                ViewData["Loi3"] = "Mật khẩu nhập lại không đúng !";
+                coloi = true;
+            }
+            if (String.IsNullOrEmpty(ten) || ten.Length > 25 || KiemTraStringCoSo(ten))
+            {
+                ViewData["Loi4"] = "Nhập Tên không quá 25 ký tự!";
+                coloi = true;
+            }
+            if (string.IsNullOrEmpty(sdt) || sdt.Length > 11 || sdt.Length < 10 || !KiemTraStringLaSo(sdt))
             {
                 ViewData["Loidt"] = "Sai Số Điện Thoại !";
-                return this.Dangky();
+                coloi = true;
 
             }
             if (diachi.Length > 150 || string.IsNullOrEmpty(diachi))
             {
-                ViewData["Loidc"] = "Vui lòng nhập địa chỉ ít hơn 150 ký tự !";
-                return this.Dangky();
+                ViewData["Loidc"] = "Nhập địa chỉ ít hơn 150 ký tự !";
+                coloi = true;
             }
             if (email.Length > 50 || string.IsNullOrEmpty(email))
             {
-                ViewData["Loiemail"] = "Vui lòng nhập email ít hơn 50 ký tự !";
+                ViewData["Loiemail"] = "Nhập email ít hơn 50 ký tự !";
+                coloi = true;
+            }
+            if (coloi)
+            {
                 return this.Dangky();
             }
-            if (String.IsNullOrEmpty(user) || user.Length>16)
-            {
-                ViewData["Loi1"] = "Vui lòng kiểm tra lại! Không được để trống hoặc đặt hơn 16 ký tự!";
-                return this.Dangky();
-            }
-            if (String.IsNullOrEmpty(pass) || pass.Length>16)
-            {
-                ViewData["Loi2"] = "Password không được để trống hoặc dài hơn 16 ký tự!";
-                return this.Dangky();
-            }
-            if (pass.CompareTo(pass2) != 0)
-            {
-                    ViewData["Loi2"] = "Mật khẩu nhập lại không đúng !";
-                    return this.Dangky();
-            }
-            if (String.IsNullOrEmpty(pass2))
-            {
-                ViewData["Loi3"] = "Nhập lại mật khẩu !";
-                return this.Dangky();
-            }
-            if (String.IsNullOrEmpty(ten))
-            {
-                ViewData["Loi4"] = "Vui lòng nhập tên !";
-                return this.Dangky();
-            }
-            else
-            {
                 KHACHHANG kh = new KHACHHANG();
                 kh.Username = user;
                 kh.Password = pass;
@@ -249,7 +282,7 @@ namespace WebPhuKien.Controllers
                 data.KHACHHANGs.InsertOnSubmit(kh);
                 data.SubmitChanges();
                 return RedirectToAction("Dangnhap");
-            }
+            
         }
 
         public ActionResult DangXuat()

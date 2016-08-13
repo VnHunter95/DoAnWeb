@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Phanhoi</h2>
+<h2>Hòm Thư Phản Hồi Từ Khách Hàng</h2>
 
 
 <table class="table">
@@ -15,9 +15,6 @@
         </th>
         <th style="text-align:center">
             Tiêu đề
-        </th>
-        <th style="text-align:center">
-            Nội dung
         </th>
         <th style="text-align:center">
             Email
@@ -37,17 +34,16 @@
             @Html.DisplayFor(modelItem => item.Tieude)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Noidung)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Sdt)
         </td>        
         <td>
+            @Html.ActionLink("Chi Tiết", "ChitietPH", new { id =item.Idlienhe})|
            @Html.ActionLink("Xóa", "DelPhanhoi", new { id = item.Idlienhe })
         </td>
+
     </tr>
 }
 @Html.ActionLink("Trở về trang chủ","Index")

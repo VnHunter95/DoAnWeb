@@ -14,6 +14,10 @@
 </p>
 <table class="table">
     <tr>
+
+        <th style="text-align:center">
+            ID loại
+        </th>
         <th style="text-align:center">
             Tên loại
         </th>
@@ -23,11 +27,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.Idloai)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Tenloai)
         </td>
         <td>
             @Html.ActionLink("Chỉnh sửa", "EditLSP", new { idloai =item.Idloai }) |
-            @Html.ActionLink("Chi tiết", "DetailsLSP", new { idloai =item.Idloai }) |
             @Html.ActionLink("Xóa", "DeleteLSP", new { idloai =item.Idloai })
         </td>
     </tr>

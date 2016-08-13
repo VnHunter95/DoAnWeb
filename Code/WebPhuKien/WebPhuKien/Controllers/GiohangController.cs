@@ -12,6 +12,30 @@ namespace WebPhuKien.Controllers
         //
         // GET: /Giohang/
         DataClasses1DataContext data = new DataClasses1DataContext();
+        bool KiemTraStringCoSo(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= '0' && c <= '9')))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        bool KiemTraStringLaSo(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= '0' && c <= '9')))
+                {
+
+                }
+                else
+                    return false;
+            }
+            return true;
+        }
         [HttpGet]
         public ActionResult DatHang()
         {
@@ -35,23 +59,32 @@ namespace WebPhuKien.Controllers
         [HttpPost]
         public ActionResult DatHang(FormCollection collection)
         {
-            string tennguoinhan = collection["Tennguoinhan"];
-            string diachinhan = collection["Diachinhan"];
+            if (Session["Taikhoan"] == null || Session["Taikhoan"].ToString() == "")
+            {
+                return RedirectToAction("Dangnhap", "Nguoidung");
+            }
+            if (Session["Giohang"] == null)
+            {
+                return RedirectToAction("Index", "Phukien");
+            }
+            Boolean coloi = false;
+            string tennguoinhan = collection["TenNguoiNhan"];
+            string diachinhan = collection["Diachinguoinhan"];
             string sdtnhan = collection["Sdtnguoinhan"];
-            if (String.IsNullOrEmpty(tennguoinhan))
+            if (String.IsNullOrEmpty(tennguoinhan) || tennguoinhan.Length > 25 || KiemTraStringCoSo(tennguoinhan))
             {
-                ViewData["LoiTen"] = "Hãy nhập tên người nhận !";
-                return this.DatHang();
+                ViewData["LoiTen"] = "Nhập tên người nhận tối đa 25 ký tự !";
+                coloi = true;
             }
-            if (String.IsNullOrEmpty(diachinhan))
+            if (String.IsNullOrEmpty(diachinhan)||diachinhan.Length>150)
             {
-                ViewData["LoiDiachi"] = "Hãy nhập địa chỉ người nhận !";
-                return this.DatHang();
+                ViewData["LoiDiachi"] = "Nhập địa chỉ người nhận tối đa 150 ký tự !";
+                coloi = true;
             }
-            if (String.IsNullOrEmpty(sdtnhan))
+            if (String.IsNullOrEmpty(sdtnhan) || sdtnhan.Length > 11 || sdtnhan.Length < 10 || !KiemTraStringLaSo(sdtnhan))
             {
-                ViewData["LoiSdt"] = "Hãy nhập số điện thoại người nhận !";
-                return this.DatHang();
+                ViewData["LoiSdt"] = "Sai Số Điện Thoại !";
+                coloi = true;
             }
             DateTime ngaygiao = DateTime.Now;
             if (collection["Ngaygiao"] != null)
@@ -60,8 +93,12 @@ namespace WebPhuKien.Controllers
                 if (ngaygiao <= DateTime.Today)
                 {
                     ViewData["LoiNgayGiao"] = "Lỗi Ngày Giao !";
-                    return this.DatHang();
+                    coloi = true;
                 }
+            }
+            if (coloi)
+            {
+                return this.DatHang();
             }
 
             DONDATHANG ddh = new DONDATHANG();

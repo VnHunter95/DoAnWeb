@@ -14,7 +14,17 @@ namespace WebPhuKien.Controllers
         //
         // GET: /Admin/
         DataClasses1DataContext data = new DataClasses1DataContext();
-
+        bool KiemTraStringCoSo(string text) //Kt CHuỗi
+        {
+            foreach (char c in text)
+            {
+                if (((c >= '0' && c <= '9')))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
         public ActionResult Error()
         { 
                 return View();
@@ -98,41 +108,51 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
+            Boolean coloi = false;
             KHACHHANG khmoi = data.KHACHHANGs.FirstOrDefault(n=>n.Username==kh.Username);
-            if (kh.Password.Length > 16 || string.IsNullOrEmpty(kh.Password))
+            string pass = c["Password"];
+            string hoten = c["Hoten"];
+            string sdt = c["Sdt"];
+            string dc = c["Diachi"];
+            string email = c["Email"];
+            if (pass.Length > 16 || string.IsNullOrEmpty(pass))
             { 
                 ViewData["Loi1"]= "Vui lòng nhập password ít hơn 16 ký tự !";
-                return View(kh);
+                coloi = true;
              }
-          
-            if (kh.Hoten.Length > 25 || string.IsNullOrEmpty(kh.Hoten))
+
+            if (hoten.Length > 25 || string.IsNullOrEmpty(hoten)||KiemTraStringCoSo(hoten))
             {
                 ViewData["Loi2"] = "Vui lòng nhập Họ Tên ít hơn 25 ký tự !";
-                return View(kh);
+                coloi = true;
             }
-         
-            if (!string.IsNullOrEmpty(kh.Sdt) && (kh.Sdt.Length > 11 || kh.Sdt.Length < 10 || !KiemTraStringLaSo(kh.Sdt)))
+
+            if (string.IsNullOrEmpty(sdt) || sdt.Length > 11 || sdt.Length < 10 || !KiemTraStringLaSo(sdt))
             {
                     ViewData["Loi3"] = "Sai Số Điện Thoại !";
-                    return View(kh);
+                    coloi = true;
                 
             }
-            
-            if (kh.Diachi.Length > 150 || string.IsNullOrEmpty(kh.Diachi))
+
+            if (dc.Length > 150 || string.IsNullOrEmpty(dc))
             {
                 ViewData["Loi4"] = "Vui lòng nhập địa chỉ ít hơn 150 ký tự !";
-                return View(kh);
+                coloi = true;
             }
-            if (kh.Email.Length > 50 || string.IsNullOrEmpty(kh.Email))
+            if (email.Length > 50 || string.IsNullOrEmpty(email))
             {
                 ViewData["Loi5"] = "Vui lòng nhập email ít hơn 50 ký tự !";
-                return View(kh);
+                coloi = true;
             }
-            khmoi.Password = kh.Password;
-            khmoi.Hoten = kh.Hoten;
-            khmoi.Sdt = kh.Sdt;
-            khmoi.Email = kh.Email;
-            khmoi.Diachi = kh.Diachi;
+            if (coloi)
+            {
+                return this.Suakh(kh.Username);
+            }
+            khmoi.Password = pass;
+            khmoi.Hoten = hoten;
+            khmoi.Sdt = sdt;
+            khmoi.Email = email;
+            khmoi.Diachi = dc;
             UpdateModel(khmoi);
             data.SubmitChanges();
             return RedirectToAction("Khachhang");
@@ -290,6 +310,7 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
+            TempData["LoiNgayGiao"] = null;
             DONDATHANG hd = data.DONDATHANGs.FirstOrDefault(n=>n.SoHD==SoHD);
             string tennguoinhan = collection["Tennguoinhan"];
             string diachinhan = collection["Diachinhan"];
@@ -297,17 +318,17 @@ namespace WebPhuKien.Controllers
             if (String.IsNullOrEmpty(tennguoinhan))
             {
                 ViewData["LoiTen"] = "Hãy nhập tên người nhận !";
-                return this.Chitiethd(SoHD, null, URL);
+                return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
             }
             if (String.IsNullOrEmpty(diachinhan))
             {
                 ViewData["LoiDiachi"] = "Hãy nhập địa chỉ người nhận !";
-                return this.Chitiethd(SoHD, null, URL);
+                return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
             }
             if (String.IsNullOrEmpty(sdtnhan))
             {
                 ViewData["LoiSdt"] = "Hãy nhập số điện thoại người nhận !";
-                return this.Chitiethd(SoHD, null, URL);
+                return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
             }
             DateTime ngaygiao = DateTime.Now;
             if (collection["Ngaygiao"] != null)
@@ -315,8 +336,8 @@ namespace WebPhuKien.Controllers
                 ngaygiao = DateTime.Parse(String.Format("{0:MM/dd/yyyy}", collection["Ngaygiao"]));
                 if (ngaygiao <= DateTime.Today)
                 {
-                    ViewData["LoiNgayGiao"] = "Lỗi Ngày Giao !";
-                    return this.Chitiethd(SoHD, null, URL);
+                    TempData["LoiNgayGiao"] = "Lỗi Ngày Giao !";
+                    return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
                 }
             }
             hd.Emailnguoinhan = collection["Emailnhan"];
@@ -325,7 +346,7 @@ namespace WebPhuKien.Controllers
             hd.Sdtnguoinhan = sdtnhan;
             UpdateModel(hd);
             data.SubmitChanges();
-             return this.Chitiethd(SoHD, null, URL);
+            return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
         }
         public ActionResult Capnhatdonhang(DONDATHANG hd)
         {
@@ -349,7 +370,7 @@ namespace WebPhuKien.Controllers
             ct.Soluong = soluong;
             UpdateModel(ct);
             data.SubmitChanges();
-            return this.Chitiethd(SoHD, null, URL);
+            return RedirectToAction("Chitiethd", "Admin", new { SoHD = SoHD, page = 1, URL = URL });
         }
         [HttpGet]
         public ActionResult Chitiethd(int SoHD,int ?page,String URL)
@@ -362,6 +383,7 @@ namespace WebPhuKien.Controllers
             int pageSize = 6;
             ViewBag.SoHD = SoHD;
             ViewData["url"] = URL;
+            ViewData["Loingaygiao"]=TempData["LoiNgayGiao"];
             return View(data.CT_DDHs.ToList().Where(n=>n.SoHD == SoHD).ToPagedList(pageNumber,pageSize));
         }
         [HttpGet]
@@ -553,6 +575,7 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
+            Boolean coloi = false;
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
             SANPHAM spmoi = data.SANPHAMs.First(n => n.Idsp == sp.Idsp);
@@ -565,12 +588,12 @@ namespace WebPhuKien.Controllers
             if (String.IsNullOrEmpty(sp.Tensanpham) || sp.Tensanpham.Length > 50)
             {
                 ViewData["LoiTensp"] = "Nhập Tên Sản Phẩm 50 Ký Tự !";
-                return this.Suasp(sp.Idsp);
+                coloi = true;
             }
             if (String.IsNullOrEmpty(sp.Thongtin) ||sp.Thongtin.Length > 300)
             {
                 ViewData["Loithongtin"] = "Không Được Quá 300 Ký Tự ( Gồm Những Thẻ HTML )";
-                return this.Suasp(sp.Idsp);
+                coloi = true;
             }
 
             spmoi.Idnsx = nsx;
@@ -587,9 +610,16 @@ namespace WebPhuKien.Controllers
                 if (ngayupdate.Year < 2000 || ngayupdate.Year > 2100)
                 {
                     ViewData["Loi4"] = "Lỗi Ngày !";
-                    return this.Suasp(sp.Idsp);
+                    coloi = true;
                 }
-                spmoi.Ngaycapnhat = ngayupdate;
+                else
+                {
+                    spmoi.Ngaycapnhat = ngayupdate;
+                }
+            }
+            if (coloi)
+            {
+                return this.Suasp(sp.Idsp);
             }
             if (fileUpdate == null)
             {
@@ -606,6 +636,7 @@ namespace WebPhuKien.Controllers
                     if (System.IO.File.Exists(path))
                     {
                         ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                        return this.Suasp(sp.Idsp);
                     }
                     else
                     {
@@ -668,6 +699,7 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
+            Boolean coloi = false;
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
             Decimal dongia = decimal.Parse(collection["dongia"]);
@@ -675,41 +707,43 @@ namespace WebPhuKien.Controllers
             if (String.IsNullOrEmpty(sp.Idsp) || sp.Idsp.Length > 5)
             {
                 ViewData["Loi1"] = "Vui lòng Nhập ID Không Quá 5 Ký Tự";
-                return View();
+                coloi = true;
             }
 
             if(data.SANPHAMs.FirstOrDefault(n=>n.Idsp== sp.Idsp)!= null)
             {
                  ViewData["Loi1"] = "Trùng ID SP Trong Cở Sở Dữ Liệu !";
-                return View();
+                 coloi = true;
             }
         
         
             if (String.IsNullOrEmpty(sp.Tensanpham) || sp.Tensanpham.Length > 50)
             {
                 ViewData["Loi2"] = "Vui lòng Nhập Tên SP Không Quá 50 Ký Tự";
-                return View();
+                coloi = true;
             }
             if (String.IsNullOrEmpty(sp.Thongtin) || sp.Thongtin.Length > 300)
             {
                 ViewData["Loi3"] = "Vui lòng Nhập Thông Tin SP Không Quá 300 Ký Tự ( Bao gồm các thẻ HTML )";
-                return View();
+                coloi = true;
             }
 
 
             if (sp.Ngaycapnhat.Value.Year < 2000 || sp.Ngaycapnhat.Value.Year > 2100)
             {
                 ViewData["Loi4"] = "Lỗi Ngày !";
-                return View();
+                coloi = true;
             }
             if (fileupload == null)
             {
                 
                 ViewBag.Thongbao = "Hảy Chọn Ảnh Sản Phẩm";
-                return View();
+                coloi = true;
             }
-            else
+            if(coloi)
             {
+                return this.Themsanpham();
+            }
                 if (ModelState.IsValid)
                 {
                     var fileName = Path.GetFileName(fileupload.FileName);
@@ -731,7 +765,7 @@ namespace WebPhuKien.Controllers
 
                 }
                 return RedirectToAction("Sanpham");
-            }
+            
         }
 
         //end Sanpham
@@ -747,23 +781,29 @@ namespace WebPhuKien.Controllers
         }
         public ActionResult EditLSP(string idloai)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             var nv = data.LOAISANPHAMs.First(n => n.Idloai == idloai);
             return View(nv);
         }
         [HttpPost]
         public ActionResult EditLSP(string idloai, FormCollection c)
         {
-            
-            
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
                 var nv = data.LOAISANPHAMs.First(n => n.Idloai == idloai);
                 data.LOAISANPHAMs.DeleteOnSubmit(nv);
                 LOAISANPHAM sp2 = new LOAISANPHAM();
                 string ten = c["Tenloai"];
                 sp2.Idloai = idloai;
                 sp2.Tenloai = ten;
-                if (string.IsNullOrEmpty(ten))
+                if (string.IsNullOrEmpty(ten)||ten.Length>25)
                 {
-                    ViewData["Loi"] = "Hãy nhập tên loại, không được để trống!";
+                    ViewData["Loi"] = "Nhập tên loại tối đa 25 ký tự";
                 }
                 else
                 {
@@ -775,25 +815,27 @@ namespace WebPhuKien.Controllers
                 return this.EditLSP(idloai);
             
         }
-        public ActionResult DetailsLSP(string idloai)
-        {
-            var loai = data.LOAISANPHAMs.First(n => n.Idloai == idloai);
-            return View(loai);
-        }
         [HttpGet]
         public ActionResult CreateLSP()
         {
-
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             return View();
         }
         [HttpPost]
-        public ActionResult CreateLSP(string idloai, FormCollection c)
+        public ActionResult CreateLSP(string idloai, FormCollection c,LOAISANPHAM Loai)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             LOAISANPHAM a = data.LOAISANPHAMs.SingleOrDefault(n => n.Idloai == idloai);
             if (a != null)
             {
-                Response.StatusCode = 404;
-                return null;
+                ViewBag.ThongBao="Trùng ID Loại !";
+                return this.CreateLSP();
             }
             else
             {
@@ -801,11 +843,11 @@ namespace WebPhuKien.Controllers
                 var ten = c["Tenloai"];
                 if (string.IsNullOrEmpty(idloai) || idloai.Length>4)
                 {
-                    ViewData["Loi1"] = "Hãy nhập mã loại, mã loại 4 ký tự bao gồm cả chữ và số!";
+                    ViewData["Loi1"] = "Nhập Mã Loại Tối Đa 4 Ký Tự!";
                 }
-                else if (string.IsNullOrEmpty(ten))
+                else if (string.IsNullOrEmpty(ten)||ten.Length>25)
                 {
-                    ViewData["Loi2"] = "Hãy nhập tên loại!";
+                    ViewData["Loi2"] = "Nhập tên loại tối đa 25 ký tự!";
                 }
                 else
                 {
@@ -823,17 +865,25 @@ namespace WebPhuKien.Controllers
         }
         public ActionResult DeleteLSP(string idloai)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             var d = data.LOAISANPHAMs.First(m => m.Idloai == idloai);
             return View(d);
         }
         [HttpPost]
         public ActionResult DeleteLSP(string idloai, FormCollection c)
         {
-            SANPHAM a = data.SANPHAMs.SingleOrDefault(n => n.Idloai == idloai);
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
+            SANPHAM a = data.SANPHAMs.FirstOrDefault(n => n.Idloai == idloai);
             if (a != null)
             {
-                Response.StatusCode = 404;
-                return null;
+                ViewBag.ThongBao = "Xóa Tất Cả SP Loại Này Trước Khi Xóa Loại !";
+                return this.DeleteLSP(idloai);
             }
             else
             {
@@ -846,42 +896,54 @@ namespace WebPhuKien.Controllers
         }
         public ActionResult EditNSX(string idnsx)
         {
+            if (Session["Admin"] == null)
+            {
+                return RedirectToAction("Error");
+            }
             var nsx = data.NHASANXUATs.First(n => n.Idnsx == idnsx);
             return View(nsx);
         }
         [HttpPost]
         public ActionResult EditNSX(string idnsx, FormCollection c)
         {
-            SANPHAM a = data.SANPHAMs.SingleOrDefault(n => n.Idnsx == idnsx);
-            if (a != null)
+            if (Session["Admin"] == null)
             {
-                Response.StatusCode = 404;
-                return null;
+                return RedirectToAction("Error");
             }
-            else
+            Boolean coloi = false;
+            string ten = c["Tennsx"];
+            string dc = c["Diachi"];
+            string sdt = c["Sdtnsx"];
+            if (string.IsNullOrEmpty(ten) || ten.Length > 25)
             {
-                var nsx = data.NHASANXUATs.First(n => n.Idnsx == idnsx);
-                data.NHASANXUATs.DeleteOnSubmit(nsx);
-                NHASANXUAT nsx2 = new NHASANXUAT();
-                string ten = c["Tennsx"];
-                string dc = c["Diachi"];
-                string sdt = c["Sdtnsx"];
-                nsx2.Idnsx = idnsx;
-                nsx2.Tennsx = ten;
-                nsx2.Diachi = dc;
-                nsx2.Sdtnsx = sdt;               
-                if (string.IsNullOrEmpty(ten))
-                {
-                    ViewData["Loi2"] = "Hãy nhập tên Nhà sản xuất!";
-                }
-                else
-                {
-                    data.NHASANXUATs.InsertOnSubmit(nsx2);
-                    data.SubmitChanges();
-                    return RedirectToAction("NSX", "Admin");
-                }
+                ViewData["Loi2"] = "Nhập tên Nhà sản xuất tối đa 25 ký tự!";
+                coloi = true;
+            }
+            if (dc.Length > 150)
+            {
+                ViewData["Loi3"] = "Nhập tên Nhà sản xuất tối đa 150 ký tự!";
+                coloi = true;
+            }
+            if (!string.IsNullOrEmpty(sdt) && (sdt.Length > 11 || sdt.Length < 10 || !KiemTraStringLaSo(sdt)))
+            {
+                ViewData["Loi4"] = "Sai Số Điện Thoại!";
+                coloi = true;
+            }
+            if (coloi)
+            {
                 return this.EditNSX(idnsx);
             }
+            var nsx = data.NHASANXUATs.First(n => n.Idnsx == idnsx);
+            data.NHASANXUATs.DeleteOnSubmit(nsx);
+            NHASANXUAT nsx2 = new NHASANXUAT();
+            nsx2.Idnsx = idnsx;
+            nsx2.Tennsx = ten;
+            nsx2.Diachi = dc;
+            nsx2.Sdtnsx = sdt;
+            data.NHASANXUATs.InsertOnSubmit(nsx2);
+            data.SubmitChanges();
+            return RedirectToAction("NSX", "Admin");
+                
             
         }
         public ActionResult DetailsNSX(string idnsx)
@@ -895,32 +957,47 @@ namespace WebPhuKien.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult CreateNSX(string idnsx,FormCollection c)
+        public ActionResult CreateNSX(string idnsx,FormCollection c,NHASANXUAT nsx2)
         {
             NHASANXUAT a = data.NHASANXUATs.SingleOrDefault(n => n.Idnsx == idnsx);
             if (a != null)
             {
-                Response.StatusCode = 404;
-                return null;
+                ViewBag.Thongbao = "Trùng ID !";
+                return this.CreateNSX();
             }
             else
             {
+                Boolean coloi = false;
                 var id = c["Idnsx"];
                 var ten = c["Tennsx"];
                 var dc = c["Diachi"];
                 var sdt = c["Sdtnsx"];
                 NHASANXUAT nsx = new NHASANXUAT();
-                if (string.IsNullOrEmpty(id))
+                if (string.IsNullOrEmpty(id)||id.Length>5)
                 {
                     ViewData["Loi1"] = "Nhập mã Nhà sản xuất! Bao gồm 5 ký tự bao gồm chữ và số";
+                    coloi = true;
                 }
-                else
-                if (string.IsNullOrEmpty(ten))
+                if (string.IsNullOrEmpty(ten)||ten.Length>25)
                 {
-                    ViewData["Loi2"] = "Vui lòng nhập tên Nhà sản xuất!";
+                    ViewData["Loi2"] = "Vui lòng nhập tên Nhà sản xuất không quá 25 ký tự!";
+                    coloi = true;
                 }
-                else
+                if (dc.Length > 150)
                 {
+                    ViewData["Loi3"] = "Nhập tên Nhà sản xuất tối đa 150 ký tự!";
+                    coloi = true;
+                }
+                if (!string.IsNullOrEmpty(sdt) &&(sdt.Length>11||sdt.Length<10||!KiemTraStringLaSo(sdt)) )
+                {
+                    ViewData["Loi4"] = "Sai Số Điện Thoại!";
+                    coloi = true;
+                }
+                if(coloi)
+                {
+
+                    return this.CreateNSX();
+                }
                     nsx.Idnsx = id;
                     nsx.Tennsx = ten;
                     nsx.Diachi = dc;
@@ -928,8 +1005,7 @@ namespace WebPhuKien.Controllers
                     data.NHASANXUATs.InsertOnSubmit(nsx);
                     data.SubmitChanges();
                     return RedirectToAction("NSX", "Admin");
-                }
-                return this.CreateNSX();
+                
             }
             
         }
@@ -944,8 +1020,8 @@ namespace WebPhuKien.Controllers
             SANPHAM a = data.SANPHAMs.SingleOrDefault(n => n.Idnsx == idnsx);
             if (a != null)
             {
-                Response.StatusCode = 404;
-                return null;
+                ViewBag.Thongbao = "Xóa Tất Cả SP Của NSX Này Trước Khi Xóa Thông Tin NSX Này !";
+                return this.DeleteNSX(idnsx);
             }
             else
             {
@@ -971,24 +1047,50 @@ namespace WebPhuKien.Controllers
         public ActionResult EditTTShop(FormCollection c,THONGTIN tt)
         {
                 ViewBag.Thongbao = null;
+                Boolean coloi = false;
                 if (string.IsNullOrEmpty(tt.Tencuahang) || tt.Tencuahang.Length > 50)
                 {
-                    ViewData["Loi1"] = "Tên shop không được bỏ trống hoặc quá 50 ký tự!";
-                    return View(tt);
+                    ViewData["Loi1"] = "Nhập tên shop không quá 50 ký tự!";
+                    coloi = true;
                 }
                 if (string.IsNullOrEmpty(tt.Diachi) || tt.Diachi.Length > 150)
                 {
-                    ViewData["Loi2"] = "Phải có địa chỉ Shop! Không được bỏ trống hoặc ghi khống!";
-                    return View(tt);
+                    ViewData["Loi2"] = "Nhập địa chỉ không quá 150 ký tự!";
+                    coloi = true;
                 }
-                if (string.IsNullOrEmpty(tt.Sdt1) || tt.Sdt1.Length > 11 || tt.Sdt1.Length < 10)
+                if (string.IsNullOrEmpty(tt.Sdt1) || tt.Sdt1.Length > 11 || tt.Sdt1.Length < 10||!KiemTraStringLaSo(tt.Sdt1))
                 {
-                    ViewData["Loi3"] = "Phải có số điện thoại! Không được bỏ trống hoặc ghi khống!";
-                    return View(tt);
+                    ViewData["Loi3"] = "Sai Số Điện Thoại";
+                    coloi = true;
+                }
+                if (!string.IsNullOrEmpty(tt.sdt2) && (tt.sdt2.Length > 11 || tt.sdt2.Length < 10 || !KiemTraStringLaSo(tt.sdt2)))
+                {
+                    ViewData["LoiSdt2"] = "Sai Số Điện Thoại";
+                    coloi = true;
                 }
                 if (string.IsNullOrEmpty(tt.Email1) || tt.Email1.Length > 50)
                 {
-                    ViewData["Loi4"] = "Vui lòng điền ghi email shop!";
+                    ViewData["Loi4"] = "Nhập email shop không quá 50 ký tự!";
+                    coloi = true;
+                }
+                if (!string.IsNullOrEmpty(tt.Email2))
+                {
+                    if (tt.Email2.Length > 50)
+                    {
+                        ViewData["Loi5"] = "Nhập email 2 không quá 50 ký tự!";
+                        coloi = true;
+                    }
+                }
+                if (!string.IsNullOrEmpty(tt.Facebook))
+                {
+                    if (tt.Facebook.Length > 50)
+                    {
+                        ViewData["Loi6"] = "Nhập Facebook không quá 50 ký tự!";
+                        coloi = true;
+                    }
+                }
+                if (coloi)
+                {
                     return View(tt);
                 }
                 //data.THONGTINs.DeleteOnSubmit(tt);
@@ -1015,6 +1117,11 @@ namespace WebPhuKien.Controllers
             
             var idph = data.LIENHEs.Select(n => n);
             return View(idph);
+        }
+        public ActionResult ChitietPH(int id)
+        {
+            var d = data.LIENHEs.First(m => m.Idlienhe == id);
+            return View(d);
         }
         public ActionResult DelPhanhoi(int id)
         {
