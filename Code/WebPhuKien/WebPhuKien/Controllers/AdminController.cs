@@ -110,18 +110,18 @@ namespace WebPhuKien.Controllers
             }
             Boolean coloi = false;
             KHACHHANG khmoi = data.KHACHHANGs.FirstOrDefault(n=>n.Username==kh.Username);
-            string pass = kh.Password;
-            string hoten = kh.Hoten;
-            string sdt = kh.Sdt;
-            string dc = kh.Diachi;
-            string email = kh.Email;
+            string pass = c["Password"];
+            string hoten = c["Hoten"];
+            string sdt = c["Sdt"];
+            string dc = c["Diachi"];
+            string email = c["Email"];
             if (pass.Length > 16 || string.IsNullOrEmpty(pass))
             { 
                 ViewData["Loi1"]= "Vui lòng nhập password ít hơn 16 ký tự !";
                 coloi = true;
              }
 
-            if (hoten.Length > 25 || string.IsNullOrEmpty(hoten))
+            if (hoten.Length > 25 || string.IsNullOrEmpty(hoten)||KiemTraStringCoSo(hoten))
             {
                 ViewData["Loi2"] = "Vui lòng nhập Họ Tên ít hơn 25 ký tự !";
                 coloi = true;
@@ -1117,6 +1117,11 @@ namespace WebPhuKien.Controllers
             
             var idph = data.LIENHEs.Select(n => n);
             return View(idph);
+        }
+        public ActionResult ChitietPH(int id)
+        {
+            var d = data.LIENHEs.First(m => m.Idlienhe == id);
+            return View(d);
         }
         public ActionResult DelPhanhoi(int id)
         {

@@ -1,7 +1,7 @@
 ﻿@model WebPhuKien.Models.LIENHE
 @{
     ViewBag.Title = "LienHe";
-    Layout = "~/Views/Shared/_LayoutPageUserNoBanner.cshtml";
+    Layout = "~/Views/Shared/_LayoutUserPageNoBanner.cshtml";
 }
 
 <h2 style="text-align:center">Trang liên hệ</h2>
@@ -41,7 +41,7 @@
         <tr style="height:40px">
             <td align="right">Nội dung: </td>
             <td>
-                <textarea name="Noidung" style="width:400px;height:180px;" required>Nội Dung Thư</textarea>
+                <textarea name="Noidung" style="width:400px;height:180px;" required></textarea>
                 <br />
                 <font color="red">@ViewData["Loi5"]</font>
             </td>
