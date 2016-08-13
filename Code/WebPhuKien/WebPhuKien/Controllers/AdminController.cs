@@ -108,41 +108,51 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
+            Boolean coloi = false;
             KHACHHANG khmoi = data.KHACHHANGs.FirstOrDefault(n=>n.Username==kh.Username);
-            if (kh.Password.Length > 16 || string.IsNullOrEmpty(kh.Password))
+            string pass = kh.Password;
+            string hoten = kh.Hoten;
+            string sdt = kh.Sdt;
+            string dc = kh.Diachi;
+            string email = kh.Email;
+            if (pass.Length > 16 || string.IsNullOrEmpty(pass))
             { 
                 ViewData["Loi1"]= "Vui lòng nhập password ít hơn 16 ký tự !";
-                return View(kh);
+                coloi = true;
              }
-          
-            if (kh.Hoten.Length > 25 || string.IsNullOrEmpty(kh.Hoten))
+
+            if (hoten.Length > 25 || string.IsNullOrEmpty(hoten))
             {
                 ViewData["Loi2"] = "Vui lòng nhập Họ Tên ít hơn 25 ký tự !";
-                return View(kh);
+                coloi = true;
             }
-         
-            if (!string.IsNullOrEmpty(kh.Sdt) && (kh.Sdt.Length > 11 || kh.Sdt.Length < 10 || !KiemTraStringLaSo(kh.Sdt)))
+
+            if (string.IsNullOrEmpty(sdt) || sdt.Length > 11 || sdt.Length < 10 || !KiemTraStringLaSo(sdt))
             {
                     ViewData["Loi3"] = "Sai Số Điện Thoại !";
-                    return View(kh);
+                    coloi = true;
                 
             }
-            
-            if (kh.Diachi.Length > 150 || string.IsNullOrEmpty(kh.Diachi))
+
+            if (dc.Length > 150 || string.IsNullOrEmpty(dc))
             {
                 ViewData["Loi4"] = "Vui lòng nhập địa chỉ ít hơn 150 ký tự !";
-                return View(kh);
+                coloi = true;
             }
-            if (kh.Email.Length > 50 || string.IsNullOrEmpty(kh.Email))
+            if (email.Length > 50 || string.IsNullOrEmpty(email))
             {
                 ViewData["Loi5"] = "Vui lòng nhập email ít hơn 50 ký tự !";
-                return View(kh);
+                coloi = true;
             }
-            khmoi.Password = kh.Password;
-            khmoi.Hoten = kh.Hoten;
-            khmoi.Sdt = kh.Sdt;
-            khmoi.Email = kh.Email;
-            khmoi.Diachi = kh.Diachi;
+            if (coloi)
+            {
+                return this.Suakh(kh.Username);
+            }
+            khmoi.Password = pass;
+            khmoi.Hoten = hoten;
+            khmoi.Sdt = sdt;
+            khmoi.Email = email;
+            khmoi.Diachi = dc;
             UpdateModel(khmoi);
             data.SubmitChanges();
             return RedirectToAction("Khachhang");
