@@ -565,6 +565,7 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
+            Boolean coloi = false;
             ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
             ViewBag.IdNsx = new SelectList(data.NHASANXUATs.ToList().OrderBy(n => n.Tennsx), "Idnsx", "Tennsx");
             SANPHAM spmoi = data.SANPHAMs.First(n => n.Idsp == sp.Idsp);
@@ -577,12 +578,12 @@ namespace WebPhuKien.Controllers
             if (String.IsNullOrEmpty(sp.Tensanpham) || sp.Tensanpham.Length > 50)
             {
                 ViewData["LoiTensp"] = "Nhập Tên Sản Phẩm 50 Ký Tự !";
-                return this.Suasp(sp.Idsp);
+                coloi = true;
             }
             if (String.IsNullOrEmpty(sp.Thongtin) ||sp.Thongtin.Length > 300)
             {
                 ViewData["Loithongtin"] = "Không Được Quá 300 Ký Tự ( Gồm Những Thẻ HTML )";
-                return this.Suasp(sp.Idsp);
+                coloi = true;
             }
 
             spmoi.Idnsx = nsx;
@@ -599,9 +600,16 @@ namespace WebPhuKien.Controllers
                 if (ngayupdate.Year < 2000 || ngayupdate.Year > 2100)
                 {
                     ViewData["Loi4"] = "Lỗi Ngày !";
-                    return this.Suasp(sp.Idsp);
+                    coloi = true;
                 }
-                spmoi.Ngaycapnhat = ngayupdate;
+                else
+                {
+                    spmoi.Ngaycapnhat = ngayupdate;
+                }
+            }
+            if (coloi)
+            {
+                return this.Suasp(sp.Idsp);
             }
             if (fileUpdate == null)
             {
@@ -618,6 +626,7 @@ namespace WebPhuKien.Controllers
                     if (System.IO.File.Exists(path))
                     {
                         ViewBag.Thongbao = "Hình ảnh đã tồn tại";
+                        return this.Suasp(sp.Idsp);
                     }
                     else
                     {

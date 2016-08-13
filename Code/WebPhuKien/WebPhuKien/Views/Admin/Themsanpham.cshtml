@@ -49,7 +49,7 @@
         <div class="form-group">
             @Html.Label("Thông Tin", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <textarea name="Thongtin"  required></textarea>
+                <textarea name="Thongtin" >Thông Tin Sản Phẩm... </textarea>
                 <font color="red">@ViewData["Loi3"]</font>
             </div>
         </div>
@@ -70,7 +70,7 @@
         <div class="form-group">
             @Html.Label("Hình Ảnh", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="fileupload" />
+                <input type="file" name="fileupload" required/>
                 <font color="red">@ViewBag.Thongbao</font>
             </div>
         </div>
