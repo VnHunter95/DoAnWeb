@@ -670,15 +670,30 @@ namespace WebPhuKien.Controllers
             }
             return View(sp);
         }
-        public ActionResult Sanpham(int ?page)
+        [HttpPost]
+        public ActionResult LocLoaiSP(FormCollection collection)
+        {
+            string idloai = collection["IdLoai"];
+            return RedirectToAction("Sanpham", "Admin", new { idloai = idloai });
+        }
+        public ActionResult Sanpham(int ?page,string idloai)
         {
             if (Session["Admin"] == null)
             {
                 return RedirectToAction("Error");
             }
+            ViewBag.IdLoai = new SelectList(data.LOAISANPHAMs.ToList().OrderBy(n => n.Tenloai), "Idloai", "Tenloai");
+
             int pageNum = (page ?? 1);
             int pageSize = 7;
-            return View(data.SANPHAMs.ToList().OrderBy(n=>n.Idsp).ToPagedList(pageNum,pageSize));
+            if (string.IsNullOrEmpty(idloai) || idloai == "all")
+            {
+                return View(data.SANPHAMs.ToList().OrderBy(n => n.Idsp).ToPagedList(pageNum, pageSize));
+            }
+            else
+            {
+                return View(data.SANPHAMs.ToList().OrderBy(n => n.Idsp).Where(n => n.Idloai == idloai).ToPagedList(pageNum, pageSize));
+            }
         }
         [HttpGet]
         public ActionResult Themsanpham()

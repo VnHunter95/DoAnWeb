@@ -45,7 +45,6 @@
     }
 </style>
 
-
 <script>
     function initMap() {
         var latlng = new google.maps.LatLng(10.761978, 106.693850); //Tọa độ cửa hàng
@@ -57,7 +56,7 @@
             position: latlng,
             map: map,
             title: "My Anime Shop" //Tên hiển thị khi đưa chuột vào địa điểm
-        });
+        });}
         function timDuongDi() {
             var latlng = new google.maps.LatLng(10.761978, 106.693850); //Vị trí của cửa hàng
             var map = new google.maps.Map(document.getElementById('map'), {
@@ -108,7 +107,7 @@
                                   'Error: The Geolocation service failed.' :
                                   'Error: Your browser doesn\'t support geolocation.');
         }
-    }
+    
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwioxu52QymVe1EAvfuLIAX06obJQewtk&callback=initMap">

@@ -59,12 +59,12 @@ namespace WebPhuKien.Controllers
         public ActionResult LoaiSP()
         {
 
-            return PartialView(data.LOAISANPHAMs.Select(a => a));
+            return PartialView(data.LOAISANPHAMs.Select(a => a).OrderBy(a=>a.Tenloai));
         }
 
         public ActionResult NhaSX()
         {
-            return PartialView(data.NHASANXUATs.Select(a => a));
+            return PartialView(data.NHASANXUATs.Select(a => a).OrderBy(a=>a.Tennsx));
         }
         public ActionResult ChiTiet(string id)
         {

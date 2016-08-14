@@ -5,6 +5,8 @@
 @{
     ViewBag.Title = "Sanpham";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    
+    string idloai = "";
 }
 
 @helper Truncate(string input,int length)
@@ -16,14 +18,17 @@
     else
     { 
         @input.Substring(0,length)<text>...</text>
-    }   
+    }
 }
 
 <h2>Quản Lý Sản Phẩm</h2>
 
-<p>
-    @Html.ActionLink("Thêm Mới", "Themsanpham")
-</p>
+    @Html.ActionLink("Thêm Mới", "Themsanpham") | 
+     @using (Html.BeginForm("LocLoaiSP", "Admin"))
+                                                   {
+                                                       Html.ValidationSummary(true);
+                                                          <p>Lọc Theo Loại: @Html.DropDownList("IdLoai") <input type="submit" value="Lọc"></p>
+                                                    }
 <table class="table" border="1">
     <tr>
         <th style="width:100px;text-align:center;">
@@ -46,6 +51,7 @@
     </tr>
 
 @foreach (var item in Model) {
+    idloai = item.Idloai;
     <tr>
         <td>
             <img src="@Url.Content("~/Hinhsanpham/"+item.Hinhanh)" height="100" width="100" />
@@ -72,7 +78,7 @@
 
 </table>
 <div class="MenuTrang">
-    @Html.PagedListPager(Model, page => Url.Action("Sanpham", new { page = page }))
+    @Html.PagedListPager(Model, page => Url.Action("Sanpham", new { page = page ,idloai=idloai}))
 </div>
 <style>
     .MenuTrang li {
