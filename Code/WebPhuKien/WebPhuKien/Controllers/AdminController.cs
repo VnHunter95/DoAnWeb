@@ -429,7 +429,7 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
-            var b = data.BANNERs.FirstOrDefault(n => n.Banner1 == banner);
+            var b = data.Banners.FirstOrDefault(n => n.Banner1 == banner);
             if (b == null)
             {
                 Response.StatusCode = 404;
@@ -444,7 +444,7 @@ namespace WebPhuKien.Controllers
             {
                 return RedirectToAction("Error");
             }
-            var b = data.BANNERs.FirstOrDefault(n => n.Banner1 == banner);
+            var b = data.Banners.FirstOrDefault(n => n.Banner1 == banner);
             if (b == null)
             {
                 Response.StatusCode = 404;
@@ -455,7 +455,7 @@ namespace WebPhuKien.Controllers
             {
                 System.IO.File.Delete(fullPath);
             }
-            data.BANNERs.DeleteOnSubmit(b);
+            data.Banners.DeleteOnSubmit(b);
             data.SubmitChanges();
             return RedirectToAction("Banner");
         }
@@ -467,11 +467,11 @@ namespace WebPhuKien.Controllers
             }
             int pageNumber = (page ?? 1);
             int pageSize = 3;
-            return View(data.BANNERs.ToList().ToPagedList(pageNumber,pageSize));
+            return View(data.Banners.ToList().ToPagedList(pageNumber,pageSize));
         }
         [HttpPost]
         [ValidateInput(false)]
-        public ActionResult Banner(BANNER b, HttpPostedFileBase fileupload)
+        public ActionResult Banner(Banner b, HttpPostedFileBase fileupload)
         {
             if (Session["Admin"] == null)
             {
@@ -498,7 +498,7 @@ namespace WebPhuKien.Controllers
                         fileupload.SaveAs(path);
                     }
                     b.Banner1 = fileName;
-                    data.BANNERs.InsertOnSubmit(b);
+                    data.Banners.InsertOnSubmit(b);
                     data.SubmitChanges();
                 }
             }
@@ -1135,18 +1135,18 @@ namespace WebPhuKien.Controllers
         }
         public ActionResult ChitietPH(int id)
         {
-            var d = data.LIENHEs.First(m => m.Idlienhe == id);
+            var d = data.LIENHEs.First(m => m.IDLIENHE == id);
             return View(d);
         }
         public ActionResult DelPhanhoi(int id)
         {
-            var d = data.LIENHEs.First(m => m.Idlienhe == id);
+            var d = data.LIENHEs.First(m => m.IDLIENHE == id);
             return View(d);
         }
         [HttpPost]
         public ActionResult Delphanhoi(int id,FormCollection c)
         {
-            var d = data.LIENHEs.First(n => n.Idlienhe == id);
+            var d = data.LIENHEs.First(n => n.IDLIENHE == id);
             data.LIENHEs.DeleteOnSubmit(d);
             data.SubmitChanges();
             return RedirectToAction("Phanhoi", "Admin");

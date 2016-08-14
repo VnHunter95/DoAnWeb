@@ -1,12 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="PHUKIENANIME" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=(local);Initial Catalog=PHUKIENANIME;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHUKIENANIMEConnectionString1" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.BANNER" Member="BANNERs">
-    <Type Name="BANNER">
-      <Column Name="Banner" Member="Banner1" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-    </Type>
-  </Table>
+  <Connection Mode="WebSettings" ConnectionString="Data Source=NGAN09052014-PC\QUOCKHAI;Initial Catalog=PHUKIENANIME;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="PHUKIENANIMEConnectionString1" Provider="System.Data.SqlClient" />
   <Table Name="dbo.THONGTIN" Member="THONGTINs">
     <Type Name="THONGTIN">
+      <Column Name="IdTT" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Tencuahang" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Diachi" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Column Name="Sdt1" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
@@ -14,7 +10,11 @@
       <Column Name="Email1" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Email2" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Column Name="Facebook" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="IdTT" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Banner" Member="Banners">
+    <Type Name="Banner">
+      <Column Name="Banner" Member="Banner1" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.CT_DDH" Member="CT_DDHs">
@@ -25,27 +25,6 @@
       <Column Name="Dongia" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Association Name="DONDATHANG_CT_DDH" Member="DONDATHANG" ThisKey="SoHD" OtherKey="SoHD" Type="DONDATHANG" IsForeignKey="true" />
       <Association Name="SANPHAM_CT_DDH" Member="SANPHAM" ThisKey="Idsp" OtherKey="Idsp" Type="SANPHAM" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CT_GIOHANG" Member="CT_GIOHANGs">
-    <Type Name="CT_GIOHANG">
-      <Column Name="Idsp" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Sogh" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Username" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Soluong" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
-      <Column Name="Thanhtien" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Association Name="GIOHANG_CT_GIOHANG" Member="GIOHANG" ThisKey="Sogh,Username" OtherKey="Sogh,Username" Type="GIOHANG" IsForeignKey="true" />
-      <Association Name="SANPHAM_CT_GIOHANG" Member="SANPHAM" ThisKey="Idsp" OtherKey="Idsp" Type="SANPHAM" IsForeignKey="true" />
-    </Type>
-  </Table>
-  <Table Name="dbo.CT_PN" Member="CT_PNs">
-    <Type Name="CT_PN">
-      <Column Name="Idsp" Type="System.String" DbType="VarChar(5) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="SoPN" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="Soluong" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
-      <Column Name="Giatien" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
-      <Association Name="PHIEUNHAP_CT_PN" Member="PHIEUNHAP" ThisKey="SoPN" OtherKey="SoPN" Type="PHIEUNHAP" IsForeignKey="true" />
-      <Association Name="SANPHAM_CT_PN" Member="SANPHAM" ThisKey="Idsp" OtherKey="Idsp" Type="SANPHAM" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.DONDATHANG" Member="DONDATHANGs">
@@ -64,14 +43,6 @@
       <Association Name="KHACHHANG_DONDATHANG" Member="KHACHHANG" ThisKey="Username" OtherKey="Username" Type="KHACHHANG" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.GIOHANG" Member="GIOHANGs">
-    <Type Name="GIOHANG">
-      <Column Name="Sogh" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Username" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Association Name="GIOHANG_CT_GIOHANG" Member="CT_GIOHANGs" ThisKey="Sogh,Username" OtherKey="Sogh,Username" Type="CT_GIOHANG" />
-      <Association Name="KHACHHANG_GIOHANG" Member="KHACHHANG" ThisKey="Username" OtherKey="Username" Type="KHACHHANG" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.KHACHHANG" Member="KHACHHANGs">
     <Type Name="KHACHHANG">
       <Column Name="Username" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -81,17 +52,16 @@
       <Column Name="Diachi" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
       <Association Name="KHACHHANG_DONDATHANG" Member="DONDATHANGs" ThisKey="Username" OtherKey="Username" Type="DONDATHANG" />
-      <Association Name="KHACHHANG_GIOHANG" Member="GIOHANGs" ThisKey="Username" OtherKey="Username" Type="GIOHANG" />
     </Type>
   </Table>
   <Table Name="dbo.LIENHE" Member="LIENHEs">
     <Type Name="LIENHE">
-      <Column Name="Idlienhe" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Hoten" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
-      <Column Name="Tieude" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
-      <Column Name="Noidung" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
-      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
-      <Column Name="Sdt" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
+      <Column Name="IDLIENHE" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HOTEN" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="TIEUDE" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="NOIDUNG" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="EMAIL" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="SDT" Type="System.String" DbType="VarChar(11)" CanBeNull="true" />
     </Type>
   </Table>
   <Table Name="dbo.LOAISANPHAM" Member="LOAISANPHAMs">
@@ -110,14 +80,6 @@
       <Association Name="NHASANXUAT_SANPHAM" Member="SANPHAMs" ThisKey="Idnsx" OtherKey="Idnsx" Type="SANPHAM" />
     </Type>
   </Table>
-  <Table Name="dbo.PHIEUNHAP" Member="PHIEUNHAPs">
-    <Type Name="PHIEUNHAP">
-      <Column Name="SoPN" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Ngaylap" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
-      <Column Name="Tongchi" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
-      <Association Name="PHIEUNHAP_CT_PN" Member="CT_PNs" ThisKey="SoPN" OtherKey="SoPN" Type="CT_PN" />
-    </Type>
-  </Table>
   <Table Name="dbo.QUANTRI" Member="QUANTRIs">
     <Type Name="QUANTRI">
       <Column Name="[User]" Member="User" Type="System.String" DbType="VarChar(16) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
@@ -130,14 +92,13 @@
       <Column Name="Idnsx" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
       <Column Name="Idloai" Type="System.String" DbType="VarChar(5) NOT NULL" CanBeNull="false" />
       <Column Name="Tensanpham" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
-      <Column Name="Thongtin" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="Thongtin" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
       <Column Name="Soluongcon" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
       <Column Name="Dongia" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
       <Column Name="Hinhanh" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="Ngaycapnhat" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Thanhtoantructuyen" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Association Name="SANPHAM_CT_DDH" Member="CT_DDHs" ThisKey="Idsp" OtherKey="Idsp" Type="CT_DDH" />
-      <Association Name="SANPHAM_CT_GIOHANG" Member="CT_GIOHANGs" ThisKey="Idsp" OtherKey="Idsp" Type="CT_GIOHANG" />
-      <Association Name="SANPHAM_CT_PN" Member="CT_PNs" ThisKey="Idsp" OtherKey="Idsp" Type="CT_PN" />
       <Association Name="LOAISANPHAM_SANPHAM" Member="LOAISANPHAM" ThisKey="Idloai" OtherKey="Idloai" Type="LOAISANPHAM" IsForeignKey="true" />
       <Association Name="NHASANXUAT_SANPHAM" Member="NHASANXUAT" ThisKey="Idnsx" OtherKey="Idnsx" Type="NHASANXUAT" IsForeignKey="true" />
     </Type>

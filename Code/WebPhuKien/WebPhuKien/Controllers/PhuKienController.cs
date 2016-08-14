@@ -137,11 +137,11 @@ namespace WebPhuKien.Controllers
 
                 return this.LienHe();
             }
-                LH.Hoten = user;
-                LH.Email = Email;
-                LH.Tieude = Tittle;
-                LH.Noidung = Content;
-                LH.Sdt = SDT;
+                LH.HOTEN = user;
+                LH.EMAIL = Email;
+                LH.TIEUDE = Tittle;
+                LH.NOIDUNG = Content;
+                LH.SDT = SDT;
                 data.LIENHEs.InsertOnSubmit(LH);
                 data.SubmitChanges();
                 return RedirectToAction("Sent");

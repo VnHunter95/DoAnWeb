@@ -12,28 +12,28 @@
         <tr style="height:40px">
             <td align="right">Người gửi: </td>
             <td>
-                @Html.TextBoxFor(model => model.Hoten, new { @class = "text", type = "Text", required = "required" })
+                @Html.TextBoxFor(model => model.HOTEN, new { @class = "text", type = "Text", required = "required" })
             <font color="red">@ViewData["Loi1"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right">Email: </td>
             <td>
-               @Html.TextBoxFor(model => model.Email, new { @class = "text", type = "Email", required = "required" })
+               @Html.TextBoxFor(model => model.EMAIL, new { @class = "text", type = "Email", required = "required" })
              <font color="red">@ViewData["Loi2"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right">Số điện thoại: </td>
             <td>
-                @Html.TextBoxFor(model => model.Sdt, new { @class = "text", type = "Text"})
+                @Html.TextBoxFor(model => model.SDT, new { @class = "text", type = "Text"})
                 <font color="red">@ViewData["Loi3"]</font>
             </td>
         </tr>
         <tr style="height:40px">
             <td align="right"><b>Tiêu đề bài gửi: </b></td>
             <td>                
-                @Html.TextBoxFor(model => model.Tieude, new { @class = "text", type = "Text", required = "required" })
+                @Html.TextBoxFor(model => model.TIEUDE, new { @class = "text", type = "Text", required = "required" })
                 <br />
                 <font color="red">@ViewData["Loi4"]</font>
             </td>
